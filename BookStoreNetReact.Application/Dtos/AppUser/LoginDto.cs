@@ -1,8 +1,8 @@
 ﻿namespace BookStoreNetReact.Application.Dtos.AppUser
 {
-    public class LoginDto : AppUserDto
+    public class LoginDto
     {
-        public required string AccessToken { get; set; }
-        public required string RefreshToken { get; set; }
+        public required string UserName { get; set; }
+        public required string Password { get; set; }
     }
 }
