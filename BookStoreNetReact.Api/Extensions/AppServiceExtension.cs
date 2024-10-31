@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using BookStoreNetReact.Application.Helpers;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -81,6 +82,7 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<ICloudUploadService, CloudUploadService>();
 
             // Others
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddCors();
         }
     }
