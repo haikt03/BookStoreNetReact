@@ -1,7 +1,10 @@
-﻿using BookStoreNetReact.Application.Interfaces.Services;
+﻿using BookStoreNetReact.Application.Interfaces.Repositories;
+using BookStoreNetReact.Application.Interfaces;
+using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Options;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Data;
+using BookStoreNetReact.Infrastructure.Repositories;
 using BookStoreNetReact.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +69,13 @@ namespace BookStoreNetReact.Api.Extensions
             services
                 .AddOptions<CloudOptions>()
                 .BindConfiguration(CloudOptions.CloudinaryOptions);
+
+            // Repositories
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
             services.AddScoped<ICloudUploadService, CloudUploadService>();

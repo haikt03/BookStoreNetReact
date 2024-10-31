@@ -49,12 +49,12 @@ namespace BookStoreNetReact.Infrastructure.Data
                     if (entry.State == EntityState.Modified)
                         baseEntity.ModifiedAt = DateTime.UtcNow;
                 }
-                else if (entry.Entity is AppUser user)
+                else if (entry.Entity is AppUser appUser)
                 {
                     if (entry.State == EntityState.Added)
-                        user.CreatedAt = DateTime.UtcNow;
+                        appUser.CreatedAt = DateTime.UtcNow;
                     if (entry.State == EntityState.Modified)
-                        user.ModifiedAt = DateTime.UtcNow;
+                        appUser.ModifiedAt = DateTime.UtcNow;
                 }
             }
         }
