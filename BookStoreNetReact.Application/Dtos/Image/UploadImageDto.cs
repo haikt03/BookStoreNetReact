@@ -4,6 +4,5 @@
     {
         public required Stream FileStream { get; set; }
         public required string FileName { get; set; }
-        public required string Folder {  get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface ICloudUploadService
     {
-        Task<ImageDto> UploadImageAsync(UploadImageDto uploadImageDto);
+        Task<ImageDto> UploadImageAsync(UploadImageDto uploadImageDto, string folder);
         Task<bool> DeleteImageAsync(string publicId);
     }
 }

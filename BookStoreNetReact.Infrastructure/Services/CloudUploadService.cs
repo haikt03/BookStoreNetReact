@@ -21,12 +21,12 @@ namespace BookStoreNetReact.Infrastructure.Services
             );
             _cloudinary = new Cloudinary(account: cloudinaryAccount);
         }
-        public async Task<ImageDto> UploadImageAsync(UploadImageDto uploadImageDto)
+        public async Task<ImageDto> UploadImageAsync(UploadImageDto uploadImageDto, string folder)
         {
             var uploadParams = new RawUploadParams
             {
                 File = new FileDescription(uploadImageDto.FileName, uploadImageDto.FileStream),
-                Folder = $"BookStoreNetReact/{uploadImageDto.Folder}"
+                Folder = $"BookStoreNetReact/{folder}"
             };
             try
             {

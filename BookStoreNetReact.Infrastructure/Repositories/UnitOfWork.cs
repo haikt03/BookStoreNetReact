@@ -1,4 +1,4 @@
-﻿using BookStoreNetReact.Application.Interfaces;
+﻿using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Infrastructure.Data;
 
 namespace BookStoreNetReact.Infrastructure.Repositories
@@ -9,14 +9,14 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
-            bookRepo = new BookRepository(_context);
-            authorRepo = new AuthorRepository(_context);
-            categoryRepo = new CategoryRepository(_context);
+            AuthorRepo = new AuthorRepository(_context);
+            BookRepo = new BookRepository(_context);
+            CategoryRepo = new CategoryRepository(_context);
         }
 
-        public IBookRepository bookRepo { get; private set; }
-        public IAuthorRepository authorRepo { get; private set; }
-        public ICategoryRepository categoryRepo { get; private set; }
+        public IAuthorRepository AuthorRepo { get; private set; }
+        public IBookRepository BookRepo { get; private set; }
+        public ICategoryRepository CategoryRepo { get; private set; }
 
         public async Task<bool> CompleteAsync()
         {

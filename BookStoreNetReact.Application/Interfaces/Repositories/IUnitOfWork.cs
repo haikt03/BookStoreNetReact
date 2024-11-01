@@ -1,10 +1,10 @@
-﻿namespace BookStoreNetReact.Application.Interfaces
+﻿namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IBookRepository bookRepo { get; }
-        IAuthorRepository authorRepo { get; }
-        ICategoryRepository categoryRepo { get; }
+        IAuthorRepository AuthorRepo { get; }
+        IBookRepository BookRepo { get; }
+        ICategoryRepository CategoryRepo { get; }
         Task<bool> CompleteAsync();
     }
 }

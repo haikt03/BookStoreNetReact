@@ -1,7 +1,4 @@
-﻿using BookStoreNetReact.Application.Interfaces.Repositories;
-using BookStoreNetReact.Application.Interfaces;
-using BookStoreNetReact.Application.Interfaces.Services;
-using BookStoreNetReact.Application.Options;
+﻿using BookStoreNetReact.Application.Options;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Data;
 using BookStoreNetReact.Infrastructure.Repositories;
@@ -11,6 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BookStoreNetReact.Application.Helpers;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using BookStoreNetReact.Application.Dtos.Book;
+using BookStoreNetReact.Application.Interfaces.Services;
+using BookStoreNetReact.Application.Interfaces.Repositories;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -80,8 +82,13 @@ namespace BookStoreNetReact.Api.Extensions
 
             // Services
             services.AddScoped<ICloudUploadService, CloudUploadService>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             // Others
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(typeof(CreateBookDto).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddCors();
         }

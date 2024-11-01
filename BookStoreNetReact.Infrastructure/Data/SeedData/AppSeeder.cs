@@ -60,9 +60,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
                                 {
                                     FileStream = fileStream,
-                                    FileName = authorSeeder.ImagePath,
-                                    Folder = "Authors"
-                                });
+                                    FileName = authorSeeder.ImagePath
+                                }, folder: "Authors");
                                 if (uploadResult != null)
                                 {
                                     author.PublicId = uploadResult.PublicId;
@@ -117,9 +116,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
                                 {
                                     FileStream = fileStream,
-                                    FileName = bookSeeder.ImagePath,
-                                    Folder = "Books"
-                                });
+                                    FileName = bookSeeder.ImagePath
+                                }, folder: "Books");
                                 if (uploadResult != null)
                                 {
                                     book.PublicId = uploadResult.PublicId;
@@ -167,9 +165,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
                                 {
                                     FileStream = fileStream,
-                                    FileName = appUserSeeder.ImagePath,
-                                    Folder = "AppUsers"
-                                });
+                                    FileName = appUserSeeder.ImagePath
+                                }, folder: "AppUsers");
                                 if (uploadResult != null)
                                 {
                                     appUser.PublicId = uploadResult.PublicId;
