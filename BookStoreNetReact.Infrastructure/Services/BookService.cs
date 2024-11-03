@@ -6,42 +6,37 @@ namespace BookStoreNetReact.Infrastructure.Services
 {
     public class BookService : IBookService
     {
-        public Task<PagedList<BookDto>> GetAllBooks(FilterBookDto filterBookDto)
+        public Task<PagedList<BookDto>> GetAllBooksAsync(FilterBookDto filterBookDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<BookDto> GetBookById(int bookId)
+        public Task<BookDto> GetBookByIdAsync(int bookId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> CreateBook(CreateBookDto createBookDto)
+        public Task<BookDto> CreateBookAsync(CreateBookDto createBookDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateBook(UpdateBookDto updateBookDto)
+        public Task<bool> UpdateBookAsync(UpdateBookDto updateBookDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteBook(int bookId)
+        public Task<bool> DeleteBookAsync(int bookId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<string>> GetAllAuthorsOfBook()
+        public Task<List<string>> GetAllPublishersOfBooksAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<string>> GetAllCategoriesOfBook()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<string>> GetAllLanguagesOfBook()
+        public Task<List<string>> GetAllLanguagesOfBooksAsync()
         {
             throw new NotImplementedException();
         }

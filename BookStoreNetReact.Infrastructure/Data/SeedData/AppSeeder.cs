@@ -2,8 +2,7 @@
 using BookStoreNetReact.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json;
-using BookStoreNetReact.Application.Dtos.Image;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Http;
 
 namespace BookStoreNetReact.Infrastructure.Data.SeedData
 {
@@ -55,15 +54,15 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
 
                         if (authorSeeder.ImagePath != null)
                         {
-                            using (var fileStream = File.OpenRead(Path.Combine(basePath, @$"Images\Authors\{authorSeeder.ImagePath}")))
+                            var filePath = Path.Combine(basePath, @$"Images\Authors\{authorSeeder.ImagePath}");
+                            if (File.Exists(filePath))
                             {
-                                var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
-                                {
-                                    FileStream = fileStream,
-                                    FileName = authorSeeder.ImagePath
-                                }, folder: "Authors");
-                                if (uploadResult != null)
-                                {
+                                await using var stream = new FileStream(filePath, FileMode.Open);
+                                var formFile = new FormFile(stream, 0, stream.Length, "file", authorSeeder.ImagePath);
+
+                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "Authors");
+                                if (uploadResult != null) 
+                                { 
                                     author.PublicId = uploadResult.PublicId;
                                     author.ImageUrl = uploadResult.ImageUrl;
                                 }
@@ -111,13 +110,13 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
 
                         if (bookSeeder.ImagePath != null)
                         {
-                            using (var fileStream = File.OpenRead(Path.Combine(basePath, @$"Images\Books\{bookSeeder.ImagePath}")))
+                            var filePath = Path.Combine(basePath, @$"Images\Books\{bookSeeder.ImagePath}");
+                            if (File.Exists(filePath))
                             {
-                                var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
-                                {
-                                    FileStream = fileStream,
-                                    FileName = bookSeeder.ImagePath
-                                }, folder: "Books");
+                                await using var stream = new FileStream(filePath, FileMode.Open);
+                                var formFile = new FormFile(stream, 0, stream.Length, "file", bookSeeder.ImagePath);
+
+                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "Books");
                                 if (uploadResult != null)
                                 {
                                     book.PublicId = uploadResult.PublicId;
@@ -160,13 +159,13 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
 
                         if (appUserSeeder.ImagePath != null)
                         {
-                            using (var fileStream = File.OpenRead(Path.Combine(basePath, @$"Images\AppUsers\{appUserSeeder.ImagePath}")))
+                            var filePath = Path.Combine(basePath, @$"Images\AppUsers\{appUserSeeder.ImagePath}");
+                            if (File.Exists(filePath))
                             {
-                                var uploadResult = await cloudUploadService.UploadImageAsync(new UploadImageDto
-                                {
-                                    FileStream = fileStream,
-                                    FileName = appUserSeeder.ImagePath
-                                }, folder: "AppUsers");
+                                await using var stream = new FileStream(filePath, FileMode.Open);
+                                var formFile = new FormFile(stream, 0, stream.Length, "file", appUserSeeder.ImagePath);
+
+                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "AppUsers");
                                 if (uploadResult != null)
                                 {
                                     appUser.PublicId = uploadResult.PublicId;

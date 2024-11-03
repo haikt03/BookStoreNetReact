@@ -18,23 +18,17 @@ namespace BookStoreNetReact.Infrastructure.Extensions
         public static IQueryable<Book> Filter
         (
             this IQueryable<Book> query,
-            string? categories = null,
-            string? authors = null,
+            string? publishers = null,
             string? languages = null,
-            int minPrice = 0,
-            int maxPrice = 0)
+            int? minPrice = 0,
+            int? maxPrice = 0)
         {
-            var categoryList = new List<string>();
-            var authorList = new List<string>();
+            var publisherList = new List<string>();
             var languageList = new List<string>();
 
-            if (!string.IsNullOrWhiteSpace(categories))
+            if (!string.IsNullOrWhiteSpace(publishers))
             {
-                categoryList.AddRange(categories.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
-            }
-            if (!string.IsNullOrWhiteSpace(authors))
-            {
-                authorList.AddRange(authors.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                publisherList.AddRange(publishers.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
             }
             if (!string.IsNullOrWhiteSpace(languages))
             {
@@ -42,8 +36,7 @@ namespace BookStoreNetReact.Infrastructure.Extensions
             }
 
             var result = query
-                .Where(b => (categoryList.Count == 0 || categoryList.Contains(b.Category == null ? "" : b.Category.Name)))
-                .Where(b => (authorList.Count == 0 || authorList.Contains(b.Author == null ? "" : b.Author.FullName)))
+                .Where(b => (publisherList.Count == 0 || languageList.Contains(b.Publisher)))
                 .Where(b => (languageList.Count == 0 || languageList.Contains(b.Language)))
                 .Where(b => (minPrice == 0 || b.Price >= minPrice))
                 .Where(b => (maxPrice == 0 || b.Price <= maxPrice));

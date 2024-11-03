@@ -5,13 +5,12 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface IBookService
     {
-        Task<PagedList<BookDto>> GetAllBooks(FilterBookDto filterBookDto);
-        Task<BookDto> GetBookById(int bookId);
-        Task<bool> CreateBook(CreateBookDto createBookDto);
-        Task<bool> UpdateBook(UpdateBookDto updateBookDto);
-        Task<bool> DeleteBook(int bookId);
-        Task<List<string>> GetAllAuthorsOfBook();
-        Task<List<string>> GetAllCategoriesOfBook();
-        Task<List<string>> GetAllLanguagesOfBook();
+        Task<PagedList<BookDto>> GetAllBooksAsync(FilterBookDto filterBookDto);
+        Task<BookDto> GetBookByIdAsync(int bookId);
+        Task<BookDto> CreateBookAsync(CreateBookDto createBookDto);
+        Task<bool> UpdateBookAsync(UpdateBookDto updateBookDto);
+        Task<bool> DeleteBookAsync(int bookId);
+        Task<List<string>> GetAllPublishersOfBooksAsync();
+        Task<List<string>> GetAllLanguagesOfBooksAsync();
     }
 }

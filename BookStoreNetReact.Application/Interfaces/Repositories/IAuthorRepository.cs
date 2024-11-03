@@ -5,6 +5,7 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
     public interface IAuthorRepository : IGenericRepository<Author>
     {
-        Task<List<Author>> GetAllAsync(FilterAuthorDto filterAuthorDto);
+        IQueryable<Author> GetAllAsync(FilterAuthorDto filterAuthorDto);
+        Task<List<string>> GetAllCountriesAsync();
     }
 }

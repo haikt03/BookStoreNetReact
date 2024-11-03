@@ -4,6 +4,7 @@ using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Application.Interfaces.Repositories;
+using BookStoreNetReact.Infrastructure.Extensions;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
@@ -19,12 +20,27 @@ namespace BookStoreNetReact.Infrastructure.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<PagedList<AuthorDto>> GetAllAuthors(FilterAuthorDto filterAuthorDto)
+        public async Task<PagedList<AuthorDto>> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var authors = _unitOfWork.AuthorRepo.GetAllAsync(filterAuthorDto);
+                var result = await authors.ToPagedListAsync
+                (
+                    selector: a => _mapper.Map<AuthorDto>(a),
+                    pageSize: filterAuthorDto.PageSize,
+                    pageIndex: filterAuthorDto.PageIndex
+                );
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{nameof(GetAllAuthorsAsync)} failed");
+                throw new Exception(ex.ToString());
+            }
         }
 
-        public async Task<AuthorDto> GetAuthorById(int authorId)
+        public async Task<AuthorDto> GetAuthorByIdAsync(int authorId)
         {
             try
             {
@@ -36,81 +52,89 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Get author by id failed");
+                Console.WriteLine($"{nameof(GetAuthorByIdAsync)} failed");
                 throw new Exception(ex.ToString());
             }
         }
 
-        public async Task<bool> CreateAuthor(CreateAuthorDto createAuthorDto)
+        public async Task<AuthorDto> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
         {
             try
             {
                 var author = _mapper.Map<Author>(createAuthorDto);
-                if (createAuthorDto.Image != null)
+                if (createAuthorDto.File != null && createAuthorDto.File.Length != 0)
                 {
-                    var imageDto = await _cloudUploadService.UploadImageAsync(createAuthorDto.Image, folder: "Authors");
+                    var imageDto = await _cloudUploadService.UploadImageAsync(createAuthorDto.File, folder: "Authors");
                     author.PublicId = imageDto.PublicId;
                     author.ImageUrl = imageDto.ImageUrl;
                 }
-                _unitOfWork.AuthorRepo.Add(author);
+
+                await _unitOfWork.AuthorRepo.AddAsync(author);
                 var result = await _unitOfWork.CompleteAsync();
-                return result;
+                if (!result)
+                    throw new Exception($"{CreateAuthorAsync} failed");
+                return _mapper.Map<AuthorDto>(author);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Create author failed");
+                Console.WriteLine($"{nameof(CreateAuthorAsync)} failed");
                 throw new Exception(ex.ToString());
             }
         }
 
-        public async Task<bool> UpdateAuthor(UpdateAuthorDto updateAuthorDto)
-        {
-            try
-            {
-                var author = _unitOfWork.AuthorRepo.GetByIdAsync(updateAuthorDto.Id);
-                if (author == null)
-                    throw new NullReferenceException("Author not found");
-                var newAuthor = _mapper.Map<Author>(updateAuthorDto);
-                if (updateAuthorDto.Image != null)
-                {
-                    var imageDto = await _cloudUploadService.UploadImageAsync(updateAuthorDto.Image, folder: "Authors");
-                    newAuthor.PublicId = imageDto.PublicId;
-                    newAuthor.ImageUrl = imageDto.ImageUrl;
-                }
-                _unitOfWork.AuthorRepo.Update(newAuthor);
-                var result = await _unitOfWork.CompleteAsync();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Update author failed");
-                throw new Exception(ex.ToString());
-            }
-        }
-
-        public async Task<bool> DeleteAuthor(int authorId)
+        public async Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateAuthorDto, int authorId)
         {
             try
             {
                 var author = await _unitOfWork.AuthorRepo.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
-                if (author.PublicId != null)
-                    await _cloudUploadService.DeleteImageAsync(author.PublicId);
-                _unitOfWork.AuthorRepo.Remove(author);
-                var result = await _unitOfWork.CompleteAsync();
-                return result;
+
+                _mapper.Map(updateAuthorDto, author);
+                if (updateAuthorDto.File != null && updateAuthorDto.File.Length != 0)
+                {
+                    if (author.PublicId != null)
+                        await _cloudUploadService.DeleteImageAsync(author.PublicId);
+
+                    var imageDto = await _cloudUploadService.UploadImageAsync(updateAuthorDto.File, folder: "Authors");
+                    author.PublicId = imageDto.PublicId;
+                    author.ImageUrl = imageDto.ImageUrl;
+                }
+
+                _unitOfWork.AuthorRepo.Update(author);
+                return await _unitOfWork.CompleteAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Delete author failed");
+                Console.WriteLine($"{nameof(UpdateAuthorAsync)} failed");
                 throw new Exception(ex.ToString());
             }
         }
 
-        public Task<List<string>> GetAllCountriesOfAuthor()
+        public async Task<bool> DeleteAuthorAsync(int authorId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var author = await _unitOfWork.AuthorRepo.GetByIdAsync(authorId);
+                if (author == null)
+                    throw new NullReferenceException("Author not found");
+
+                if (author.PublicId != null)
+                    await _cloudUploadService.DeleteImageAsync(author.PublicId);
+
+                _unitOfWork.AuthorRepo.Remove(author);
+                return await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{nameof(DeleteAuthorAsync)} failed");
+                throw new Exception(ex.ToString());
+            }
+        }
+
+        public async Task<List<string>> GetAllCountriesOfAuthorsAsync()
+        {
+            return await _unitOfWork.AuthorRepo.GetAllCountriesAsync();
         }
     }
 }

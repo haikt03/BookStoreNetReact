@@ -1,7 +1,6 @@
 ﻿using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreNetReact.Infrastructure.Repositories
 {
@@ -13,15 +12,19 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public IQueryable<T> GetAllAsync()
         {
-            var entity = await _context.Set<T>().FindAsync(id);
-            return entity!;
+            return _context.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task<T> GetByIdAsync(int id)
         {
-            _context.Set<T>().Add(entity);
+            return (await _context.Set<T>().FindAsync(id))!;
+        }
+
+        public async Task AddAsync(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
         }
 
         public void Update(T entity)

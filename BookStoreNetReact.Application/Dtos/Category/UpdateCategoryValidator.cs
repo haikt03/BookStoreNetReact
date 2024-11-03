@@ -7,13 +7,12 @@ namespace BookStoreNetReact.Application.Dtos.Category
     {
         public UpdateCategoryValidator()
         {
-            RuleFor(cc => cc.Id)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.Greater);
             RuleFor(cc => cc.Name)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 50)
+                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 50));
             RuleFor(cc => cc.PId)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.Greater);
+                .Must((dto, value) => value == null || value >= 1)
+                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
         }
     }
 }

@@ -6,27 +6,27 @@ namespace BookStoreNetReact.Infrastructure.Services
 {
     public class CategoryService : ICategoryService
     {
-        public Task<PagedList<CategoryDto>> GetAllCategories(FilterCategoryDto filterCategoryDto)
+        public Task<PagedList<CategoryDto>> GetAllCategoriesAsync(FilterCategoryDto filterCategoryDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CategoryDto> GetCategoryById(int categoryId)
+        public Task<CategoryDto> GetCategoryByIdAsync(int categoryId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> CreateCategory(CreateCategoryDto createCategoryDto)
+        public Task<CategoryDto> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        public Task<bool> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteCategory(int categoryId)
+        public Task<bool> DeleteCategoryAsync(int categoryId)
         {
             throw new NotImplementedException();
         }

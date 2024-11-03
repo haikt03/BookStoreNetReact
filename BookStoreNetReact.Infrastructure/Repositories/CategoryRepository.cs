@@ -2,6 +2,7 @@
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Data;
+using BookStoreNetReact.Infrastructure.Extensions;
 
 namespace BookStoreNetReact.Infrastructure.Repositories
 {
@@ -11,9 +12,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public Task<List<Category>> GetAllAsync(FilterCategoryDto filterCategoryDto)
+        public IQueryable<Category> GetAllAsync(FilterCategoryDto filterCategoryDto)
         {
-            throw new NotImplementedException();
+            var categories = _context.Categories
+                .Search(filterCategoryDto.Search)
+                .Sort(filterCategoryDto.Sort);
+            return categories;
         }
     }
 }

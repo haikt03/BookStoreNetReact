@@ -9,25 +9,25 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
         {
             RuleFor(r => r.FirstName)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(r => r.LastName)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(r => r.DateOfBirth)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.Date);
+                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
             RuleFor(r => r.UserName)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(r => r.Password)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(r => r.Email)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .EmailAddress().WithMessage(ValidationErrorMessages.Email);
+                .EmailAddress().WithMessage(ValidationErrorMessages.ValidEmail);
             RuleFor(r => r.PhoneNumber)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Matches(@"^0\d{9}$|^\+84\d{10}$").WithMessage(ValidationErrorMessages.PhoneNumber);
+                .Matches(@"^0\d{9}$|^\+84\d{10}$").WithMessage(ValidationErrorMessages.ValidPhoneNumber);
         }
     }
 }

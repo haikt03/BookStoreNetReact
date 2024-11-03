@@ -13,15 +13,22 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public async Task<List<Author>> GetAllAsync(FilterAuthorDto filterAuthorDto)
+        public IQueryable<Author> GetAllAsync(FilterAuthorDto filterAuthorDto)
         {
-            var authors = await _context.Authors
-                .AsQueryable()
+            var authors = _context.Authors
                 .Search(filterAuthorDto.Search)
                 .Filter(filterAuthorDto.Countries)
-                .Sort(filterAuthorDto.Sort)
-                .ToListAsync();
+                .Sort(filterAuthorDto.Sort);
             return authors;
+        }
+
+        public async Task<List<string>> GetAllCountriesAsync()
+        {
+            return await _context.Authors
+                .Select(a => a.Country)
+                .Where(c => !string.IsNullOrEmpty(c))
+                .Distinct()
+                .ToListAsync();
         }
     }
 }

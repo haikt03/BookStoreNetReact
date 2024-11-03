@@ -3,6 +3,7 @@ using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Options;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -21,18 +22,22 @@ namespace BookStoreNetReact.Infrastructure.Services
             );
             _cloudinary = new Cloudinary(account: cloudinaryAccount);
         }
-        public async Task<ImageDto> UploadImageAsync(UploadImageDto uploadImageDto, string folder)
+        public async Task<ImageDto> UploadImageAsync(IFormFile file, string folder)
         {
-            var uploadParams = new RawUploadParams
-            {
-                File = new FileDescription(uploadImageDto.FileName, uploadImageDto.FileStream),
-                Folder = $"BookStoreNetReact/{folder}"
-            };
             try
             {
+                await using var stream = file.OpenReadStream();
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    Transformation = new Transformation().Height(500).Width(500).Crop("fill"),
+                    Folder = $"BookStoreNetReact/{folder}"
+                };
+
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
                 if (uploadResult == null)
                     throw new NullReferenceException(nameof(uploadResult));
+
                 return new ImageDto
                 {
                     PublicId = uploadResult.PublicId,
@@ -41,24 +46,25 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Upload image failed");
+                Console.WriteLine($"{nameof(UploadImageAsync)} failed");
                 throw new Exception(ex.ToString());
             }
         }
 
         public async Task<bool> DeleteImageAsync(string publicId)
         {
-            var deleteParams = new DeletionParams(publicId);
             try
             {
+                var deleteParams = new DeletionParams(publicId);
                 var deleteResult = await _cloudinary.DestroyAsync(deleteParams);
+
                 if (deleteResult == null)
                     throw new NullReferenceException(nameof(deleteResult));
                 return deleteResult.Result == "ok";
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Delete image failed");
+                Console.WriteLine($"{nameof(DeleteImageAsync)} failed");
                 throw new Exception(ex.ToString());
             }
         }

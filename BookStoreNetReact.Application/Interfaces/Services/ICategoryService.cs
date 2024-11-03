@@ -5,10 +5,10 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface ICategoryService
     {
-        Task<PagedList<CategoryDto>> GetAllCategories(FilterCategoryDto filterCategoryDto);
-        Task<CategoryDto> GetCategoryById(int categoryId);
-        Task<bool> CreateCategory(CreateCategoryDto createCategoryDto);
-        Task<bool> UpdateCategory(UpdateCategoryDto updateCategoryDto);
-        Task<bool> DeleteCategory(int categoryId);
+        Task<PagedList<CategoryDto>> GetAllCategoriesAsync(FilterCategoryDto filterCategoryDto);
+        Task<CategoryDto> GetCategoryByIdAsync(int categoryId);
+        Task<CategoryDto> CreateCategoryAsync(CreateCategoryDto createCategoryDto);
+        Task<bool> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
+        Task<bool> DeleteCategoryAsync(int categoryId);
     }
 }

@@ -57,7 +57,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Generate access token failed");
+                Console.WriteLine($"{nameof(GenerateAccessToken)} failed");
                 throw new Exception(ex.ToString());
             }
 
@@ -85,7 +85,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Generate refresh token failed");
+                Console.WriteLine($"{nameof(GenerateRefreshToken)} failed");
                 throw new Exception(ex.ToString());
             }
         }
@@ -101,7 +101,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Validate refresh token failed");
+                Console.WriteLine($"{ValidateRefreshToken} failed");
                 throw new Exception(ex.ToString());
             }
         }

@@ -7,23 +7,20 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
     {
         public UpdateAppUserValidator()
         {
-            RuleFor(ua => ua.Id)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.Greater);
             RuleFor(ua => ua.FirstName)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.LastName)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.DateOfBirth)
-                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.Date);
+                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
             RuleFor(ua => ua.UserName)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.Password)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.Length);
+                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.Email)
-                .EmailAddress().WithMessage(ValidationErrorMessages.Email);
+                .EmailAddress().WithMessage(ValidationErrorMessages.ValidEmail);
             RuleFor(ua => ua.PhoneNumber)
-                .Matches(@"^0\d{9}$|^\+84\d{10}$").WithMessage(ValidationErrorMessages.PhoneNumber);
+                .Matches(@"^0\d{9}$|^\+84\d{10}$").WithMessage(ValidationErrorMessages.ValidPhoneNumber);
         }
     }
 }

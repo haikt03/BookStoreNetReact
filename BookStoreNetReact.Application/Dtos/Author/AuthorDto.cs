@@ -1,6 +1,4 @@
-﻿using BookStoreNetReact.Application.Dtos.Book;
-
-namespace BookStoreNetReact.Application.Dtos.Author
+﻿namespace BookStoreNetReact.Application.Dtos.Author
 {
     public class AuthorDto
     {
@@ -10,6 +8,5 @@ namespace BookStoreNetReact.Application.Dtos.Author
         public required string Country { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
-        public List<BookDto>? Books { get; set; }
     }
 }

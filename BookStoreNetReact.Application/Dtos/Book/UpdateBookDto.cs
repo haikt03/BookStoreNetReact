@@ -1,10 +1,9 @@
-﻿using BookStoreNetReact.Application.Dtos.Image;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace BookStoreNetReact.Application.Dtos.Book
 {
     public class UpdateBookDto
     {
-        public required int Id { get; set; }
         public string? Name { get; set; }
         public string? Translator { get; set; }
         public string? Publisher { get; set; }
@@ -19,6 +18,6 @@ namespace BookStoreNetReact.Application.Dtos.Book
         public int? QuantityInStock { get; set; }
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
-        public UploadImageDto? Image { get; set; }
+        public IFormFile? File { get; set; }
     }
 }

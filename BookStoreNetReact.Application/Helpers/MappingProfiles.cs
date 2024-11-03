@@ -16,7 +16,8 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
             CreateMap<UpdateAuthorDto, Author>()
                 .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
+                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Author, AuthorDto>();
 
             // Book
@@ -25,12 +26,16 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
             CreateMap<UpdateBookDto, Book>()
                 .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
-            CreateMap<Book, BookDto>();
+                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<Book, BookDto>()
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category));
 
             // Category
             CreateMap<CreateCategoryDto, Category>();
-            CreateMap<UpdateCategoryDto, Category>();
+            CreateMap<UpdateCategoryDto, Category>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Category, CategoryDto>();
         }
     }
