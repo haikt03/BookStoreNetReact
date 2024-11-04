@@ -7,15 +7,9 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
     {
         public RegisterValidator()
         {
-            RuleFor(r => r.FirstName)
+            RuleFor(r => r.FullName)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
-            RuleFor(r => r.LastName)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
-            RuleFor(r => r.DateOfBirth)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
+                .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(r => r.UserName)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);

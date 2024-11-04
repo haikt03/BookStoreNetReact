@@ -4,7 +4,7 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
 {
     public class FilterAppUserDto : PaginationDto
     {
-        public string? Search { get; set; }
-        public string? Sort { get; set; }
+        public string? Search { get; set; } = "";
+        public string? Sort { get; set; } = "";
     }
 }

@@ -4,6 +4,6 @@
     {
         public required int Id { get; set; }
         public required string Name { get; set; }
-        public CategoryDto? PCategory { get; set; }
+        public int? PId { get; set; }
     }
 }

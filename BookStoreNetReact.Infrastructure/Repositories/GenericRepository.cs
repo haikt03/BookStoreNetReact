@@ -12,14 +12,9 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             _context = context;
         }
 
-        public IQueryable<T> GetAllAsync()
+        public IQueryable<T> GetAll()
         {
             return _context.Set<T>();
-        }
-
-        public async Task<T> GetByIdAsync(int id)
-        {
-            return (await _context.Set<T>().FindAsync(id))!;
         }
 
         public async Task AddAsync(T entity)

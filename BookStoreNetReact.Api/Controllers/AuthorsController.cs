@@ -1,5 +1,6 @@
 ﻿using BookStoreNetReact.Api.Extensions;
 using BookStoreNetReact.Application.Dtos.Author;
+using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,23 +20,23 @@ namespace BookStoreNetReact.Api.Controllers
         public async Task<ActionResult<PagedList<AuthorDto>>> GetAllAuthors([FromQuery] FilterAuthorDto filterAuthorDto)
         {
             var authorsDto = await _authorService.GetAllAuthorsAsync(filterAuthorDto);
-            if (authorsDto == null || authorsDto.Count == 0)
+            if (authorsDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
             Response.AddPaginationHeader(authorsDto.Pagination);
             return Ok(authorsDto);
         }
 
         [HttpGet("{id}", Name = nameof(GetAuthorById))]
-        public async Task<ActionResult<AuthorDto>> GetAuthorById(int id)
+        public async Task<ActionResult<DetailAuthorDto>> GetAuthorById(int id)
         {
-            var authorDto = await _authorService.GetAuthorByIdAsync(id);
-            if (authorDto == null)
+            var detailAuthorDto = await _authorService.GetAuthorByIdAsync(id);
+            if (detailAuthorDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
-            return Ok(authorDto);
+            return Ok(detailAuthorDto);
         }
 
         [HttpPost]
-        public async Task<ActionResult<AuthorDto>> CreateAuthor([FromForm] CreateAuthorDto createAuthorDto)
+        public async Task<ActionResult<DetailAuthorDto>> CreateAuthor([FromForm] CreateAuthorDto createAuthorDto)
         {
             var author = await _authorService.CreateAuthorAsync(createAuthorDto);
             if (author == null)
@@ -68,6 +69,16 @@ namespace BookStoreNetReact.Api.Controllers
             if (result == null || result.Count == 0)
                 return BadRequest(new ProblemDetails { Title = "Không tìm thấy nơi sinh của các tác giả " });
             return Ok(result);
+        }
+
+        [HttpGet("{id}/books")]
+        public async Task<ActionResult<PagedList<BookDto>>> GetAllBooksByAuthor([FromQuery] FilterBookDto filterBookDto, int id)
+        {
+            var booksDto = await _authorService.GetAllBooksByAuthorAsync(filterBookDto, id);
+            if (booksDto == null)
+                return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
+            Response.AddPaginationHeader(booksDto.Pagination);
+            return Ok(booksDto);
         }
     }
 }

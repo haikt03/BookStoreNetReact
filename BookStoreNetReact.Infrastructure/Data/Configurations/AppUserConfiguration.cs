@@ -8,8 +8,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder.Property(au => au.FirstName).IsRequired();
-            builder.Property(au => au.LastName).IsRequired();
+            builder.Property(au => au.FullName).IsRequired();
             builder.Property(au => au.DateOfBirth).IsRequired();
             builder.Property(au => au.CreatedAt).IsRequired();
             builder.Property(au => au.UserName).IsRequired();

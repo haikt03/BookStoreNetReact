@@ -9,14 +9,14 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
-            AuthorRepo = new AuthorRepository(_context);
-            BookRepo = new BookRepository(_context);
-            CategoryRepo = new CategoryRepository(_context);
+            AuthorRepository = new AuthorRepository(_context);
+            BookRepository = new BookRepository(_context);
+            CategoryRepository = new CategoryRepository(_context);
         }
 
-        public IAuthorRepository AuthorRepo { get; private set; }
-        public IBookRepository BookRepo { get; private set; }
-        public ICategoryRepository CategoryRepo { get; private set; }
+        public IAuthorRepository AuthorRepository { get; private set; }
+        public IBookRepository BookRepository { get; private set; }
+        public ICategoryRepository CategoryRepository { get; private set; }
 
         public async Task<bool> CompleteAsync()
         {

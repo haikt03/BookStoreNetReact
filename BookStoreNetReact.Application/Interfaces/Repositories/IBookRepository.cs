@@ -5,7 +5,8 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
     public interface IBookRepository : IGenericRepository<Book>
     {
-        IQueryable<Book> GetAllAsync(FilterBookDto filterBookDto);
+        IQueryable<Book> GetAll(FilterBookDto filterBookDto);
+        Task<Book?> GetByIdAsync(int id);
         Task<List<string>> GetAllPublishersAsync();
         Task<List<string>> GetAllLanguagesAsync();
     }

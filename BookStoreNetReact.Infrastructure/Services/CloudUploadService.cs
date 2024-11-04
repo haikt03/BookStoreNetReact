@@ -4,6 +4,7 @@ using BookStoreNetReact.Application.Options;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -12,7 +13,8 @@ namespace BookStoreNetReact.Infrastructure.Services
     {
         private readonly Cloudinary _cloudinary;
         private readonly IOptions<CloudOptions> _cloudOption;
-        public CloudUploadService(IOptions<CloudOptions> cloudOption)
+        private readonly ILogger<CloudUploadService> _logger;
+        public CloudUploadService(IOptions<CloudOptions> cloudOption, ILogger<CloudUploadService> logger)
         {
             _cloudOption = cloudOption;
             var cloudinaryAccount = new Account(
@@ -21,8 +23,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 apiSecret: cloudOption.Value.ApiSecret
             );
             _cloudinary = new Cloudinary(account: cloudinaryAccount);
+            _logger = logger;
         }
-        public async Task<ImageDto> UploadImageAsync(IFormFile file, string folder)
+        public async Task<ImageDto?> UploadImageAsync(IFormFile file, string folder)
         {
             try
             {
@@ -36,7 +39,7 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
                 if (uploadResult == null)
-                    throw new NullReferenceException(nameof(uploadResult));
+                    throw new NullReferenceException("Upload result not found");
 
                 return new ImageDto
                 {
@@ -44,10 +47,15 @@ namespace BookStoreNetReact.Infrastructure.Services
                     ImageUrl = uploadResult.SecureUrl.ToString()
                 };
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Upload result not found");
+                return null;
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(UploadImageAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while uploading image");
+                return null;
             }
         }
 
@@ -59,13 +67,18 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var deleteResult = await _cloudinary.DestroyAsync(deleteParams);
 
                 if (deleteResult == null)
-                    throw new NullReferenceException(nameof(deleteResult));
+                    throw new NullReferenceException("Delete result not found");
                 return deleteResult.Result == "ok";
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Delete result not found");
+                return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(DeleteImageAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while deleting image");
+                return false;
             }
         }
     }

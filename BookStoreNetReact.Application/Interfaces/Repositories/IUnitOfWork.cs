@@ -2,9 +2,9 @@
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAuthorRepository AuthorRepo { get; }
-        IBookRepository BookRepo { get; }
-        ICategoryRepository CategoryRepo { get; }
+        IAuthorRepository AuthorRepository { get; }
+        IBookRepository BookRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
         Task<bool> CompleteAsync();
     }
 }

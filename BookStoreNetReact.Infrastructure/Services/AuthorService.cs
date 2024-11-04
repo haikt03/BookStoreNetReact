@@ -5,6 +5,8 @@ using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Infrastructure.Extensions;
+using Microsoft.Extensions.Logging;
+using BookStoreNetReact.Application.Dtos.Book;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
@@ -13,51 +15,67 @@ namespace BookStoreNetReact.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly ICloudUploadService _cloudUploadService;
         private readonly IUnitOfWork _unitOfWork;
-        public AuthorService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork)
+        private readonly ILogger<AuthorService> _logger;
+        public AuthorService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<AuthorService> logger)
         {
             _mapper = mapper;
             _cloudUploadService = cloudUploadService;
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
-        public async Task<PagedList<AuthorDto>> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto)
+        public async Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto)
         {
             try
             {
-                var authors = _unitOfWork.AuthorRepo.GetAllAsync(filterAuthorDto);
+                var authors = _unitOfWork.AuthorRepository.GetAll(filterAuthorDto);
+                if (authors == null)
+                    throw new NullReferenceException("Authors not found");
+
                 var result = await authors.ToPagedListAsync
                 (
                     selector: a => _mapper.Map<AuthorDto>(a),
                     pageSize: filterAuthorDto.PageSize,
-                    pageIndex: filterAuthorDto.PageIndex
+                    pageIndex: filterAuthorDto.PageIndex,
+                    logger: _logger
                 );
                 return result;
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Authors data not found");
+                return null;
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(GetAllAuthorsAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while getting all authors");
+                return null;
             }
         }
 
-        public async Task<AuthorDto> GetAuthorByIdAsync(int authorId)
+        public async Task<DetailAuthorDto?> GetAuthorByIdAsync(int authorId)
         {
             try
             {
-                var author = await _unitOfWork.AuthorRepo.GetByIdAsync(authorId);
+                var author = await _unitOfWork.AuthorRepository.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
-                var authorDto = _mapper.Map<AuthorDto>(author);
-                return authorDto;
+                var detailAthorDto = _mapper.Map<DetailAuthorDto>(author);
+                return detailAthorDto;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Author data not found");
+                return null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(GetAuthorByIdAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while getting author by id");
+                return null;
             }
         }
 
-        public async Task<AuthorDto> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
+        public async Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
         {
             try
             {
@@ -65,20 +83,30 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (createAuthorDto.File != null && createAuthorDto.File.Length != 0)
                 {
                     var imageDto = await _cloudUploadService.UploadImageAsync(createAuthorDto.File, folder: "Authors");
-                    author.PublicId = imageDto.PublicId;
-                    author.ImageUrl = imageDto.ImageUrl;
+                    if (imageDto != null)
+                    {
+                        author.PublicId = imageDto.PublicId;
+                        author.ImageUrl = imageDto.ImageUrl;
+                    }
                 }
 
-                await _unitOfWork.AuthorRepo.AddAsync(author);
+                await _unitOfWork.AuthorRepository.AddAsync(author);
                 var result = await _unitOfWork.CompleteAsync();
                 if (!result)
-                    throw new Exception($"{CreateAuthorAsync} failed");
-                return _mapper.Map<AuthorDto>(author);
+                    throw new InvalidOperationException("Failed to save changes author data");
+
+                var newAuthor = await _unitOfWork.AuthorRepository.GetByIdAsync(author.Id);
+                return _mapper.Map<DetailAuthorDto>(newAuthor);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Failed to save changes author data");
+                return null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(CreateAuthorAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while creating author");
+                return null;
             }
         }
 
@@ -86,7 +114,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var author = await _unitOfWork.AuthorRepo.GetByIdAsync(authorId);
+                var author = await _unitOfWork.AuthorRepository.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
 
@@ -97,17 +125,25 @@ namespace BookStoreNetReact.Infrastructure.Services
                         await _cloudUploadService.DeleteImageAsync(author.PublicId);
 
                     var imageDto = await _cloudUploadService.UploadImageAsync(updateAuthorDto.File, folder: "Authors");
-                    author.PublicId = imageDto.PublicId;
-                    author.ImageUrl = imageDto.ImageUrl;
+                    if (imageDto != null)
+                    {
+                        author.PublicId = imageDto.PublicId;
+                        author.ImageUrl = imageDto.ImageUrl;
+                    }
                 }
 
-                _unitOfWork.AuthorRepo.Update(author);
+                _unitOfWork.AuthorRepository.Update(author);
                 return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Author data not found");
+                return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(UpdateAuthorAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while updating author");
+                return false;
             }
         }
 
@@ -115,26 +151,76 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var author = await _unitOfWork.AuthorRepo.GetByIdAsync(authorId);
+                var author = await _unitOfWork.AuthorRepository.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
 
                 if (author.PublicId != null)
                     await _cloudUploadService.DeleteImageAsync(author.PublicId);
 
-                _unitOfWork.AuthorRepo.Remove(author);
+                _unitOfWork.AuthorRepository.Remove(author);
                 return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Author data not found");
+                return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(DeleteAuthorAsync)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while deleting author");
+                return false;
             }
         }
 
-        public async Task<List<string>> GetAllCountriesOfAuthorsAsync()
+        public async Task<List<string>?> GetAllCountriesOfAuthorsAsync()
         {
-            return await _unitOfWork.AuthorRepo.GetAllCountriesAsync();
+            try
+            {
+                var result = await _unitOfWork.AuthorRepository.GetAllCountriesAsync();
+                if (result == null)
+                    throw new NullReferenceException("Countries not found");
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Countries data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all countries of authors");
+                return null;
+            }
+        }
+
+        public async Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterBookDto, int authorId)
+        {
+            try
+            {
+                var books = _unitOfWork.AuthorRepository.GetAllBooks(filterBookDto, authorId);
+                if (books == null)
+                    throw new NullReferenceException("Books not found");
+
+                var result = await books.ToPagedListAsync
+                (
+                    selector: b => _mapper.Map<BookDto>(b),
+                    pageSize: filterBookDto.PageSize,
+                    pageIndex: filterBookDto.PageIndex,
+                    logger: _logger
+                );
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Books data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all books by authorId");
+                return null;
+            }
         }
     }
 }

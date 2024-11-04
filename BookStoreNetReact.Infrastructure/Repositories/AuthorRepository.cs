@@ -1,4 +1,5 @@
 ﻿using BookStoreNetReact.Application.Dtos.Author;
+using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Data;
@@ -13,13 +14,18 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public IQueryable<Author> GetAllAsync(FilterAuthorDto filterAuthorDto)
+        public IQueryable<Author> GetAll(FilterAuthorDto filterAuthorDto)
         {
             var authors = _context.Authors
                 .Search(filterAuthorDto.Search)
                 .Filter(filterAuthorDto.Countries)
                 .Sort(filterAuthorDto.Sort);
             return authors;
+        }
+
+        public async Task<Author?> GetByIdAsync(int id)
+        {
+            return await _context.Authors.FindAsync(id);
         }
 
         public async Task<List<string>> GetAllCountriesAsync()
@@ -29,6 +35,23 @@ namespace BookStoreNetReact.Infrastructure.Repositories
                 .Where(c => !string.IsNullOrEmpty(c))
                 .Distinct()
                 .ToListAsync();
+        }
+
+        public IQueryable<Book> GetAllBooks(FilterBookDto filterBookDto, int authorId)
+        {
+            var books = _context.Authors
+                .Where(a => a.Id == authorId && a.Books != null)
+                .SelectMany(a => a.Books!)
+                .Search(filterBookDto.Search)
+                .Filter
+                (
+                    publishers: filterBookDto.Publishers,
+                    languages: filterBookDto.Languages,
+                    minPrice: filterBookDto.MinPrice,
+                    maxPrice: filterBookDto.MaxPrice
+                )
+                .Sort(filterBookDto.Sort);
+            return books;
         }
     }
 }

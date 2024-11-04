@@ -15,6 +15,13 @@ namespace BookStoreNetReact.Infrastructure.Extensions
             return result;
         }
 
+        public static IQueryable<Category> Filter(this IQueryable<Category> query, int? pId = 0)
+        {
+            if (pId == 0 || pId == null)
+                return query;
+            return query.Where(c => c.PId == pId);
+        }
+
         public static IQueryable<Category> Sort(this IQueryable<Category> query, string? sort = null)
         {
             if (string.IsNullOrWhiteSpace(sort))

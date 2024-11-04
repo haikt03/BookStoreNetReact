@@ -12,7 +12,7 @@ namespace BookStoreNetReact.Application.Dtos.Category
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cc => cc.PId)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
         }
     }
 }

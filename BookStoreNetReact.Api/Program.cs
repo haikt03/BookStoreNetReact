@@ -5,11 +5,13 @@ using BookStoreNetReact.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using BookStoreNetReact.Application.Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
+using BookStoreNetReact.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
     .WithOrigins("http://localhost:5000"));
 
@@ -23,20 +25,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Seed data
+using var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+var cloudUploadService = scope.ServiceProvider.GetRequiredService<ICloudUploadService>();
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 try
 {
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-    var cloudUploadService = services.GetRequiredService<ICloudUploadService>();
     await context.Database.MigrateAsync();
-    await AppSeeder.SeedDataAsync(context, userManager, cloudUploadService);
+    await AppSeeder.SeedDataAsync(context, userManager, cloudUploadService, logger);
 }
 catch (Exception ex)
 {
-    Console.WriteLine("Seed data failed");
-    throw new Exception(ex.ToString());
+    logger.LogError(ex, "An error occurred while seeding data");
+    throw;
 }
 
 app.Run();

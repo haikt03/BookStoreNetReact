@@ -2,6 +2,7 @@
 using BookStoreNetReact.Application.Options;
 using BookStoreNetReact.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,10 +16,12 @@ namespace BookStoreNetReact.Infrastructure.Services
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IOptions<JwtOptions> _jwtOptions;
-        public TokenService(UserManager<AppUser> userManager, IOptions<JwtOptions> jwtOptions)
+        private readonly ILogger<TokenService> _logger;
+        public TokenService(UserManager<AppUser> userManager, IOptions<JwtOptions> jwtOptions, ILogger<TokenService> logger)
         {
             _userManager = userManager;
             _jwtOptions = jwtOptions;
+            _logger = logger;
         }
 
         public async Task<string> GenerateAccessToken(AppUser appUser)
@@ -55,10 +58,15 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "UserName or Email data not found");
+                return "";
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(GenerateAccessToken)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while generating access token");
+                return "";
             }
 
         }
@@ -85,8 +93,8 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{nameof(GenerateRefreshToken)} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while generating refresh token");
+                return "";
             }
         }
 
@@ -101,18 +109,25 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ValidateRefreshToken} failed");
-                throw new Exception(ex.ToString());
+                _logger.LogWarning(ex, "An error occurred while validating refresh token");
+                return false;
             }
         }
 
         private string GenerateTokenString()
         {
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
+            try
             {
+                var randomNumber = new byte[32];
+                using var rng = RandomNumberGenerator.Create();
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while generating token string");
+                return "";
             }
         }
     }

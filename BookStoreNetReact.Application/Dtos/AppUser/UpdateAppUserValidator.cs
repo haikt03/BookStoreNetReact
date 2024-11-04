@@ -7,10 +7,8 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
     {
         public UpdateAppUserValidator()
         {
-            RuleFor(ua => ua.FirstName)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
-            RuleFor(ua => ua.LastName)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
+            RuleFor(ua => ua.FullName)
+                .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.DateOfBirth)
                 .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
             RuleFor(ua => ua.UserName)

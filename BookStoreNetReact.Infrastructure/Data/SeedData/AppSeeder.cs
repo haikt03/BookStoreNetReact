@@ -3,12 +3,13 @@ using BookStoreNetReact.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Data.SeedData
 {
     public class AppSeeder
     {
-        public static async Task SeedDataAsync(AppDbContext context, UserManager<AppUser> userManager, ICloudUploadService cloudUploadService)
+        public static async Task SeedDataAsync(AppDbContext context, UserManager<AppUser> userManager, ICloudUploadService cloudUploadService, ILogger logger)
         {
             var basePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"../BookStoreNetReact.Infrastructure/Data/SeedData"));
 
@@ -29,8 +30,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Seed categories failed");
-                    throw new Exception(ex.ToString());
+                    logger.LogError(ex, "An error occurred while seeding categories");
+                    throw;
                 }
             }
 
@@ -60,11 +61,11 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 await using var stream = new FileStream(filePath, FileMode.Open);
                                 var formFile = new FormFile(stream, 0, stream.Length, "file", authorSeeder.ImagePath);
 
-                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "Authors");
-                                if (uploadResult != null) 
+                                var imageDto = await cloudUploadService.UploadImageAsync(formFile, "Authors");
+                                if (imageDto != null) 
                                 { 
-                                    author.PublicId = uploadResult.PublicId;
-                                    author.ImageUrl = uploadResult.ImageUrl;
+                                    author.PublicId = imageDto.PublicId;
+                                    author.ImageUrl = imageDto.ImageUrl;
                                 }
                             }
                         }
@@ -74,8 +75,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Seed authors failed");
-                    throw new Exception(ex.ToString());
+                    logger.LogError(ex, "An error occurred while seeding authors");
+                    throw;
                 }
             }
 
@@ -116,11 +117,11 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 await using var stream = new FileStream(filePath, FileMode.Open);
                                 var formFile = new FormFile(stream, 0, stream.Length, "file", bookSeeder.ImagePath);
 
-                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "Books");
-                                if (uploadResult != null)
+                                var imageDto = await cloudUploadService.UploadImageAsync(formFile, "Books");
+                                if (imageDto != null)
                                 {
-                                    book.PublicId = uploadResult.PublicId;
-                                    book.ImageUrl = uploadResult.ImageUrl;
+                                    book.PublicId = imageDto.PublicId;
+                                    book.ImageUrl = imageDto.ImageUrl;
                                 }
                             }
                         }
@@ -130,8 +131,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Seed books failed");
-                    throw new Exception(ex.ToString());
+                    logger.LogError(ex, "An error occurred while seeding books");
+                    throw;
                 }
             }
 
@@ -152,8 +153,7 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                             UserName = appUserSeeder.UserName,
                             Email = appUserSeeder.Email,
                             PhoneNumber = appUserSeeder.PhoneNumber,
-                            FirstName = appUserSeeder.FirstName,
-                            LastName = appUserSeeder.LastName,
+                            FullName = appUserSeeder.FullName,
                             DateOfBirth = DateOnly.Parse(appUserSeeder.DateOfBirth.ToString()),
                         };
 
@@ -165,11 +165,11 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                                 await using var stream = new FileStream(filePath, FileMode.Open);
                                 var formFile = new FormFile(stream, 0, stream.Length, "file", appUserSeeder.ImagePath);
 
-                                var uploadResult = await cloudUploadService.UploadImageAsync(formFile, "AppUsers");
-                                if (uploadResult != null)
+                                var imageDto = await cloudUploadService.UploadImageAsync(formFile, "AppUsers");
+                                if (imageDto != null)
                                 {
-                                    appUser.PublicId = uploadResult.PublicId;
-                                    appUser.ImageUrl = uploadResult.ImageUrl;
+                                    appUser.PublicId = imageDto.PublicId;
+                                    appUser.ImageUrl = imageDto.ImageUrl;
                                 }
                             }
                         }
@@ -187,8 +187,8 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Seed app users failed");
-                    throw new Exception(ex.ToString());
+                    logger.LogError(ex, "An error occurred while seeding app users");
+                    throw;
                 }
             }
         }

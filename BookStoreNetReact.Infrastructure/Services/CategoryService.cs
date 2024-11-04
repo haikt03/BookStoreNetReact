@@ -1,34 +1,178 @@
-﻿using BookStoreNetReact.Application.Dtos.Category;
+﻿using AutoMapper;
+using BookStoreNetReact.Application.Dtos.Book;
+using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Helpers;
+using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
+using BookStoreNetReact.Domain.Entities;
+using BookStoreNetReact.Infrastructure.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
     public class CategoryService : ICategoryService
     {
-        public Task<PagedList<CategoryDto>> GetAllCategoriesAsync(FilterCategoryDto filterCategoryDto)
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<CategoryService> _logger;
+        public CategoryService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<CategoryService> logger)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
-        public Task<CategoryDto> GetCategoryByIdAsync(int categoryId)
+        public async Task<PagedList<CategoryDto>?> GetAllCategoriesAsync(FilterCategoryDto filterCategoryDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var categories = _unitOfWork.CategoryRepository.GetAll(filterCategoryDto);
+                if (categories == null)
+                    throw new NullReferenceException("Categories not found");
+
+                var result = await categories.ToPagedListAsync
+                (
+                    selector: c => _mapper.Map<CategoryDto>(c),
+                    pageSize: filterCategoryDto.PageSize,
+                    pageIndex: filterCategoryDto.PageIndex,
+                    logger: _logger
+                );
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Catogories data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all categories");
+                return null;
+            }
         }
 
-        public Task<CategoryDto> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
+        public async Task<DetailCategoryDto?> GetCategoryByIdAsync(int categoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = await _unitOfWork.CategoryRepository.GetByIdAsync(categoryId);
+                if (category == null)
+                    throw new NullReferenceException("Category not found");
+                var detailCategoryDto = _mapper.Map<DetailCategoryDto>(category);
+                return detailCategoryDto;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Category data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting category by id");
+                return null;
+            }
         }
 
-        public Task<bool> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
+        public async Task<DetailCategoryDto?> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = _mapper.Map<Category>(createCategoryDto);
+                await _unitOfWork.CategoryRepository.AddAsync(category);
+                var result = await _unitOfWork.CompleteAsync();
+
+                if (!result)
+                    throw new InvalidOperationException("Failed to save changes category data");
+
+                var newCategory = await _unitOfWork.CategoryRepository.GetByIdAsync(category.Id);
+                return _mapper.Map<DetailCategoryDto>(newCategory);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Failed to save changes category data");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while creating category");
+                return null;
+            }
         }
 
-        public Task<bool> DeleteCategoryAsync(int categoryId)
+        public async Task<bool> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto, int categoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = await _unitOfWork.CategoryRepository.GetByIdAsync(categoryId);
+                if (category == null)
+                    throw new NullReferenceException("Category not found");
+
+                _mapper.Map(updateCategoryDto, category);
+                _unitOfWork.CategoryRepository.Update(category);
+                return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Category data not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while updating category");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteCategoryAsync(int categoryId)
+        {
+            try
+            {
+                var category = await _unitOfWork.CategoryRepository.GetByIdAsync(categoryId);
+                if (category == null)
+                    throw new NullReferenceException("Category not found");
+
+                _unitOfWork.CategoryRepository.Remove(category);
+                return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Category data not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while deleting category");
+                return false;
+            }
+        }
+
+        public async Task<PagedList<BookDto>?> GetAllBooksByCategoryAsync(FilterBookDto filterBookDto, int categoryId)
+        {
+            try
+            {
+                var books = _unitOfWork.CategoryRepository.GetAllBooks(filterBookDto, categoryId);
+                if (books == null)
+                    throw new NullReferenceException("Books not found");
+
+                var result = await books.ToPagedListAsync
+                (
+                    selector: b => _mapper.Map<BookDto>(b),
+                    pageSize: filterBookDto.PageSize,
+                    pageIndex: filterBookDto.PageIndex,
+                    logger: _logger
+                );
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Books data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all books by categoryId");
+                return null;
+            }
         }
     }
 }

@@ -1,44 +1,218 @@
-﻿using BookStoreNetReact.Application.Dtos.Book;
+﻿using AutoMapper;
+using BookStoreNetReact.Application.Dtos.Book;
+using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Helpers;
+using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
+using BookStoreNetReact.Domain.Entities;
+using BookStoreNetReact.Infrastructure.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
     public class BookService : IBookService
     {
-        public Task<PagedList<BookDto>> GetAllBooksAsync(FilterBookDto filterBookDto)
+        private readonly IMapper _mapper;
+        private readonly ICloudUploadService _cloudUploadService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<BookService> _logger;
+        public BookService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<BookService> logger)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _cloudUploadService = cloudUploadService;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
-        public Task<BookDto> GetBookByIdAsync(int bookId)
+        public async Task<PagedList<BookDto>?> GetAllBooksAsync(FilterBookDto filterBookDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var books = _unitOfWork.BookRepository.GetAll(filterBookDto);
+                if (books == null)
+                    throw new NullReferenceException("Books not found");
+
+                var result = await books.ToPagedListAsync
+                (
+                    selector: b => _mapper.Map<BookDto>(b),
+                    pageSize: filterBookDto.PageSize,
+                    pageIndex: filterBookDto.PageIndex,
+                    logger: _logger
+                );
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Books data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all books");
+                return null;
+            }
         }
 
-        public Task<BookDto> CreateBookAsync(CreateBookDto createBookDto)
+        public async Task<DetailBookDto?> GetBookByIdAsync(int bookId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId);
+                if (book == null)
+                    throw new NullReferenceException("Book not found");
+                var detailBookDto = _mapper.Map<DetailBookDto>(book);
+                return detailBookDto;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Book data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting book by id");
+                return null;
+            }
         }
 
-        public Task<bool> UpdateBookAsync(UpdateBookDto updateBookDto)
+        public async Task<DetailBookDto?> CreateBookAsync(CreateBookDto createBookDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var book = _mapper.Map<Book>(createBookDto);
+                if (createBookDto.File != null && createBookDto.File.Length != 0)
+                {
+                    var imageDto = await _cloudUploadService.UploadImageAsync(createBookDto.File, folder: "Books");
+                    if (imageDto != null)
+                    {
+                        book.PublicId = imageDto.PublicId;
+                        book.ImageUrl = imageDto.ImageUrl;
+                    }
+                }
+
+                await _unitOfWork.BookRepository.AddAsync(book);
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
+                    throw new InvalidOperationException("Failed to save changes book data");
+
+                var newBook = await _unitOfWork.BookRepository.GetByIdAsync(book.Id);
+                return _mapper.Map<DetailBookDto>(newBook);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Failed to save changes book data");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while creating book");
+                return null;
+            }
         }
 
-        public Task<bool> DeleteBookAsync(int bookId)
+        public async Task<bool> UpdateBookAsync(UpdateBookDto updateBookDto, int bookId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId);
+                if (book == null)
+                    throw new NullReferenceException("Book not found");
+
+                _mapper.Map(updateBookDto, book);
+                if (updateBookDto.File != null && updateBookDto.File.Length != 0)
+                {
+                    if (book.PublicId != null)
+                        await _cloudUploadService.DeleteImageAsync(book.PublicId);
+
+                    var imageDto = await _cloudUploadService.UploadImageAsync(updateBookDto.File, folder: "Books");
+                    if (imageDto != null)
+                    {
+                        book.PublicId = imageDto.PublicId;
+                        book.ImageUrl = imageDto.ImageUrl;
+                    }
+                }
+
+                _unitOfWork.BookRepository.Update(book);
+                return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Book data not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while updating book");
+                return false;
+            }
         }
 
-        public Task<List<string>> GetAllPublishersOfBooksAsync()
+        public async Task<bool> DeleteBookAsync(int bookId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId);
+                if (book == null)
+                    throw new NullReferenceException("Book not found");
+
+                if (book.PublicId != null)
+                    await _cloudUploadService.DeleteImageAsync(book.PublicId);
+
+                _unitOfWork.BookRepository.Remove(book);
+                return await _unitOfWork.CompleteAsync();
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Book data not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while deleting book");
+                return false;
+            }
         }
 
-        public Task<List<string>> GetAllLanguagesOfBooksAsync()
+        public async Task<List<string>?> GetAllPublishersOfBooksAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _unitOfWork.BookRepository.GetAllPublishersAsync();
+                if (result == null)
+                    throw new NullReferenceException("Publishers not found");
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Countries data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all publishers of authors");
+                return null;
+            }
+        }
+
+        public async Task<List<string>?> GetAllLanguagesOfBooksAsync()
+        {
+            try
+            {
+                var result = await _unitOfWork.BookRepository.GetAllLanguagesAsync();
+                if (result == null)
+                    throw new NullReferenceException("Languages not found");
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Languages data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all languages of authors");
+                return null;
+            }
         }
     }
 }

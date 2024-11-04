@@ -4,8 +4,7 @@ namespace BookStoreNetReact.Domain.Entities
 {
     public class AppUser : IdentityUser<int>
     {
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
+        public required string FullName { get; set; }
         public required DateOnly DateOfBirth { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }

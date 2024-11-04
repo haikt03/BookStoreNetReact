@@ -13,7 +13,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public IQueryable<Book> GetAllAsync(FilterBookDto filterBookDto)
+        public IQueryable<Book> GetAll(FilterBookDto filterBookDto)
         {
             var books = _context.Books
                 .Search(filterBookDto.Search)
@@ -26,6 +26,14 @@ namespace BookStoreNetReact.Infrastructure.Repositories
                 )
                 .Sort(filterBookDto.Sort);
             return books;
+        }
+
+        public async Task<Book?> GetByIdAsync(int id)
+        {
+            return await _context.Books
+                .Include(b => b.Category)
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<List<string>> GetAllPublishersAsync()
