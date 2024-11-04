@@ -25,16 +25,18 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public async Task<Author?> GetByIdAsync(int id)
         {
-            return await _context.Authors.FindAsync(id);
+            var author = await _context.Authors.FindAsync(id);
+            return author;
         }
 
         public async Task<List<string>> GetAllCountriesAsync()
         {
-            return await _context.Authors
+            var countries = await _context.Authors
                 .Select(a => a.Country)
                 .Where(c => !string.IsNullOrEmpty(c))
                 .Distinct()
                 .ToListAsync();
+            return countries;
         }
 
         public IQueryable<Book> GetAllBooks(FilterBookDto filterBookDto, int authorId)

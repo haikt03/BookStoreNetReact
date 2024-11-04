@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace BookStoreNetReact.Infrastructure.Extensions
 {
-    public static class PagingExension
+    public static class PagingExtension
     {
         public static async Task<PagedList<TDto>?> ToPagedListAsync<TEntity, TDto>
         (

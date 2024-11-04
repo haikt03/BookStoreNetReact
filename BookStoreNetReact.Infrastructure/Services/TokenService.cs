@@ -87,8 +87,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (appUser.RefreshTokens == null)
                     appUser.RefreshTokens = new List<RefreshToken>();
                 appUser.RefreshTokens.Add(refreshToken);
-                await _userManager.UpdateAsync(appUser);
-
+                var result = await _userManager.UpdateAsync(appUser);
+                if (!result.Succeeded)
+                    return "";
                 return refreshToken.Token;
             }
             catch (Exception ex)
@@ -104,7 +105,9 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 appUser.RefreshTokens?.RemoveAll(t => t.ExpiresAt < DateTime.UtcNow);
                 var token = appUser.RefreshTokens?.FirstOrDefault(t => t.Token == refreshToken && t.ExpiresAt > DateTime.UtcNow && t.RevokedAt == null);
-                await _userManager.UpdateAsync(appUser);
+                var result = await _userManager.UpdateAsync(appUser);
+                if (!result.Succeeded) 
+                    return false;
                 return token != null;
             }
             catch (Exception ex)

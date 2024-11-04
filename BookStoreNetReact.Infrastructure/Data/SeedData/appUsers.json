@@ -4,8 +4,7 @@
     "Email": "haikhuattuan@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0812498790",
-    "FirstName": "Khuat",
-    "LastName": "Hai",
+    "FullName": "Tuan Hai admin",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "admin.jpg",
     "Role": "Admin"
@@ -15,8 +14,7 @@
     "Email": "tuanhai1652003@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0354584188",
-    "FirstName": "Tuan",
-    "LastName": "Hai",
+    "FullName": "Tuan Hai user",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "user1.jpg",
     "Role": "Member"

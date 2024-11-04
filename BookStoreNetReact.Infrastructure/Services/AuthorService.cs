@@ -10,18 +10,10 @@ using BookStoreNetReact.Application.Dtos.Book;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
-    public class AuthorService : IAuthorService
+    public class AuthorService : GenericService<AuthorService>, IAuthorService
     {
-        private readonly IMapper _mapper;
-        private readonly ICloudUploadService _cloudUploadService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<AuthorService> _logger;
-        public AuthorService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<AuthorService> logger)
+        public AuthorService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<AuthorService> logger) : base(mapper, cloudUploadService, unitOfWork, logger)
         {
-            _mapper = mapper;
-            _cloudUploadService = cloudUploadService;
-            _unitOfWork = unitOfWork;
-            _logger = logger;
         }
 
         public async Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto)

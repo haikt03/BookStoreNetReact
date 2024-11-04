@@ -30,28 +30,31 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public async Task<Book?> GetByIdAsync(int id)
         {
-            return await _context.Books
+            var book = await _context.Books
                 .Include(b => b.Category)
                 .Include(b => b.Author)
                 .FirstOrDefaultAsync(a => a.Id == id);
+            return book;
         }
 
         public async Task<List<string>> GetAllPublishersAsync()
         {
-            return await _context.Books
+            var publishers = await _context.Books
                 .Select(b => b.Publisher)
                 .Where(p => !string.IsNullOrEmpty(p))
                 .Distinct()
                 .ToListAsync();
+            return publishers;
         }
 
         public async Task<List<string>> GetAllLanguagesAsync()
         {
-            return await _context.Books
+            var languages = await _context.Books
                 .Select(b => b.Language)
                 .Where(l => !string.IsNullOrEmpty(l))
                 .Distinct()
                 .ToListAsync();
+            return languages;
         }
     }
 }

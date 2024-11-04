@@ -10,16 +10,10 @@ using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : GenericService<CategoryService>, ICategoryService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<CategoryService> _logger;
-        public CategoryService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<CategoryService> logger)
+        public CategoryService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<CategoryService> logger) : base(mapper, cloudUploadService, unitOfWork, logger)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _logger = logger;
         }
 
         public async Task<PagedList<CategoryDto>?> GetAllCategoriesAsync(FilterCategoryDto filterCategoryDto)
