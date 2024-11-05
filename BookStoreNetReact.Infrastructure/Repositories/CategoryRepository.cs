@@ -14,38 +14,38 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public IQueryable<Category> GetAll(FilterCategoryDto filterCategoryDto)
+        public IQueryable<Category> GetAll(FilterCategoryDto filterDto)
         {
             var categories = _context.Categories
-                .Search(filterCategoryDto.Search)
-                .Filter(filterCategoryDto.PId)
-                .Sort(filterCategoryDto.Sort)
+                .Search(filterDto.Search)
+                .Filter(filterDto.PId)
+                .Sort(filterDto.Sort)
                 .Include(c => c.PCategory);
             return categories;
         }
 
-        public async Task<Category?> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int categoryId)
         {
             var category = await _context.Categories
                 .Include(b => b.PCategory)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == categoryId);
             return category;
         }
 
-        public IQueryable<Book> GetAllBooks(FilterBookDto filterBookDto, int categoryId)
+        public IQueryable<Book> GetAllBooks(FilterBookDto filterDto, int categoryId)
         {
             var books = _context.Categories
                 .Where(c => c.Id == categoryId && c.Books != null)
                 .SelectMany(c => c.Books!)
-                .Search(filterBookDto.Search)
+                .Search(filterDto.Search)
                 .Filter
                 (
-                    publishers: filterBookDto.Publishers,
-                    languages: filterBookDto.Languages,
-                    minPrice: filterBookDto.MinPrice,
-                    maxPrice: filterBookDto.MaxPrice
+                    publishers: filterDto.Publishers,
+                    languages: filterDto.Languages,
+                    minPrice: filterDto.MinPrice,
+                    maxPrice: filterDto.MaxPrice
                 )
-                .Sort(filterBookDto.Sort);
+                .Sort(filterDto.Sort);
             return books;
         }
     }

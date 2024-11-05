@@ -16,22 +16,22 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
         }
 
-        public async Task<PagedList<BookDto>?> GetAllBooksAsync(FilterBookDto filterBookDto)
+        public async Task<PagedList<BookDto>?> GetAllBooksAsync(FilterBookDto filterDto)
         {
             try
             {
-                var books = _unitOfWork.BookRepository.GetAll(filterBookDto);
+                var books = _unitOfWork.BookRepository.GetAll(filterDto);
                 if (books == null)
                     throw new NullReferenceException("Books not found");
 
-                var result = await books.ToPagedListAsync
+                var booksDto = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
-                    pageSize: filterBookDto.PageSize,
-                    pageIndex: filterBookDto.PageIndex,
+                    pageSize: filterDto.PageSize,
+                    pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return result;
+                return booksDto;
             }
             catch (NullReferenceException ex)
             {
@@ -52,8 +52,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId);
                 if (book == null)
                     throw new NullReferenceException("Book not found");
-                var detailBookDto = _mapper.Map<DetailBookDto>(book);
-                return detailBookDto;
+                var bookDto = _mapper.Map<DetailBookDto>(book);
+                return bookDto;
             }
             catch (NullReferenceException ex)
             {
@@ -67,14 +67,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<DetailBookDto?> CreateBookAsync(CreateBookDto createBookDto)
+        public async Task<DetailBookDto?> CreateBookAsync(CreateBookDto createDto)
         {
             try
             {
-                var book = _mapper.Map<Book>(createBookDto);
-                if (createBookDto.File != null && createBookDto.File.Length != 0)
+                var book = _mapper.Map<Book>(createDto);
+                if (createDto.File != null && createDto.File.Length != 0)
                 {
-                    var imageDto = await _cloudUploadService.UploadImageAsync(createBookDto.File, folder: "Books");
+                    var imageDto = await _cloudUploadService.UploadImageAsync(createDto.File, folder: "Books");
                     if (imageDto != null)
                     {
                         book.PublicId = imageDto.PublicId;
@@ -87,8 +87,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     throw new InvalidOperationException("Failed to save changes book data");
 
-                var newBook = await _unitOfWork.BookRepository.GetByIdAsync(book.Id);
-                return _mapper.Map<DetailBookDto>(newBook);
+                var bookDto = _mapper.Map<DetailBookDto>(await _unitOfWork.BookRepository.GetByIdAsync(book.Id));
+                return bookDto;
             }
             catch (InvalidOperationException ex)
             {
@@ -102,7 +102,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateBookAsync(UpdateBookDto updateBookDto, int bookId)
+        public async Task<bool> UpdateBookAsync(UpdateBookDto updateDto, int bookId)
         {
             try
             {
@@ -110,13 +110,13 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (book == null)
                     throw new NullReferenceException("Book not found");
 
-                _mapper.Map(updateBookDto, book);
-                if (updateBookDto.File != null && updateBookDto.File.Length != 0)
+                _mapper.Map(updateDto, book);
+                if (updateDto.File != null && updateDto.File.Length != 0)
                 {
                     if (book.PublicId != null)
                         await _cloudUploadService.DeleteImageAsync(book.PublicId);
 
-                    var imageDto = await _cloudUploadService.UploadImageAsync(updateBookDto.File, folder: "Books");
+                    var imageDto = await _cloudUploadService.UploadImageAsync(updateDto.File, folder: "Books");
                     if (imageDto != null)
                     {
                         book.PublicId = imageDto.PublicId;
@@ -125,7 +125,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 }
 
                 _unitOfWork.BookRepository.Update(book);
-                return await _unitOfWork.CompleteAsync();
+                var result = await _unitOfWork.CompleteAsync();
+                return result;
             }
             catch (NullReferenceException ex)
             {
@@ -151,7 +152,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                     await _cloudUploadService.DeleteImageAsync(book.PublicId);
 
                 _unitOfWork.BookRepository.Remove(book);
-                return await _unitOfWork.CompleteAsync();
+                var result = await _unitOfWork.CompleteAsync();
+                return result;
             }
             catch (NullReferenceException ex)
             {
@@ -169,10 +171,10 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var result = await _unitOfWork.BookRepository.GetAllPublishersAsync();
-                if (result == null)
+                var publishers = await _unitOfWork.BookRepository.GetAllPublishersAsync();
+                if (publishers == null)
                     throw new NullReferenceException("Publishers not found");
-                return result;
+                return publishers;
             }
             catch (NullReferenceException ex)
             {
@@ -190,10 +192,10 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var result = await _unitOfWork.BookRepository.GetAllLanguagesAsync();
-                if (result == null)
+                var languages = await _unitOfWork.BookRepository.GetAllLanguagesAsync();
+                if (languages == null)
                     throw new NullReferenceException("Languages not found");
-                return result;
+                return languages;
             }
             catch (NullReferenceException ex)
             {

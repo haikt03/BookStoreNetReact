@@ -1,4 +1,5 @@
-﻿using BookStoreNetReact.Application.Helpers;
+﻿using BookStoreNetReact.Application.Dtos.UserAddress;
+using BookStoreNetReact.Application.Helpers;
 using FluentValidation;
 
 namespace BookStoreNetReact.Application.Dtos.AppUser

@@ -23,10 +23,10 @@ namespace BookStoreNetReact.Application.Dtos.Book
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Weight)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(cb => cb.NumberOfPages)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(cb => cb.Form)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
@@ -35,17 +35,17 @@ namespace BookStoreNetReact.Application.Dtos.Book
                 .Length(50, 500).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Price)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(cb => cb.Discount)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .InclusiveBetween(1, 100).WithMessage(ValidationErrorMessages.ValidRange);
+                .InclusiveBetween(0, 100).WithMessage(ValidationErrorMessages.ValidRange);
             RuleFor(cb => cb.QuantityInStock)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(cb => cb.CategoryId)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(cb => cb.AuthorId)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
+                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
         }
     }
 }

@@ -52,8 +52,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var category = await _unitOfWork.CategoryRepository.GetByIdAsync(categoryId);
                 if (category == null)
                     throw new NullReferenceException("Category not found");
-                var detailCategoryDto = _mapper.Map<DetailCategoryDto>(category);
-                return detailCategoryDto;
+                var categoryDto = _mapper.Map<DetailCategoryDto>(category);
+                return categoryDto;
             }
             catch (NullReferenceException ex)
             {

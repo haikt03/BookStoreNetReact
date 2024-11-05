@@ -16,22 +16,22 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
         }
 
-        public async Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto)
+        public async Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterDto)
         {
             try
             {
-                var authors = _unitOfWork.AuthorRepository.GetAll(filterAuthorDto);
+                var authors = _unitOfWork.AuthorRepository.GetAll(filterDto);
                 if (authors == null)
                     throw new NullReferenceException("Authors not found");
 
-                var result = await authors.ToPagedListAsync
+                var authorsDto = await authors.ToPagedListAsync
                 (
                     selector: a => _mapper.Map<AuthorDto>(a),
-                    pageSize: filterAuthorDto.PageSize,
-                    pageIndex: filterAuthorDto.PageIndex,
+                    pageSize: filterDto.PageSize,
+                    pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return result;
+                return authorsDto;
             }
             catch (NullReferenceException ex)
             {
@@ -52,8 +52,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var author = await _unitOfWork.AuthorRepository.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
-                var detailAthorDto = _mapper.Map<DetailAuthorDto>(author);
-                return detailAthorDto;
+                var authorDto = _mapper.Map<DetailAuthorDto>(author);
+                return authorDto;
             }
             catch (NullReferenceException ex)
             {
@@ -67,14 +67,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
+        public async Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createDto)
         {
             try
             {
-                var author = _mapper.Map<Author>(createAuthorDto);
-                if (createAuthorDto.File != null && createAuthorDto.File.Length != 0)
+                var author = _mapper.Map<Author>(createDto);
+                if (createDto.File != null && createDto.File.Length != 0)
                 {
-                    var imageDto = await _cloudUploadService.UploadImageAsync(createAuthorDto.File, folder: "Authors");
+                    var imageDto = await _cloudUploadService.UploadImageAsync(createDto.File, folder: "Authors");
                     if (imageDto != null)
                     {
                         author.PublicId = imageDto.PublicId;
@@ -87,8 +87,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     throw new InvalidOperationException("Failed to save changes author data");
 
-                var newAuthor = await _unitOfWork.AuthorRepository.GetByIdAsync(author.Id);
-                return _mapper.Map<DetailAuthorDto>(newAuthor);
+                var authorDto = _mapper.Map<DetailAuthorDto>(await _unitOfWork.AuthorRepository.GetByIdAsync(author.Id));
+                return authorDto;
             }
             catch (InvalidOperationException ex)
             {
@@ -102,7 +102,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateAuthorDto, int authorId)
+        public async Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateDto, int authorId)
         {
             try
             {
@@ -110,13 +110,13 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (author == null)
                     throw new NullReferenceException("Author not found");
 
-                _mapper.Map(updateAuthorDto, author);
-                if (updateAuthorDto.File != null && updateAuthorDto.File.Length != 0)
+                _mapper.Map(updateDto, author);
+                if (updateDto.File != null && updateDto.File.Length != 0)
                 {
                     if (author.PublicId != null)
                         await _cloudUploadService.DeleteImageAsync(author.PublicId);
 
-                    var imageDto = await _cloudUploadService.UploadImageAsync(updateAuthorDto.File, folder: "Authors");
+                    var imageDto = await _cloudUploadService.UploadImageAsync(updateDto.File, folder: "Authors");
                     if (imageDto != null)
                     {
                         author.PublicId = imageDto.PublicId;
@@ -125,7 +125,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 }
 
                 _unitOfWork.AuthorRepository.Update(author);
-                return await _unitOfWork.CompleteAsync();
+                var result = await _unitOfWork.CompleteAsync();
+                return result;
             }
             catch (NullReferenceException ex)
             {
@@ -151,7 +152,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                     await _cloudUploadService.DeleteImageAsync(author.PublicId);
 
                 _unitOfWork.AuthorRepository.Remove(author);
-                return await _unitOfWork.CompleteAsync();
+                var result = await _unitOfWork.CompleteAsync();
+                return result;
             }
             catch (NullReferenceException ex)
             {
@@ -169,10 +171,10 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var result = await _unitOfWork.AuthorRepository.GetAllCountriesAsync();
-                if (result == null)
+                var countries = await _unitOfWork.AuthorRepository.GetAllCountriesAsync();
+                if (countries == null)
                     throw new NullReferenceException("Countries not found");
-                return result;
+                return countries;
             }
             catch (NullReferenceException ex)
             {
@@ -186,22 +188,22 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterBookDto, int authorId)
+        public async Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterDto, int authorId)
         {
             try
             {
-                var books = _unitOfWork.AuthorRepository.GetAllBooks(filterBookDto, authorId);
+                var books = _unitOfWork.AuthorRepository.GetAllBooks(filterDto, authorId);
                 if (books == null)
                     throw new NullReferenceException("Books not found");
 
-                var result = await books.ToPagedListAsync
+                var booksDto = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
-                    pageSize: filterBookDto.PageSize,
-                    pageIndex: filterBookDto.PageIndex,
+                    pageSize: filterDto.PageSize,
+                    pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return result;
+                return booksDto;
             }
             catch (NullReferenceException ex)
             {

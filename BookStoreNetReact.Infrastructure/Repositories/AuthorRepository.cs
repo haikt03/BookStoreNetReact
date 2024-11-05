@@ -14,18 +14,18 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public IQueryable<Author> GetAll(FilterAuthorDto filterAuthorDto)
+        public IQueryable<Author> GetAll(FilterAuthorDto filterDto)
         {
             var authors = _context.Authors
-                .Search(filterAuthorDto.Search)
-                .Filter(filterAuthorDto.Countries)
-                .Sort(filterAuthorDto.Sort);
+                .Search(filterDto.Search)
+                .Filter(filterDto.Countries)
+                .Sort(filterDto.Sort);
             return authors;
         }
 
-        public async Task<Author?> GetByIdAsync(int id)
+        public async Task<Author?> GetByIdAsync(int authorId)
         {
-            var author = await _context.Authors.FindAsync(id);
+            var author = await _context.Authors.FindAsync(authorId);
             return author;
         }
 
@@ -39,20 +39,20 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return countries;
         }
 
-        public IQueryable<Book> GetAllBooks(FilterBookDto filterBookDto, int authorId)
+        public IQueryable<Book> GetAllBooks(FilterBookDto filterDto, int authorId)
         {
             var books = _context.Authors
                 .Where(a => a.Id == authorId && a.Books != null)
                 .SelectMany(a => a.Books!)
-                .Search(filterBookDto.Search)
+                .Search(filterDto.Search)
                 .Filter
                 (
-                    publishers: filterBookDto.Publishers,
-                    languages: filterBookDto.Languages,
-                    minPrice: filterBookDto.MinPrice,
-                    maxPrice: filterBookDto.MaxPrice
+                    publishers: filterDto.Publishers,
+                    languages: filterDto.Languages,
+                    minPrice: filterDto.MinPrice,
+                    maxPrice: filterDto.MaxPrice
                 )
-                .Sort(filterBookDto.Sort);
+                .Sort(filterDto.Sort);
             return books;
         }
     }

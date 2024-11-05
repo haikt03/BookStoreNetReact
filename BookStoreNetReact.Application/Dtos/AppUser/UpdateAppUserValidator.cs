@@ -10,7 +10,7 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
             RuleFor(ua => ua.FullName)
                 .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.DateOfBirth)
-                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
+                .Must(date => date == null || date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.ValidDate);
             RuleFor(ua => ua.UserName)
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.Password)

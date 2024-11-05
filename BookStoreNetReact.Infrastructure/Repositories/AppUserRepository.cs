@@ -3,6 +3,7 @@ using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreNetReact.Infrastructure.Repositories
 {
@@ -14,47 +15,50 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             _userManager = userManager;
         }
 
-        public IQueryable<AppUser>? GetAll(FilterAppUserDto filterAppUserDto)
+        public IQueryable<AppUser>? GetAll(FilterAppUserDto filterDto)
         {
-            var appUsers = _userManager.Users
-                .Search(filterAppUserDto.Search)
-                .Sort(filterAppUserDto.Sort);
-            return appUsers;
+            var users = _userManager.Users
+                .Search(filterDto.Search)
+                .Sort(filterDto.Sort);
+            return users;
         }
 
-        public async Task<AppUser?> GetByIdAsync(int id)
+        public async Task<AppUser?> GetByIdAsync(int userId)
         {
-            var appUser = await _userManager.FindByIdAsync(id.ToString());
-            return appUser;
+            var user = await _userManager.Users
+                .Include(u => u.Address)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            return user;
         }
 
         public async Task<AppUser?> GetByUserNameAsync(string username)
         {
-            var appUser = await _userManager.FindByNameAsync(username);
-            return appUser;
+            var user = await _userManager.FindByNameAsync(username);
+            return user;
         }
 
-        public async Task<bool> AddAsync(AppUser appUser)
+        public async Task<IdentityResult?> AddAsync(AppUser user, string password)
         {
-            var result = await _userManager.CreateAsync(appUser);
-            return result.Succeeded;
+            var result = await _userManager.CreateAsync(user, password);
+            await _userManager.AddToRoleAsync(user, "Member");
+            return result;
         }
 
-        public async Task<bool> UpdateAsync(AppUser appUser)
+        public async Task<IdentityResult?> UpdateAsync(AppUser user)
         {
-            var result = await _userManager.UpdateAsync(appUser);
-            return result.Succeeded;
+            var result = await _userManager.UpdateAsync(user);
+            return result;
         }
 
-        public async Task<bool> DeleteAsync(AppUser appUser)
+        public async Task<IdentityResult?> RemoveAsync(AppUser user)
         {
-            var result = await _userManager.DeleteAsync(appUser);
-            return result.Succeeded;
+            var result = await _userManager.DeleteAsync(user);
+            return result;
         }
 
-        public async Task<bool> CheckPasswordAsync(AppUser appUser, string password)
+        public async Task<bool> CheckPasswordAsync(AppUser user, string password)
         {
-            var result = await _userManager.CheckPasswordAsync(appUser, password);
+            var result = await _userManager.CheckPasswordAsync(user, password);
             return result;
         }
     }

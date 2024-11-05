@@ -2,6 +2,7 @@
 using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreNetReact.Api.Controllers
@@ -16,9 +17,9 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<BookDto>>> GetAllBooks([FromQuery] FilterBookDto filterBookDto)
+        public async Task<ActionResult<PagedList<BookDto>>> GetAllBooks([FromQuery] FilterBookDto filterDto)
         {
-            var booksDto = await _bookService.GetAllBooksAsync(filterBookDto);
+            var booksDto = await _bookService.GetAllBooksAsync(filterDto);
             if (booksDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
             Response.AddPaginationHeader(booksDto.Pagination);
@@ -28,30 +29,33 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet("{id}", Name = nameof(GetBookById))]
         public async Task<ActionResult<DetailBookDto>> GetBookById(int id)
         {
-            var detailBookDto = await _bookService.GetBookByIdAsync(id);
-            if (detailBookDto == null)
+            var bookDto = await _bookService.GetBookByIdAsync(id);
+            if (bookDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
-            return Ok(detailBookDto);
+            return Ok(bookDto);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DetailBookDto>> CreateBook([FromForm] CreateBookDto createBookDto)
+        public async Task<ActionResult<DetailBookDto>> CreateBook([FromForm] CreateBookDto createDto)
         {
-            var book = await _bookService.CreateBookAsync(createBookDto);
-            if (book == null)
+            var bookDto = await _bookService.CreateBookAsync(createDto);
+            if (bookDto == null)
                 return BadRequest(new ProblemDetails { Title = "Thêm mới sách không thành công" });
-            return CreatedAtRoute(nameof(GetBookById), new { id = book.Id }, book);
+            return CreatedAtRoute(nameof(GetBookById), new { id = bookDto.Id }, bookDto);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateBook([FromForm] UpdateBookDto updateBookDto, int id)
+        public async Task<ActionResult> UpdateBook([FromForm] UpdateBookDto updateDto, int id)
         {
-            var result = await _bookService.UpdateBookAsync(updateBookDto, id);
+            var result = await _bookService.UpdateBookAsync(updateDto, id);
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật sách không thành công" });
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBook(int id)
         {

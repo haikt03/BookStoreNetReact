@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using BookStoreNetReact.Application.Dtos.AppUser;
+using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Domain.Entities;
+using BookStoreNetReact.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -15,25 +18,18 @@ namespace BookStoreNetReact.Infrastructure.Services
             _tokenService = tokenService;
         }
 
-        public async Task<bool> RegisterAsync(RegisterDto registerDto)
+        public async Task<IdentityResult?> RegisterAsync(RegisterDto registerDto)
         {
             try
             {
                 var user = _mapper.Map<AppUser>(registerDto);
-                var result =await _unitOfWork.AppUserRepository.AddAsync(user);
-                if (!result)
-                    throw new InvalidOperationException("Failed to save changes app user data");
-                return true;
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Failed to save changes app user data");
-                return false;
+                var result = await _unitOfWork.AppUserRepository.AddAsync(user, registerDto.Password);
+                return result;
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while creating app user");
-                return false;
+                return null;
             }
         }
 
@@ -41,23 +37,137 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var appUser = await _unitOfWork.AppUserRepository.GetByUserNameAsync(loginDto.UserName);
-                if (appUser == null || !await _unitOfWork.AppUserRepository.CheckPasswordAsync(appUser, loginDto.Password))
+                var user = await _unitOfWork.AppUserRepository.GetByUserNameAsync(loginDto.UserName);
+                if (user == null || !await _unitOfWork.AppUserRepository.CheckPasswordAsync(user, loginDto.Password))
                     return null;
 
-                var result = _mapper.Map<AppUserWithTokenDto>(appUser);
-                var accessToken = await _tokenService.GenerateAccessToken(appUser);
-                var refreshToken = await _tokenService.GenerateRefreshToken(appUser);
+                var userWithToken = _mapper.Map<AppUserWithTokenDto>(user);
+                var accessToken = await _tokenService.GenerateAccessToken(user);
+                var refreshToken = await _tokenService.GenerateRefreshToken(user);
                 if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
                     return null;
 
-                result.AccessToken = accessToken;
-                result.RefreshToken = refreshToken;
-                return result;
+                userWithToken.AccessToken = accessToken;
+                userWithToken.RefreshToken = refreshToken;
+                return userWithToken;
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while singing in");
+                return null;
+            }
+        }
+
+        public async Task<PagedList<AppUserDto>?> GetAllUsersAsync(FilterAppUserDto filterDto)
+        {
+            try
+            {
+                var users = _unitOfWork.AppUserRepository.GetAll(filterDto);
+                if (users == null)
+                    throw new NullReferenceException("Users not found");
+
+                var result = await users.ToPagedListAsync
+                    (
+                        selector: au => _mapper.Map<AppUserDto>(au),
+                        pageSize: filterDto.PageSize,
+                        pageIndex: filterDto.PageIndex,
+                        logger: _logger
+                    );
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Users data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting app users");
+                return null;
+            }
+        }
+
+        public async Task<DetailAppUserDto?> GetUserByIdAsync(int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                var userDto = _mapper.Map<DetailAppUserDto>(user);
+                return userDto;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting user by id");
+                return null;
+            }
+        }
+
+        public async Task<IdentityResult?> UpdateUserAsync(UpdateAppUserDto updateDto, int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+
+                _mapper.Map(updateDto, user);
+                if (updateDto.File != null && updateDto.File.Length != 0)
+                {
+                    if (user.PublicId != null)
+                        await _cloudUploadService.DeleteImageAsync(user.PublicId);
+
+                    var imageDto = await _cloudUploadService.UploadImageAsync(updateDto.File, folder: "Users");
+                    if (imageDto != null)
+                    {
+                        user.PublicId = imageDto.PublicId;
+                        user.ImageUrl = imageDto.ImageUrl;
+                    }
+                }
+
+                var result = await _unitOfWork.AppUserRepository.UpdateAsync(user);
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while updating user");
+                return null;
+            }
+        }
+
+        public async Task<IdentityResult?> DeleteUserAsync(int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+
+                if (user.PublicId != null)
+                    await _cloudUploadService.DeleteImageAsync(user.PublicId);
+
+                var result = await _unitOfWork.AppUserRepository.RemoveAsync(user);
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User data not found");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while deleting user");
                 return null;
             }
         }

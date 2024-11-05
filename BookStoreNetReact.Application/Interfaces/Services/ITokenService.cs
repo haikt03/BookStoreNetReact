@@ -4,8 +4,8 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface ITokenService
     {
-        Task<string> GenerateAccessToken(AppUser appUser);
-        Task<string> GenerateRefreshToken(AppUser appUser);
-        Task<bool> ValidateRefreshToken(AppUser appUser, string refreshToken);
+        Task<string> GenerateAccessToken(AppUser user);
+        Task<string> GenerateRefreshToken(AppUser user);
+        Task<bool> ValidateRefreshToken(AppUser user, string refreshToken);
     }
 }

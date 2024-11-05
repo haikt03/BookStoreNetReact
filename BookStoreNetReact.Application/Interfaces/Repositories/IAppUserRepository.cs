@@ -1,16 +1,18 @@
 ﻿using BookStoreNetReact.Application.Dtos.AppUser;
+using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
     public interface IAppUserRepository
     {
-        IQueryable<AppUser>? GetAll(FilterAppUserDto filterAppUserDto);
-        Task<AppUser?> GetByIdAsync(int id);
+        IQueryable<AppUser>? GetAll(FilterAppUserDto filterDto);
+        Task<AppUser?> GetByIdAsync(int userId);
         Task<AppUser?> GetByUserNameAsync(string username);
-        Task<bool> AddAsync(AppUser appUser);
-        Task<bool> UpdateAsync(AppUser appUser);
-        Task<bool> DeleteAsync(AppUser appUser);
-        Task<bool> CheckPasswordAsync(AppUser appUser, string password);
+        Task<IdentityResult?> AddAsync(AppUser user, string password);
+        Task<IdentityResult?> UpdateAsync(AppUser user);
+        Task<IdentityResult?> RemoveAsync(AppUser user);
+        Task<bool> CheckPasswordAsync(AppUser user, string password);
     }
 }

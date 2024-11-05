@@ -9,7 +9,7 @@ namespace BookStoreNetReact.Application.Options
             RuleFor(c => c.ConnectionString).NotEmpty();
             RuleFor(c => c.CommandTimeout)
                 .NotEmpty()
-                .GreaterThan(1);
+                .GreaterThan(0);
         }
     }
 }

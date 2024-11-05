@@ -1,4 +1,5 @@
 ﻿using BookStoreNetReact.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookStoreNetReact.Infrastructure.Extensions
 {

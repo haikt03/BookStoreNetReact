@@ -25,9 +25,6 @@ namespace BookStoreNetReact.Application.Dtos.UserAddress
             RuleFor(cu => cu.HouseNumber)
                 .NotEmpty().WithMessage(ValidationErrorMessages.Required)
                 .Length(1, 5).WithMessage(ValidationErrorMessages.ValidLength);
-            RuleFor(cu => cu.UserId)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(1).WithMessage(ValidationErrorMessages.GreaterThan);
         }
     }
 }

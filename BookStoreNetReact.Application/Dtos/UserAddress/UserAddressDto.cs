@@ -1,6 +1,4 @@
-﻿using BookStoreNetReact.Application.Dtos.AppUser;
-
-namespace BookStoreNetReact.Application.Dtos.UserAddress
+﻿namespace BookStoreNetReact.Application.Dtos.UserAddress
 {
     public class UserAddressDto
     {
@@ -11,6 +9,5 @@ namespace BookStoreNetReact.Application.Dtos.UserAddress
         public required string Street { get; set; }
         public required string Alley { get; set; }
         public required string HouseNumber { get; set; }
-        public AppUserDto? User { get; set; }
     }
 }

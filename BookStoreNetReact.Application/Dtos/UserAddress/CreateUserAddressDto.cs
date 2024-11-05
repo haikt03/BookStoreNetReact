@@ -8,6 +8,5 @@
         public required string Street { get; set; }
         public required string Alley { get; set; }
         public required string HouseNumber { get; set; }
-        public required int UserId { get; set; }
     }
 }

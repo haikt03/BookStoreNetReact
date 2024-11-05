@@ -6,12 +6,12 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface IAuthorService
     {
-        Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterAuthorDto);
+        Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterDto);
         Task<DetailAuthorDto?> GetAuthorByIdAsync(int authorId);
-        Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createAuthorDto);
-        Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateAuthorDto, int id);
+        Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createDto);
+        Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateDto, int authorId);
         Task<bool> DeleteAuthorAsync(int authorId);
         Task<List<string>?> GetAllCountriesOfAuthorsAsync();
-        Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterBookDto, int authorId);
+        Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterDto, int authorId);
     }
 }

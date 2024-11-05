@@ -13,6 +13,7 @@ using FluentValidation;
 using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Interfaces.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -23,7 +24,27 @@ namespace BookStoreNetReact.Api.Extensions
             // Initial services
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen
+            (c =>
+                {
+                    var jwtSecurityScheme = new OpenApiSecurityScheme
+                    {
+                        BearerFormat = "JWT",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = JwtBearerDefaults.AuthenticationScheme,
+                        Description = "Put Bearer + your token in the box below",
+                        Reference = new OpenApiReference
+                        {
+                            Id = JwtBearerDefaults.AuthenticationScheme,
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    };
+                    c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement{{ jwtSecurityScheme, Array.Empty<string>() }});
+                }
+            );
 
             // DbContext
             var databaseOptions = configuration.GetSection(DatabaseOptions.SqlServerOptions).Get<DatabaseOptions>();
@@ -63,7 +84,7 @@ namespace BookStoreNetReact.Api.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenKey))
                     };
                 });
-            services.AddAuthentication();
+            services.AddAuthorization();
 
             // Options
             services

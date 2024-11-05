@@ -3,6 +3,7 @@ using BookStoreNetReact.Application.Dtos.AppUser;
 using BookStoreNetReact.Application.Dtos.Author;
 using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Dtos.Category;
+using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Domain.Entities;
 
 namespace BookStoreNetReact.Application.Helpers
@@ -23,8 +24,14 @@ namespace BookStoreNetReact.Application.Helpers
             CreateMap<AppUser, AppUserWithTokenDto>()
                 .ForMember(dest => dest.AccessToken, opt => opt.Ignore())
                 .ForMember(dest => dest.RefreshToken, opt => opt.Ignore());
-            CreateMap<AppUser, DetailAppUserDto>();
+            CreateMap<AppUser, DetailAppUserDto>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
 
+            // Address
+            CreateMap<UserAddress, UserAddressDto>();
+            CreateMap<CreateUserAddressDto, UserAddress>();
+            CreateMap<UpdateUserAddressDto, UserAddress>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             // Author
             CreateMap<CreateAuthorDto, Author>()

@@ -13,27 +13,27 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
         }
 
-        public IQueryable<Book> GetAll(FilterBookDto filterBookDto)
+        public IQueryable<Book> GetAll(FilterBookDto filterDto)
         {
             var books = _context.Books
-                .Search(filterBookDto.Search)
+                .Search(filterDto.Search)
                 .Filter
                 (
-                    publishers: filterBookDto.Publishers,
-                    languages: filterBookDto.Languages,
-                    minPrice: filterBookDto.MinPrice,
-                    maxPrice: filterBookDto.MaxPrice
+                    publishers: filterDto.Publishers,
+                    languages: filterDto.Languages,
+                    minPrice: filterDto.MinPrice,
+                    maxPrice: filterDto.MaxPrice
                 )
-                .Sort(filterBookDto.Sort);
+                .Sort(filterDto.Sort);
             return books;
         }
 
-        public async Task<Book?> GetByIdAsync(int id)
+        public async Task<Book?> GetByIdAsync(int bookId)
         {
             var book = await _context.Books
                 .Include(b => b.Category)
                 .Include(b => b.Author)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == bookId);
             return book;
         }
 
