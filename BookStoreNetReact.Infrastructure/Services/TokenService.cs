@@ -1,7 +1,7 @@
-﻿using BookStoreNetReact.Application.Interfaces.Services;
+﻿using BookStoreNetReact.Application.Interfaces.Repositories;
+using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Options;
 using BookStoreNetReact.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,12 +14,12 @@ namespace BookStoreNetReact.Infrastructure.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IOptions<JwtOptions> _jwtOptions;
         private readonly ILogger<TokenService> _logger;
-        public TokenService(UserManager<AppUser> userManager, IOptions<JwtOptions> jwtOptions, ILogger<TokenService> logger)
+        public TokenService(IUnitOfWork unitOfWork, IOptions<JwtOptions> jwtOptions, ILogger<TokenService> logger)
         {
-            _userManager = userManager;
+            _unitOfWork = unitOfWork;
             _jwtOptions = jwtOptions;
             _logger = logger;
         }
@@ -42,7 +42,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                     new Claim(ClaimTypes.Email, appUser.Email)
                 };
 
-                var roles = await _userManager.GetRolesAsync(appUser);
+                var roles = await _unitOfWork.AppUserRepository.GetRolesAsync(appUser);
+                if (roles == null)
+                    throw new NullReferenceException("Roles not found");
                 claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.TokenKey));
@@ -60,7 +62,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "UserName or Email data not found");
+                _logger.LogWarning(ex, "Data not found");
                 return "";
             }
             catch (Exception ex)
@@ -75,7 +77,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                appUser.RefreshTokens?.RemoveAll(rt => rt.ExpiresAt < DateTime.UtcNow);
+                _unitOfWork.RefreshTokenRepository.RemoveExpiredRefreshToken();
                 var refreshToken = new RefreshToken
                 {
                     Token = GenerateTokenString(),
@@ -84,11 +86,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                     UserId = appUser.Id
                 };
 
-                if (appUser.RefreshTokens == null)
-                    appUser.RefreshTokens = new List<RefreshToken>();
-                appUser.RefreshTokens.Add(refreshToken);
-                var result = await _userManager.UpdateAsync(appUser);
-                if (!result.Succeeded)
+                await _unitOfWork.RefreshTokenRepository.SaveRefreshToken(refreshToken);
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
                     return "";
                 return refreshToken.Token;
             }
@@ -99,21 +99,46 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> ValidateRefreshToken(AppUser appUser, string refreshToken)
+        public async Task<bool> RemoveRefreshTokenAsync(string refreshToken)
         {
             try
             {
-                appUser.RefreshTokens?.RemoveAll(t => t.ExpiresAt < DateTime.UtcNow);
-                var token = appUser.RefreshTokens?.FirstOrDefault(t => t.Token == refreshToken && t.ExpiresAt > DateTime.UtcNow && t.RevokedAt == null);
-                var result = await _userManager.UpdateAsync(appUser);
-                if (!result.Succeeded) 
+                var token = await _unitOfWork.RefreshTokenRepository.GetToken(refreshToken);
+                if (token == null)
+                    throw new NullReferenceException("Token not found");
+
+                _unitOfWork.RefreshTokenRepository.RemoveRefreshToken(token);
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
                     return false;
-                return token != null;
+                return true;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Token not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while removing refresh token");
+                return false;
+            }
+        }
+
+        public async Task<AppUser?> ValidateRefreshToken(string refreshToken)
+        {
+            try
+            {
+                _unitOfWork.RefreshTokenRepository.RemoveExpiredRefreshToken();
+                var token = await _unitOfWork.RefreshTokenRepository.GetValidToken(refreshToken);
+                if (token == null)
+                    return null;
+                return token.User;
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while validating refresh token");
-                return false;
+                return null;
             }
         }
 
@@ -121,11 +146,10 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var randomNumber = new byte[32];
+                var randomNumber = new byte[64];
                 using var rng = RandomNumberGenerator.Create();
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
-
             }
             catch (Exception ex)
             {

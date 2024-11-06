@@ -54,11 +54,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var userWithToken = _mapper.Map<AppUserWithTokenDto>(user);
                 var accessToken = await _tokenService.GenerateAccessToken(user);
                 var refreshToken = await _tokenService.GenerateRefreshToken(user);
-                if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
-                    return null;
 
-                userWithToken.AccessToken = accessToken;
-                userWithToken.RefreshToken = refreshToken;
+                userWithToken.Token.AccessToken = accessToken;
+                userWithToken.Token.RefreshToken = refreshToken;
                 return userWithToken;
             }
             catch (Exception ex)
@@ -101,7 +99,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
                 if (user == null)
                     throw new NullReferenceException("User not found");
                 var userDto = _mapper.Map<DetailAppUserDto>(user);
@@ -176,7 +174,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
                 if (user == null || user.Address == null)
                     throw new NullReferenceException("Address not found");
 
@@ -226,9 +224,16 @@ namespace BookStoreNetReact.Infrastructure.Services
                     throw new NullReferenceException("Email not found");
 
                 var token = await _unitOfWork.AppUserRepository.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = $"http://localhost:5000/api/account/me/confirm-email?userId={user.Id}&token={token}";
-                await _emailService.SendEmailAsync(user.Email, "Xác nhận email", $"Hãy bấm vào <a href='{confirmationLink}'>đẩy</a> để xác nhận email của bạn");
-                return true;
+                var encodedToken = Uri.EscapeDataString(token);
+
+                var confirmationLink = $"http://localhost:5000/api/account/confirm-email?userId={user.Id}&token={encodedToken}";
+                var result = await _emailService.SendEmailAsync
+                (
+                    toEmail: user.Email,
+                    subject: "Xác nhận email",
+                    body: $"Hãy bấm vào <a href='{confirmationLink}'>đây</a> để xác nhận email của bạn"
+                );
+                return result;
             }
             catch (NullReferenceException ex)
             {
@@ -244,12 +249,57 @@ namespace BookStoreNetReact.Infrastructure.Services
 
         public async Task<IdentityResult?> ConfirmEmailAsync(int userId, string token)
         {
-            var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
-            if (user == null)
-                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    return IdentityResult.Failed(new IdentityError { Description = "User not found." });
 
-            var result = await _unitOfWork.AppUserRepository.ConfirmEmailAsync(user, token);
-            return result;
+                var decodedToken = Uri.UnescapeDataString(token);
+                var result = await _unitOfWork.AppUserRepository.ConfirmEmailAsync(user, decodedToken);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while confirming email");
+                return null;
+            }
+        }
+
+        public async Task LogoutAsync(RefreshTokenDto logoutDto)
+        {
+            try
+            {
+                await _tokenService.RemoveRefreshTokenAsync(logoutDto.RefreshToken);
+            } catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while logout");
+            }
+        }
+
+        public async Task<TokenDto?> RefreshAsync(RefreshTokenDto refreshDto)
+        {
+            try
+            {
+                var user = await _tokenService.ValidateRefreshToken(refreshDto.RefreshToken);
+                if (user == null)
+                    return null;
+
+                var accessToken = await _tokenService.GenerateAccessToken(user);
+                var refreshToken = await _tokenService.GenerateRefreshToken(user);
+
+                var tokenDto = new TokenDto 
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
+                };
+                return tokenDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while refreshing");
+                return null;
+            }
         }
     }
 }

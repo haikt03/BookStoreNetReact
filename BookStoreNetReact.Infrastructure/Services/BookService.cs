@@ -49,7 +49,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId);
+                var book = await _unitOfWork.BookRepository.GetDetailByIdAsync(bookId);
                 if (book == null)
                     throw new NullReferenceException("Book not found");
                 var bookDto = _mapper.Map<DetailBookDto>(book);
@@ -87,7 +87,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     throw new InvalidOperationException("Failed to save changes book data");
 
-                var bookDto = _mapper.Map<DetailBookDto>(await _unitOfWork.BookRepository.GetByIdAsync(book.Id));
+                var bookDto = _mapper.Map<DetailBookDto>(await _unitOfWork.BookRepository.GetDetailByIdAsync(book.Id));
                 return bookDto;
             }
             catch (InvalidOperationException ex)

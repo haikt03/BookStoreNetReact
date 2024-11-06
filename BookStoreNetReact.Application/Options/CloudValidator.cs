@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using BookStoreNetReact.Application.Helpers;
+using FluentValidation;
 
 namespace BookStoreNetReact.Application.Options
 {
@@ -6,9 +7,9 @@ namespace BookStoreNetReact.Application.Options
     {
         public CloudValidator()
         {
-            RuleFor(c => c.CloudName).NotEmpty();
-            RuleFor(c => c.ApiKey).NotEmpty();
-            RuleFor(c => c.ApiSecret).NotEmpty();
+            RuleFor(c => c.CloudName).NotEmpty().WithMessage(ValidationErrorMessages.Required);
+            RuleFor(c => c.ApiKey).NotEmpty().WithMessage(ValidationErrorMessages.Required);
+            RuleFor(c => c.ApiSecret).NotEmpty().WithMessage(ValidationErrorMessages.Required);
         }
     }
 }

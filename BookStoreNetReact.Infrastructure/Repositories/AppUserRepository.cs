@@ -28,6 +28,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public async Task<AppUser?> GetByIdAsync(int userId)
         {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            return user;
+        }
+
+        public async Task<AppUser?> GetDetailByIdAsync(int userId)
+        {
             var user = await _userManager.Users
                 .Include(u => u.Address)
                 .FirstOrDefaultAsync(u => u.Id == userId);
@@ -38,6 +44,11 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
             var user = await _userManager.FindByNameAsync(username);
             return user;
+        }
+        public async Task<IList<string>?> GetRolesAsync(AppUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles;
         }
 
         public async Task<IdentityResult?> AddAsync(AppUser user, string password)

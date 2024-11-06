@@ -14,6 +14,7 @@ using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -70,7 +71,8 @@ namespace BookStoreNetReact.Api.Extensions
                     opt.Password.RequireNonAlphanumeric = false;
                 })
                 .AddRoles<AppRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
             // Authentication, authorization
             var jwtOptions = configuration.GetSection(JwtOptions.JwtSettings).Get<JwtOptions>();
@@ -101,6 +103,9 @@ namespace BookStoreNetReact.Api.Extensions
             services
                 .AddOptions<EmailOptions>()
                 .BindConfiguration(EmailOptions.EmailSettings);
+            services
+                .AddOptions<SmsOptions>()
+                .BindConfiguration(SmsOptions.TwilioSettings);
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

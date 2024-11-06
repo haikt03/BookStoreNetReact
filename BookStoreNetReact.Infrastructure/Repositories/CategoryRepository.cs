@@ -26,6 +26,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public async Task<Category?> GetByIdAsync(int categoryId)
         {
+            var category = await _context.Categories.FindAsync(categoryId);
+            return category;
+        }
+
+        public async Task<Category?> GetDetailByIdAsync(int categoryId)
+        {
             var category = await _context.Categories
                 .Include(b => b.PCategory)
                 .FirstOrDefaultAsync(a => a.Id == categoryId);

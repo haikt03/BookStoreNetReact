@@ -6,6 +6,7 @@
         IAuthorRepository AuthorRepository { get; }
         IBookRepository BookRepository { get; }
         ICategoryRepository CategoryRepository { get; }
+        IRefreshTokenRepository RefreshTokenRepository { get; }
         Task<bool> CompleteAsync();
     }
 }

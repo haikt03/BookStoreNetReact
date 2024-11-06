@@ -30,6 +30,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public async Task<Book?> GetByIdAsync(int bookId)
         {
+            var book = await _context.Books.FindAsync(bookId);
+            return book;
+        }
+
+        public async Task<Book?> GetDetailByIdAsync(int bookId)
+        {
             var book = await _context.Books
                 .Include(b => b.Category)
                 .Include(b => b.Author)

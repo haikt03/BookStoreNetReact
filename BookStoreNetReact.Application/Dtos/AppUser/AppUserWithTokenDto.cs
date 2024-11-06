@@ -2,7 +2,6 @@
 {
     public class AppUserWithTokenDto : AppUserDto
     {
-        public required string AccessToken { get; set; }
-        public required string RefreshToken { get; set; }
+        public required TokenDto Token { get; set; }
     }
 }

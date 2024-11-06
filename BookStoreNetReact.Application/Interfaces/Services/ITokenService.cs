@@ -6,6 +6,7 @@ namespace BookStoreNetReact.Application.Interfaces.Services
     {
         Task<string> GenerateAccessToken(AppUser user);
         Task<string> GenerateRefreshToken(AppUser user);
-        Task<bool> ValidateRefreshToken(AppUser user, string refreshToken);
+        Task<bool> RemoveRefreshTokenAsync(string refreshToken);
+        Task<AppUser?> ValidateRefreshToken(string refreshToken);
     }
 }

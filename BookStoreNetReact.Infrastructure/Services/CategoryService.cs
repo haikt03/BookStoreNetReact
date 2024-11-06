@@ -49,7 +49,7 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var category = await _unitOfWork.CategoryRepository.GetByIdAsync(categoryId);
+                var category = await _unitOfWork.CategoryRepository.GetDetailByIdAsync(categoryId);
                 if (category == null)
                     throw new NullReferenceException("Category not found");
                 var categoryDto = _mapper.Map<DetailCategoryDto>(category);
@@ -78,8 +78,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     throw new InvalidOperationException("Failed to save changes category data");
 
-                var newCategory = await _unitOfWork.CategoryRepository.GetByIdAsync(category.Id);
-                return _mapper.Map<DetailCategoryDto>(newCategory);
+                var categoryDto = _mapper.Map<DetailCategoryDto>(await _unitOfWork.CategoryRepository.GetDetailByIdAsync(category.Id));
+                return categoryDto;
             }
             catch (InvalidOperationException ex)
             {

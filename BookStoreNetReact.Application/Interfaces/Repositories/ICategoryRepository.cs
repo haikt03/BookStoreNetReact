@@ -8,6 +8,7 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
     {
         IQueryable<Category> GetAll(FilterCategoryDto filterDto);
         Task<Category?> GetByIdAsync(int categoryId);
+        Task<Category?> GetDetailByIdAsync(int categoryId);
         IQueryable<Book> GetAllBooks(FilterBookDto filterDto, int categoryId);
     }
 }

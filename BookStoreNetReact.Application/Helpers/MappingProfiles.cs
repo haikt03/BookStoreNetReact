@@ -22,8 +22,7 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AppUser, AppUserDto>();
             CreateMap<AppUser, AppUserWithTokenDto>()
-                .ForMember(dest => dest.AccessToken, opt => opt.Ignore())
-                .ForMember(dest => dest.RefreshToken, opt => opt.Ignore());
+                .ForMember(dest => dest.Token, opt => opt.Ignore());
             CreateMap<AppUser, DetailAppUserDto>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
 

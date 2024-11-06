@@ -16,6 +16,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             AuthorRepository = new AuthorRepository(_context);
             BookRepository = new BookRepository(_context);
             CategoryRepository = new CategoryRepository(_context);
+            RefreshTokenRepository = new RefreshTokenRepository(_context);
             AppUserRepository = new AppUserRepository(_userManager, _context);
         }
 
@@ -23,6 +24,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IAuthorRepository AuthorRepository { get; private set; }
         public IBookRepository BookRepository { get; private set; }
         public ICategoryRepository CategoryRepository { get; private set; }
+        public IRefreshTokenRepository RefreshTokenRepository { get; private set; }
 
         public async Task<bool> CompleteAsync()
         {

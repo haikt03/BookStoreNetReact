@@ -33,8 +33,8 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet("validation-error")]
         public ActionResult GetValidationError()
         {
-            ModelState.AddModelError("Problem1", "This is the first error");
-            ModelState.AddModelError("Problem2", "This is the second error");
+            ModelState.AddModelError("Lỗi 1", "Đây là lỗi thứ nhất");
+            ModelState.AddModelError("Lỗi 2", "Đây là lỗi thứ 2");
             return ValidationProblem();
         }
     }
