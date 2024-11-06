@@ -8,16 +8,24 @@ using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
     public class AppUserService : GenericService<AppUserService>, IAppUserService
     {
         private readonly ITokenService _tokenService;
-        public AppUserService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<AppUserService> logger, ITokenService tokenService) : base(mapper, cloudUploadService, unitOfWork, logger)
+        private readonly IEmailService _emailService;
+        public AppUserService
+        (
+            IMapper mapper,
+            ICloudUploadService cloudUploadService,
+            IUnitOfWork unitOfWork, ILogger<AppUserService> logger,
+            ITokenService tokenService,
+            IEmailService emailService
+        ) : base(mapper, cloudUploadService, unitOfWork, logger)
         {
             _tokenService = tokenService;
+            _emailService = emailService;
         }
 
         public async Task<IdentityResult?> RegisterAsync(RegisterDto registerDto)
@@ -117,7 +125,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    throw new NullReferenceException("User not found");
+                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
 
                 _mapper.Map(updateDto, user);
                 if (updateDto.File != null && updateDto.File.Length != 0)
@@ -136,11 +144,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.AppUserRepository.UpdateAsync(user);
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User data not found");
-                return null;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating user");
@@ -154,18 +157,13 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    throw new NullReferenceException("User not found");
+                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
 
                 if (user.PublicId != null)
                     await _cloudUploadService.DeleteImageAsync(user.PublicId);
 
                 var result = await _unitOfWork.AppUserRepository.RemoveAsync(user);
                 return result;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -174,16 +172,18 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int addressId)
+        public async Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int userId)
         {
             try
             {
-                var address = await _unitOfWork.AppUserRepository.GetUserAddressByIdAsync(addressId);
-                if (address == null)
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null || user.Address == null)
                     throw new NullReferenceException("Address not found");
 
+                var address = user.Address;
                 _mapper.Map(updateDto, address);
                 _unitOfWork.AppUserRepository.UpdateUserAddress(address);
+
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
@@ -197,6 +197,59 @@ namespace BookStoreNetReact.Infrastructure.Services
                 _logger.LogWarning(ex, "An error occurred while updating user address");
                 return false;
             }
+        }
+
+        public async Task<IdentityResult?> ChangePasswordAsync(ChangePasswordDto changePasswordDto, int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+
+                var result = await _unitOfWork.AppUserRepository.ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while changing password");
+                return null;
+            }
+        }
+
+        public async Task<bool> SendEmailConfirmationAsync(int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null || string.IsNullOrEmpty(user.Email))
+                    throw new NullReferenceException("Email not found");
+
+                var token = await _unitOfWork.AppUserRepository.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = $"http://localhost:5000/api/account/me/confirm-email?userId={user.Id}&token={token}";
+                await _emailService.SendEmailAsync(user.Email, "Xác nhận email", $"Hãy bấm vào <a href='{confirmationLink}'>đẩy</a> để xác nhận email của bạn");
+                return true;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Email not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while sending confimation email");
+                return false;
+            }
+        }
+
+        public async Task<IdentityResult?> ConfirmEmailAsync(int userId, string token)
+        {
+            var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+
+            var result = await _unitOfWork.AppUserRepository.ConfirmEmailAsync(user, token);
+            return result;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace BookStoreNetReact.Api.Extensions
             );
 
             // DbContext
-            var databaseOptions = configuration.GetSection(DatabaseOptions.SqlServerOptions).Get<DatabaseOptions>();
+            var databaseOptions = configuration.GetSection(DatabaseOptions.DatabaseSettings).Get<DatabaseOptions>();
             if (databaseOptions == null)
                 throw new NullReferenceException(nameof(databaseOptions));
             services.AddDbContext<AppDbContext>(opt =>
@@ -63,12 +63,17 @@ namespace BookStoreNetReact.Api.Extensions
                 .AddIdentityCore<AppUser>(opt =>
                 {
                     opt.User.RequireUniqueEmail = true;
+                    opt.Password.RequiredLength = 6;
+                    opt.Password.RequireDigit = false;
+                    opt.Password.RequireLowercase = false;
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireNonAlphanumeric = false;
                 })
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             // Authentication, authorization
-            var jwtOptions = configuration.GetSection(JwtOptions.JwtBearerOptions).Get<JwtOptions>();
+            var jwtOptions = configuration.GetSection(JwtOptions.JwtSettings).Get<JwtOptions>();
             if (jwtOptions == null)
                 throw new NullReferenceException(nameof(jwtOptions));
             services
@@ -89,10 +94,13 @@ namespace BookStoreNetReact.Api.Extensions
             // Options
             services
                 .AddOptions<JwtOptions>()
-                .BindConfiguration(JwtOptions.JwtBearerOptions);
+                .BindConfiguration(JwtOptions.JwtSettings);
             services
                 .AddOptions<CloudOptions>()
-                .BindConfiguration(CloudOptions.CloudinaryOptions);
+                .BindConfiguration(CloudOptions.CloudinarySettings);
+            services
+                .AddOptions<EmailOptions>()
+                .BindConfiguration(EmailOptions.EmailSettings);
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -109,6 +117,7 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             // Others
             services.AddFluentValidationAutoValidation();

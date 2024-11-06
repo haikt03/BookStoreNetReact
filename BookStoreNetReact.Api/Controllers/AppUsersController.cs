@@ -1,5 +1,6 @@
 ﻿using BookStoreNetReact.Api.Extensions;
 using BookStoreNetReact.Application.Dtos.AppUser;
+using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -42,9 +43,8 @@ namespace BookStoreNetReact.Api.Controllers
         {
             var result = await _appUserService.UpdateUserAsync(updateDto, id);
             if (result == null)
-            {
                 return BadRequest(new ProblemDetails { Title = "Cập nhật người dùng không thành công" });
-            }
+
             if (result != null && !result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -62,9 +62,8 @@ namespace BookStoreNetReact.Api.Controllers
         {
             var result = await _appUserService.DeleteUserAsync(id);
             if (result == null)
-            {
                 return BadRequest(new ProblemDetails { Title = "Xóa người dùng không thành công" });
-            }
+
             if (result != null && !result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -76,7 +75,33 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok();
         }
 
-        //[Authorize(Roles = "Admin")]
-        //[HttpPut("{userId}/addresses/{addressId}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{userId}/address")]
+        public async Task<ActionResult> UpdateUserAddres([FromBody] UpdateUserAddressDto updateDto, int userId, int addressId)
+        {
+            var result = await _appUserService.UpdateUserAddressAsync(updateDto, userId);
+            if (!result)
+                return BadRequest(new ProblemDetails { Title = "Cập nhật địa chỉ người dùng không thành công" });
+            return Ok();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{userId}/password")]
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto, int userId)
+        {
+            var result = await _appUserService.ChangePasswordAsync(changePasswordDto, userId);
+            if (result == null)
+                return BadRequest(new ProblemDetails { Title = "Thay đổi mật khẩu không thành công" });
+
+            if (result != null && !result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+                return ValidationProblem();
+            }
+            return Ok();
+        }
     }
 }

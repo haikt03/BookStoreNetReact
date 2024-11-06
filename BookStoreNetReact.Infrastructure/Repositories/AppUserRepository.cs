@@ -65,15 +65,27 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return result;
         }
 
-        public async Task<UserAddress?> GetUserAddressByIdAsync(int addressId)
-        {
-            var address = await _context.UserAddresses.FindAsync(addressId);
-            return address;
-        }
-
         public void UpdateUserAddress(UserAddress address)
         {
             _context.UserAddresses.Update(address);
+        }
+
+        public async Task<IdentityResult?> ChangePasswordAsync(AppUser user, string currentPassword, string newPassword)
+        {
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+            return result;
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return token;
+        }
+
+        public async Task<IdentityResult?> ConfirmEmailAsync(AppUser user, string token)
+        {
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return result;
         }
     }
 }
