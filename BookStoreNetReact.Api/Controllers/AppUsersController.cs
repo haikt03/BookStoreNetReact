@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreNetReact.Api.Controllers
 {
-    [Route("api/appUsers")]
+    [Route("api/users")]
     public class AppUsersController : BaseApiController
     {
         private readonly IAppUserService _appUserService;
@@ -75,5 +75,8 @@ namespace BookStoreNetReact.Api.Controllers
             }
             return Ok();
         }
+
+        //[Authorize(Roles = "Admin")]
+        //[HttpPut("{userId}/addresses/{addressId}")]
     }
 }

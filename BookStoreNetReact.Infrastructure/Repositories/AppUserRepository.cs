@@ -1,6 +1,7 @@
 ﻿using BookStoreNetReact.Application.Dtos.AppUser;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Domain.Entities;
+using BookStoreNetReact.Infrastructure.Data;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,11 @@ namespace BookStoreNetReact.Infrastructure.Repositories
     public class AppUserRepository : IAppUserRepository
     {
         private readonly UserManager<AppUser> _userManager;
-        public AppUserRepository(UserManager<AppUser> userManager)
+        private readonly AppDbContext _context;
+        public AppUserRepository(UserManager<AppUser> userManager, AppDbContext context)
         { 
             _userManager = userManager;
+            _context = context;
         }
 
         public IQueryable<AppUser>? GetAll(FilterAppUserDto filterDto)
@@ -60,6 +63,17 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
             var result = await _userManager.CheckPasswordAsync(user, password);
             return result;
+        }
+
+        public async Task<UserAddress?> GetUserAddressByIdAsync(int addressId)
+        {
+            var address = await _context.UserAddresses.FindAsync(addressId);
+            return address;
+        }
+
+        public void UpdateUserAddress(UserAddress address)
+        {
+            _context.UserAddresses.Update(address);
         }
     }
 }

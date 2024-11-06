@@ -16,7 +16,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             AuthorRepository = new AuthorRepository(_context);
             BookRepository = new BookRepository(_context);
             CategoryRepository = new CategoryRepository(_context);
-            AppUserRepository = new AppUserRepository(_userManager);
+            AppUserRepository = new AppUserRepository(_userManager, _context);
         }
 
         public IAppUserRepository AppUserRepository { get; private set; }

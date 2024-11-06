@@ -14,5 +14,7 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
         Task<IdentityResult?> UpdateAsync(AppUser user);
         Task<IdentityResult?> RemoveAsync(AppUser user);
         Task<bool> CheckPasswordAsync(AppUser user, string password);
+        Task<UserAddress?> GetUserAddressByIdAsync(int addressId);
+        void UpdateUserAddress(UserAddress address);
     }
 }

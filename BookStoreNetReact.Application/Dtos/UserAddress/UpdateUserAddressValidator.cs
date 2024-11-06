@@ -7,9 +7,6 @@ namespace BookStoreNetReact.Application.Dtos.UserAddress
     {
         public UpdateUserAddressValidator() 
         {
-            RuleFor(uu => uu.Id)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
             RuleFor(uu => uu.City)
                 .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(uu => uu.District)

@@ -1,4 +1,5 @@
 ﻿using BookStoreNetReact.Application.Dtos.AppUser;
+using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Application.Helpers;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,5 +13,6 @@ namespace BookStoreNetReact.Application.Interfaces.Services
         Task<DetailAppUserDto?> GetUserByIdAsync(int userId);
         Task<IdentityResult?> UpdateUserAsync(UpdateAppUserDto updateDto, int userId);
         Task<IdentityResult?> DeleteUserAsync(int userId);
+        Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int addressId);
     }
 }

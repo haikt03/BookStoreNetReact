@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStoreNetReact.Application.Dtos.AppUser;
+using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
@@ -7,6 +8,7 @@ using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
@@ -169,6 +171,31 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 _logger.LogWarning(ex, "An error occurred while deleting user");
                 return null;
+            }
+        }
+
+        public async Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int addressId)
+        {
+            try
+            {
+                var address = await _unitOfWork.AppUserRepository.GetUserAddressByIdAsync(addressId);
+                if (address == null)
+                    throw new NullReferenceException("Address not found");
+
+                _mapper.Map(updateDto, address);
+                _unitOfWork.AppUserRepository.UpdateUserAddress(address);
+                var result = await _unitOfWork.CompleteAsync();
+                return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "Address data not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while updating user address");
+                return false;
             }
         }
     }
