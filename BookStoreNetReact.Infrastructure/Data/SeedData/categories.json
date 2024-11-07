@@ -1,0 +1,257 @@
+[
+  {
+    "Name": "root"  
+  },
+  {
+    "Name": "Sách trong nước", 
+    "PId": 1
+  },
+  {
+    "Name": "Foreign books", 
+    "PId": 1
+  },
+  {
+    "Name": "Văn học", 
+    "PId": 2
+  },
+  {
+    "Name": "Kinh tế", 
+    "PId": 2
+  },
+  {
+    "Name": "Tâm lý - Kỹ năng sống", 
+    "PId": 2
+  },
+  {
+    "Name": "Nuôi dạy con", 
+    "PId": 2
+  },
+  {
+    "Name": "Sách thiếu nhi", 
+    "PId": 2
+  },
+  {
+    "Name": "Tiểu sử - Hồi ký", 
+    "PId": 2
+  },
+  {
+    "Name": "Giáo khoa - Tham khảo", 
+    "PId": 2
+  },
+  {
+    "Name": "Sách học ngoại ngữ", 
+    "PId": 2
+  },
+  {
+    "Name": "Fiction", 
+    "PId": 3
+  },
+  {
+    "Name": "Business & Management", 
+    "PId": 3
+  },
+  {
+    "Name": "Personal development", 
+    "PId": 3
+  },
+  {
+    "Name": "Children's books'", 
+    "PId": 3
+  },
+  {
+    "Name": "Dictionaries & Languages", 
+    "PId": 3
+  },
+  {
+    "Name": "Tiểu thuyết", 
+    "PId": 4
+  },
+  {
+    "Name": "Truyện ngắn - Tản văn", 
+    "PId": 4
+  },
+  {
+    "Name": "Light novel", 
+    "PId": 4
+  },
+  {
+    "Name": "Ngôn tình", 
+    "PId": 4
+  },
+  {
+    "Name": "Nhân vật - Bài học kinh doanh", 
+    "PId": 5
+  },
+  {
+    "Name": "Quản trị - Lãnh đạo", 
+    "PId": 5
+  },
+  {
+    "Name": "Marketing - Bán hàng", 
+    "PId": 5
+  },
+  {
+    "Name": "Phân tích kinh tế", 
+    "PId": 5
+  },
+  {
+    "Name": "Kỹ năng sống", 
+    "PId": 6
+  },
+  {
+    "Name": "Rèn luyện nhân cách", 
+    "PId": 6
+  },
+  {
+    "Name": "Tâm lý", 
+    "PId": 6
+  },
+  {
+    "Name": "Sách cho tuổi mới lớn", 
+    "PId": 6
+  },
+  {
+    "Name": "Cẩm nang làm cha mẹ", 
+    "PId": 7
+  },
+  {
+    "Name": "Phương pháp giáo dục trẻ cả nước", 
+    "PId": 7
+  },
+  {
+    "Name": "Phát triển kỹ năng, trí tuệ cho trẻ", 
+    "PId": 7
+  },
+  {
+    "Name": "Manga - Comic", 
+    "PId": 8
+  },
+  {
+    "Name": "Kiến thức bách khoa", 
+    "PId": 8
+  },
+  {
+    "Name": "Sách tranh kỹ năng sống cho trẻ", 
+    "PId": 8
+  },
+  {
+    "Name": "Vừa học, vừa chơi với trẻ", 
+    "PId": 8
+  },
+  {
+    "Name": "Câu chuyện cuộc đời", 
+    "PId": 9
+  },
+  {
+    "Name": "Chính trị", 
+    "PId": 9
+  },
+  {
+    "Name": "Kinh tế", 
+    "PId": 9
+  },
+  {
+    "Name": "Nghệ thuật - Giải trí", 
+    "PId": 9
+  },
+  {
+    "Name": "Sách giáo khoa", 
+    "PId": 10
+  },
+  {
+    "Name": "Sách tham khảo", 
+    "PId": 10
+  },
+  {
+    "Name": "Luyện thi ĐH, CĐ", 
+    "PId": 10
+  },
+  {
+    "Name": "Mẫu giáo", 
+    "PId": 10
+  },
+  {
+    "Name": "Tiếng Anh", 
+    "PId": 11
+  },
+  {
+    "Name": "Tiếng Nhật", 
+    "PId": 11
+  },
+  {
+    "Name": "Tiếng Trung", 
+    "PId": 11
+  },
+  {
+    "Name": "Tiếng Hàn", 
+    "PId": 11
+  },
+  {
+    "Name": "Contemporary fiction", 
+    "PId": 12
+  },
+  {
+    "Name": "Romance", 
+    "PId": 12
+  },
+  {
+    "Name": "Fantasy", 
+    "PId": 12
+  },
+  {
+    "Name": "Classics", 
+    "PId": 12
+  },
+  {
+    "Name": "Business & Management", 
+    "PId": 13
+  },
+  {
+    "Name": "Economics", 
+    "PId": 13
+  },
+  {
+    "Name": "Finance & Accounting", 
+    "PId": 13
+  },
+  {
+    "Name": "Popular Psychology", 
+    "PId": 14
+  },
+  {
+    "Name": "Advice on careers & Achieving success", 
+    "PId": 14
+  },
+  {
+    "Name": "Personal Finance", 
+    "PId": 14
+  },
+  {
+    "Name": "Picture & Activity books", 
+    "PId": 15
+  },
+  {
+    "Name": "Fiction (for kids & teen)", 
+    "PId": 15
+  },
+  {
+    "Name": "Education", 
+    "PId": 15
+  },
+  {
+    "Name": "Non-fiction", 
+    "PId": 15
+  },
+  {
+    "Name": "ELT: Learning material & Coursework", 
+    "PId": 16
+  },
+  {
+    "Name": "ELT: English for specific purposes", 
+    "PId": 16
+  },
+  {
+    "Name": "Dictionaries", 
+    "PId": 16
+  }
+]

@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreNetReact.Api", "BookStoreNetReact.Api\BookStoreNetReact.Api.csproj", "{8BAB5886-655D-40A0-8D90-66505E10A52D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreNetReact.Api", "BookStoreNetReact.Api\BookStoreNetReact.Api.csproj", "{8BAB5886-655D-40A0-8D90-66505E10A52D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreNetReact.Application", "BookStoreNetReact.Application\BookStoreNetReact.Application.csproj", "{7E4F5365-F831-49FD-8FFF-42A19047E1A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreNetReact.Application", "BookStoreNetReact.Application\BookStoreNetReact.Application.csproj", "{7E4F5365-F831-49FD-8FFF-42A19047E1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreNetReact.Domain", "BookStoreNetReact.Domain\BookStoreNetReact.Domain.csproj", "{40F50DBD-0AE5-42DD-9E24-3AB55F956D32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreNetReact.Domain", "BookStoreNetReact.Domain\BookStoreNetReact.Domain.csproj", "{40F50DBD-0AE5-42DD-9E24-3AB55F956D32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreNetReact.Infrastructure", "BookStoreNetReact.Infrastructure\BookStoreNetReact.Infrastructure.csproj", "{064B0D7F-8D08-4185-A31A-538781568315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreNetReact.Infrastructure", "BookStoreNetReact.Infrastructure\BookStoreNetReact.Infrastructure.csproj", "{064B0D7F-8D08-4185-A31A-538781568315}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7149711-E2F1-4222-B436-5656A2C75874}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
