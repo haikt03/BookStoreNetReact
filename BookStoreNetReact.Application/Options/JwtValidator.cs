@@ -7,9 +7,9 @@ namespace BookStoreNetReact.Application.Options
     {
         public JwtValidator()
         {
-            RuleFor(x => x.TokenKey).NotEmpty().WithMessage(ValidationErrorMessages.Required);
-            RuleFor(x => x.MinutesExpired).GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
-            RuleFor(x => x.DaysExpired).GreaterThan(0).WithMessage(ValidationErrorMessages.GreaterThan);
+            RuleFor(x => x.TokenKey).NotEmpty();
+            RuleFor(x => x.MinutesExpired).GreaterThanOrEqualTo(1);
+            RuleFor(x => x.DaysExpired).GreaterThanOrEqualTo(1);
         }
     }
 }

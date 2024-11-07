@@ -8,47 +8,33 @@ namespace BookStoreNetReact.Application.Dtos.Book
         public UpdateBookValidator()
         {
             RuleFor(cb => cb.Name)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 250)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 250));
+                .Length(6, 250).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Translator)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 100)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 100));
+                .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Publisher)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 100)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 100));
+                .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.PublishedYear)
-                .Must((dto, value) => value == null || value >= 1832 || value <= DateTime.Now.Year)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidRange(1832, DateTime.Now.Year));
+                .InclusiveBetween(1800, DateTime.Now.Year).WithMessage(ValidationErrorMessages.ValidRange);
             RuleFor(cb => cb.Language)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 50)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 50));
+                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Weight)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
             RuleFor(cb => cb.NumberOfPages)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
             RuleFor(cb => cb.Form)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 50)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 50));
+                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Description)
-                .Must((dto, value) => value == null || value.Length >= 50 || value.Length <= 500)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(50, 500));
+                .Length(50, 500).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(cb => cb.Price)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
             RuleFor(cb => cb.Discount)
-                .Must((dto, value) => value == null || value >= 0 || value <= 100)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidRange(0, 100));
+                .InclusiveBetween(0, 100).WithMessage(ValidationErrorMessages.ValidRange);
             RuleFor(cb => cb.QuantityInStock)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(0).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
             RuleFor(cb => cb.CategoryId)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
             RuleFor(cb => cb.AuthorId)
-                .Must((dto, value) => value == null || value >= 1)
-                .WithMessage(ValidationErrorMessages.BeNullOrGreaterThan(1));
+                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         {
             builder.HasKey(be => be.Id);
             builder.Property(be => be.Id).ValueGeneratedOnAdd();
-            builder.Property(be => be.CreatedAt).IsRequired();
         }
     }
 }

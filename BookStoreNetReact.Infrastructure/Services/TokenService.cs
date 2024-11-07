@@ -68,7 +68,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 _logger.LogWarning(ex, "An error occurred while generating access token");
                 return "";
             }
-
         }
 
         public async Task<string> GenerateRefreshToken(AppUser appUser)

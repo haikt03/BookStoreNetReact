@@ -7,9 +7,9 @@ namespace BookStoreNetReact.Application.Options
     {
         public SmsValidator() 
         {
-            RuleFor(c => c.PhoneNumber).NotEmpty().WithMessage(ValidationErrorMessages.Required);
-            RuleFor(c => c.AuthToken).NotEmpty().WithMessage(ValidationErrorMessages.Required);
-            RuleFor(c => c.AccountSid).NotEmpty().WithMessage(ValidationErrorMessages.Required);
+            RuleFor(c => c.PhoneNumber).NotEmpty();
+            RuleFor(c => c.AuthToken).NotEmpty();
+            RuleFor(c => c.AccountSid).NotEmpty();
         }
     }
 }

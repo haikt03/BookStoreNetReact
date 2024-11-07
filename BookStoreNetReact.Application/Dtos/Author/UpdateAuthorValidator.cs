@@ -8,14 +8,11 @@ namespace BookStoreNetReact.Application.Dtos.Author
         public UpdateAuthorValidator() 
         {
             RuleFor(ua => ua.FullName)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 100)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 100));
+                .Length(1, 100).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.Biography)
-                .Must((dto, value) => value == null || value.Length >= 50 || value.Length <= 500)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(50, 500));
+                .Length(50, 500).WithMessage(ValidationErrorMessages.ValidLength);
             RuleFor(ua => ua.Country)
-                .Must((dto, value) => value == null || value.Length >= 1 || value.Length <= 50)
-                .WithMessage(ValidationErrorMessages.BeNullOrValidLength(1, 50));
+                .Length(1, 50).WithMessage(ValidationErrorMessages.ValidLength);
         }
     }
 }

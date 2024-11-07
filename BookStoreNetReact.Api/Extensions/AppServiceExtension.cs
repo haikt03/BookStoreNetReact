@@ -96,16 +96,24 @@ namespace BookStoreNetReact.Api.Extensions
             // Options
             services
                 .AddOptions<JwtOptions>()
-                .BindConfiguration(JwtOptions.JwtSettings);
+                .BindConfiguration(JwtOptions.JwtSettings)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
             services
                 .AddOptions<CloudOptions>()
-                .BindConfiguration(CloudOptions.CloudinarySettings);
+                .BindConfiguration(CloudOptions.CloudinarySettings)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
             services
                 .AddOptions<EmailOptions>()
-                .BindConfiguration(EmailOptions.EmailSettings);
+                .BindConfiguration(EmailOptions.EmailSettings)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
             services
                 .AddOptions<SmsOptions>()
-                .BindConfiguration(SmsOptions.TwilioSettings);
+                .BindConfiguration(SmsOptions.TwilioSettings)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -1,4 +1,5 @@
 ﻿using BookStoreNetReact.Application.Dtos.UserAddress;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStoreNetReact.Application.Dtos.AppUser
 {

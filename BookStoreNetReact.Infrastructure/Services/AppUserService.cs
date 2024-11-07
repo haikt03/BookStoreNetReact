@@ -62,8 +62,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
                     return null;
 
-                userWithToken.Token.AccessToken = accessToken;
-                userWithToken.Token.RefreshToken = refreshToken;
+                userWithToken.Token = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
                 return userWithToken;
             }
             catch (NullReferenceException ex)

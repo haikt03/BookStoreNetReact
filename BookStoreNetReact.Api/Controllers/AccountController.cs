@@ -160,7 +160,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("confirm-phone-number")]
+        [HttpGet("me/confirm-phone-number")]
         public async Task<ActionResult> ConfirmPhoneNumber([FromBody] ConfirmPhoneNumberDto confirmDto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
