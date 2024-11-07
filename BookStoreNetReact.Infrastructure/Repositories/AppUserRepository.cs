@@ -18,7 +18,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             _context = context;
         }
 
-        public IQueryable<AppUser>? GetAll(FilterAppUserDto filterDto)
+        public IQueryable<AppUser> GetAll(FilterAppUserDto filterDto)
         {
             var users = _userManager.Users
                 .Search(filterDto.Search)
@@ -45,7 +45,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             var user = await _userManager.FindByNameAsync(username);
             return user;
         }
-        public async Task<IList<string>?> GetRolesAsync(AppUser user)
+        public async Task<IList<string>> GetRolesAsync(AppUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
             return roles;

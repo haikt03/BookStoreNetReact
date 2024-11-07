@@ -15,17 +15,20 @@ namespace BookStoreNetReact.Infrastructure.Services
     {
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
+        private readonly ISmsService _smsService;
         public AppUserService
         (
             IMapper mapper,
             ICloudUploadService cloudUploadService,
             IUnitOfWork unitOfWork, ILogger<AppUserService> logger,
             ITokenService tokenService,
-            IEmailService emailService
+            IEmailService emailService,
+            ISmsService smsService
         ) : base(mapper, cloudUploadService, unitOfWork, logger)
         {
             _tokenService = tokenService;
             _emailService = emailService;
+            _smsService = smsService;
         }
 
         public async Task<IdentityResult?> RegisterAsync(RegisterDto registerDto)
@@ -48,20 +51,29 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var user = await _unitOfWork.AppUserRepository.GetByUserNameAsync(loginDto.UserName);
-                if (user == null || !await _unitOfWork.AppUserRepository.CheckPasswordAsync(user, loginDto.Password))
-                    return null;
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                if (!await _unitOfWork.AppUserRepository.CheckPasswordAsync(user, loginDto.Password))
+                    throw new Exception("Wrong username or password");
 
                 var userWithToken = _mapper.Map<AppUserWithTokenDto>(user);
                 var accessToken = await _tokenService.GenerateAccessToken(user);
                 var refreshToken = await _tokenService.GenerateRefreshToken(user);
+                if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
+                    return null;
 
                 userWithToken.Token.AccessToken = accessToken;
                 userWithToken.Token.RefreshToken = refreshToken;
                 return userWithToken;
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
+            }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while singing in");
+                _logger.LogWarning(ex, "An error occurred while login");
                 return null;
             }
         }
@@ -71,9 +83,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var users = _unitOfWork.AppUserRepository.GetAll(filterDto);
-                if (users == null)
-                    throw new NullReferenceException("Users not found");
-
                 var result = await users.ToPagedListAsync
                     (
                         selector: au => _mapper.Map<AppUserDto>(au),
@@ -82,11 +91,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                         logger: _logger
                     );
                 return result;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Users data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -107,7 +111,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "User data not found");
+                _logger.LogWarning(ex, "User not found");
                 return null;
             }
             catch (Exception ex)
@@ -123,7 +127,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+                    throw new NullReferenceException("User not found");
 
                 _mapper.Map(updateDto, user);
                 if (updateDto.File != null && updateDto.File.Length != 0)
@@ -142,6 +146,11 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.AppUserRepository.UpdateAsync(user);
                 return result;
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
+            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating user");
@@ -155,13 +164,18 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+                    throw new NullReferenceException("User not found");
 
                 if (user.PublicId != null)
                     await _cloudUploadService.DeleteImageAsync(user.PublicId);
 
                 var result = await _unitOfWork.AppUserRepository.RemoveAsync(user);
                 return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
             }
             catch (Exception ex)
             {
@@ -175,7 +189,9 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
-                if (user == null || user.Address == null)
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                if (user.Address == null)
                     throw new NullReferenceException("Address not found");
 
                 var address = user.Address;
@@ -187,7 +203,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Address data not found");
+                _logger.LogWarning(ex, "User or address not found");
                 return false;
             }
             catch (Exception ex)
@@ -203,10 +219,15 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+                    throw new NullReferenceException("User not found");
 
                 var result = await _unitOfWork.AppUserRepository.ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
                 return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
             }
             catch (Exception ex)
             {
@@ -220,7 +241,9 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
-                if (user == null || string.IsNullOrEmpty(user.Email))
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                if (string.IsNullOrEmpty(user.Email))
                     throw new NullReferenceException("Email not found");
 
                 var token = await _unitOfWork.AppUserRepository.GenerateEmailConfirmationTokenAsync(user);
@@ -237,7 +260,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Email not found");
+                _logger.LogWarning(ex, "User or email not found");
                 return false;
             }
             catch (Exception ex)
@@ -253,11 +276,16 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
                 if (user == null)
-                    return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+                    throw new NullReferenceException("User not found");
 
                 var decodedToken = Uri.UnescapeDataString(token);
                 var result = await _unitOfWork.AppUserRepository.ConfirmEmailAsync(user, decodedToken);
                 return result;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
             }
             catch (Exception ex)
             {
@@ -283,10 +311,12 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 var user = await _tokenService.ValidateRefreshToken(refreshDto.RefreshToken);
                 if (user == null)
-                    return null;
+                    throw new NullReferenceException("User not found");
 
                 var accessToken = await _tokenService.GenerateAccessToken(user);
                 var refreshToken = await _tokenService.GenerateRefreshToken(user);
+                if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
+                    return null;
 
                 var tokenDto = new TokenDto 
                 {
@@ -295,11 +325,81 @@ namespace BookStoreNetReact.Infrastructure.Services
                 };
                 return tokenDto;
             }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return null;
+            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while refreshing");
                 return null;
             }
+        }
+
+        public async Task<bool> SendPhoneNumberConfirmationCodeAsync(int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                if (string.IsNullOrEmpty(user.PhoneNumber))
+                    throw new NullReferenceException("Phone number not found");
+
+                var code = GenerateConfirmationCode();
+                user.PhoneNumberConfirmationCode = code;
+                user.PhoneNumberConfirmationCodeExpiresAt = DateTime.UtcNow.AddMinutes(5);
+                await _unitOfWork.AppUserRepository.UpdateAsync(user);
+
+                var message = $"Mã xác nhận số điện thoại của bạn là {code}";
+                var result = await _smsService.SendSmsAsync(user.PhoneNumber, message);
+                if (!result)
+                    return false;
+                return true;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User or phone number not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while refreshing");
+                return false;
+            }
+        }
+
+        public async Task<bool> ConfirmPhoneNumberAsync(ConfirmPhoneNumberDto confirmDto, int userId)
+        {
+            try
+            {
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId);
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+
+                if (user.PhoneNumberConfirmationCode != confirmDto.Code || user.PhoneNumberConfirmationCodeExpiresAt < DateTime.UtcNow)
+                    return false;
+                user.PhoneNumberConfirmed = true;
+                await _unitOfWork.AppUserRepository.UpdateAsync(user);
+                return true;
+            }
+            catch (NullReferenceException ex)
+            {
+                _logger.LogWarning(ex, "User not found");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while refreshing");
+                return false;
+            }
+        }
+
+        private string GenerateConfirmationCode()
+        {
+            var random = new Random();
+            return random.Next(100000, 999999).ToString();
         }
     }
 }

@@ -21,9 +21,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var authors = _unitOfWork.AuthorRepository.GetAll(filterDto);
-                if (authors == null)
-                    throw new NullReferenceException("Authors not found");
-
                 var authorsDto = await authors.ToPagedListAsync
                 (
                     selector: a => _mapper.Map<AuthorDto>(a),
@@ -32,11 +29,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     logger: _logger
                 );
                 return authorsDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Authors data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -57,7 +49,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Author data not found");
+                _logger.LogWarning(ex, "Author not found");
                 return null;
             }
             catch (Exception ex)
@@ -130,7 +122,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Author data not found");
+                _logger.LogWarning(ex, "Author not found");
                 return false;
             }
             catch (Exception ex)
@@ -157,7 +149,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Author data not found");
+                _logger.LogWarning(ex, "Author not found");
                 return false;
             }
             catch (Exception ex)
@@ -172,14 +164,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var countries = await _unitOfWork.AuthorRepository.GetAllCountriesAsync();
-                if (countries == null)
-                    throw new NullReferenceException("Countries not found");
                 return countries;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Countries data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -193,9 +178,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var books = _unitOfWork.AuthorRepository.GetAllBooks(filterDto, authorId);
-                if (books == null)
-                    throw new NullReferenceException("Books not found");
-
                 var booksDto = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
@@ -204,11 +186,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     logger: _logger
                 );
                 return booksDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Books data not found");
-                return null;
             }
             catch (Exception ex)
             {

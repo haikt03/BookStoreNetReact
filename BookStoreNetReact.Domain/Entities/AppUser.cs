@@ -10,7 +10,9 @@ namespace BookStoreNetReact.Domain.Entities
         public DateTime? ModifiedAt { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
+        public string? PhoneNumberConfirmationCode { get; set; }
+        public DateTime? PhoneNumberConfirmationCodeExpiresAt { get; set; }
         public UserAddress? Address { get; set; }
-        public List<RefreshToken>? RefreshTokens { get; set; }
+        public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

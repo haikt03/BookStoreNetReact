@@ -13,12 +13,8 @@ namespace BookStoreNetReact.Application.Helpers
         public MappingProfiles()
         {
             // AppUser
-            CreateMap<RegisterDto, AppUser>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
+            CreateMap<RegisterDto, AppUser>();
             CreateMap<UpdateAppUserDto, AppUser>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AppUser, AppUserDto>();
             CreateMap<AppUser, AppUserWithTokenDto>()
@@ -33,23 +29,15 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             // Author
-            CreateMap<CreateAuthorDto, Author>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
+            CreateMap<CreateAuthorDto, Author>();
             CreateMap<UpdateAuthorDto, Author>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Author, AuthorDto>();
             CreateMap<Author, DetailAuthorDto>();
 
             // Book
-            CreateMap<CreateBookDto, Book>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
+            CreateMap<CreateBookDto, Book>();
             CreateMap<UpdateBookDto, Book>()
-                .ForMember(dest => dest.PublicId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Book, BookDto>();
             CreateMap<Book, DetailBookDto>()

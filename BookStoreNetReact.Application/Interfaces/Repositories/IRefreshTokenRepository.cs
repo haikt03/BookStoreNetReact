@@ -6,8 +6,8 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
     {
         Task<RefreshToken?> GetValidToken(string token);
         Task<RefreshToken?> GetToken(string token);
-        Task SaveRefreshToken(RefreshToken token);
-        void RemoveRefreshToken(RefreshToken token);
-        void RemoveExpiredRefreshToken();
+        Task SaveToken(RefreshToken token);
+        void RemoveToken(RefreshToken token);
+        void RemoveExpiredToken();
     }
 }

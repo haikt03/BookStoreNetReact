@@ -18,8 +18,4 @@
     <ProjectReference Include="..\BookStoreNetReact.Domain\BookStoreNetReact.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\SeedData\Images\" />
-  </ItemGroup>
-
 </Project>

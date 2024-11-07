@@ -28,17 +28,17 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return refreshToken;
         }
 
-        public async Task SaveRefreshToken(RefreshToken token)
+        public async Task SaveToken(RefreshToken token)
         {
             await _context.RefreshTokens.AddAsync(token);
         }
 
-        public void RemoveRefreshToken(RefreshToken token)
+        public void RemoveToken(RefreshToken token)
         {
             _context.RefreshTokens.Remove(token);
         }
 
-        public void RemoveExpiredRefreshToken()
+        public void RemoveExpiredToken()
         {
             var tokens = _context.RefreshTokens.Where(r => r.ExpiresAt < DateTime.UtcNow);
             _context.RefreshTokens.RemoveRange(tokens);

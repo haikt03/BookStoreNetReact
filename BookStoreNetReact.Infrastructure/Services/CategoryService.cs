@@ -21,9 +21,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var categories = _unitOfWork.CategoryRepository.GetAll(filterCategoryDto);
-                if (categories == null)
-                    throw new NullReferenceException("Categories not found");
-
                 var result = await categories.ToPagedListAsync
                 (
                     selector: c => _mapper.Map<CategoryDto>(c),
@@ -32,11 +29,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     logger: _logger
                 );
                 return result;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Catogories data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -57,7 +49,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Category data not found");
+                _logger.LogWarning(ex, "Category not found");
                 return null;
             }
             catch (Exception ex)
@@ -107,7 +99,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Category data not found");
+                _logger.LogWarning(ex, "Category not found");
                 return false;
             }
             catch (Exception ex)
@@ -130,7 +122,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Category data not found");
+                _logger.LogWarning(ex, "Category not found");
                 return false;
             }
             catch (Exception ex)
@@ -145,9 +137,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var books = _unitOfWork.CategoryRepository.GetAllBooks(filterBookDto, categoryId);
-                if (books == null)
-                    throw new NullReferenceException("Books not found");
-
                 var result = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
@@ -156,11 +145,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     logger: _logger
                 );
                 return result;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Books data not found");
-                return null;
             }
             catch (Exception ex)
             {

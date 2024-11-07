@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BookStoreNetReact.Application.Dtos.Book;
-using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
@@ -21,9 +20,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var books = _unitOfWork.BookRepository.GetAll(filterDto);
-                if (books == null)
-                    throw new NullReferenceException("Books not found");
-
                 var booksDto = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
@@ -32,11 +28,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     logger: _logger
                 );
                 return booksDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Books data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -57,7 +48,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Book data not found");
+                _logger.LogWarning(ex, "Book not found");
                 return null;
             }
             catch (Exception ex)
@@ -130,7 +121,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Book data not found");
+                _logger.LogWarning(ex, "Book not found");
                 return false;
             }
             catch (Exception ex)
@@ -157,7 +148,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (NullReferenceException ex)
             {
-                _logger.LogWarning(ex, "Book data not found");
+                _logger.LogWarning(ex, "Book not found");
                 return false;
             }
             catch (Exception ex)
@@ -172,14 +163,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var publishers = await _unitOfWork.BookRepository.GetAllPublishersAsync();
-                if (publishers == null)
-                    throw new NullReferenceException("Publishers not found");
                 return publishers;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Countries data not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -193,14 +177,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var languages = await _unitOfWork.BookRepository.GetAllLanguagesAsync();
-                if (languages == null)
-                    throw new NullReferenceException("Languages not found");
                 return languages;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Languages data not found");
-                return null;
             }
             catch (Exception ex)
             {

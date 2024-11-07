@@ -127,6 +127,12 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("PhoneNumberConfirmationCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PhoneNumberConfirmationCodeExpiresAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 

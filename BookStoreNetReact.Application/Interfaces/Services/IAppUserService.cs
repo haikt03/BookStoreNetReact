@@ -19,5 +19,7 @@ namespace BookStoreNetReact.Application.Interfaces.Services
         Task<bool> SendEmailConfirmationAsync(int userId);
         Task<IdentityResult?> ConfirmEmailAsync(int userId, string token);
         Task<TokenDto?> RefreshAsync(RefreshTokenDto refreshDto);
+        Task<bool> SendPhoneNumberConfirmationCodeAsync(int userId);
+        Task<bool> ConfirmPhoneNumberAsync(ConfirmPhoneNumberDto confirmDto, int userId);
     }
 }

@@ -129,9 +129,9 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("confirm-email")]
-        public async Task<ActionResult> ConfirmEmail([FromQuery]ConfirmEmailDto confirmEmailDto)
+        public async Task<ActionResult> ConfirmEmail([FromQuery]ConfirmEmailDto confirmDto)
         {
-            var result = await _appUserService.ConfirmEmailAsync(confirmEmailDto.UserId, confirmEmailDto.Token);
+            var result = await _appUserService.ConfirmEmailAsync(confirmDto.UserId, confirmDto.Token);
             if (result == null)
                 return BadRequest(new ProblemDetails { Title = "Xác nhận email không thành công" });
 
@@ -143,6 +143,33 @@ namespace BookStoreNetReact.Api.Controllers
                 }
                 return ValidationProblem();
             }
+            return Ok("Xác nhận email thành công");
+        }
+
+        [Authorize]
+        [HttpPost("me/send-confirmation-sms")]
+        public async Task<ActionResult> SendConfirmationSms()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+            var result = await _appUserService.SendPhoneNumberConfirmationCodeAsync(int.Parse(userId));
+            if (!result)
+                return BadRequest(new ProblemDetails { Title = "Gửi sms xác nhận không thành công" });
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("confirm-phone-number")]
+        public async Task<ActionResult> ConfirmPhoneNumber([FromBody] ConfirmPhoneNumberDto confirmDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+
+            var result = await _appUserService.ConfirmPhoneNumberAsync(confirmDto, int.Parse(userId));
+            if (!result)
+                return BadRequest(new ProblemDetails { Title = "Xác nhận số điện thoại không thành công" });
             return Ok("Xác nhận email thành công");
         }
 

@@ -123,6 +123,7 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ISmsService, SmsService>();
 
             // Others
             services.AddFluentValidationAutoValidation();

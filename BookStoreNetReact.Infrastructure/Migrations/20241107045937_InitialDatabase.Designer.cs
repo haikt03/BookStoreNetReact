@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreNetReact.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241104125939_InitialDatabase")]
+    [Migration("20241107045937_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />
@@ -129,6 +129,12 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PhoneNumberConfirmationCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PhoneNumberConfirmationCodeExpiresAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
