@@ -8,8 +8,8 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
         public ConfirmPhoneNumberValidator()
         {
             RuleFor(x => x.Code)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(6, 6).WithMessage("Giá trị này phải có độ dài 6 kí tự");
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Mã xác nhận"))
+                .Length(6, 6).WithMessage("Mã xác nhận phải có độ dài 6 kí tự");
         }
     }
 }

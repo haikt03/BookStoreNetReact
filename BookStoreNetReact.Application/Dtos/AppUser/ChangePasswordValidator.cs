@@ -8,11 +8,11 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
         public ChangePasswordValidator() 
         {
             RuleFor(cp => cp.CurrentPassword)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Mật khẩu hiện tại"))
+                .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Mật khẩu hiện tại"));
             RuleFor(cp => cp.NewPassword)
-                .NotEmpty().WithMessage(ValidationErrorMessages.Required)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.ValidLength);
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Mật khẩu mới"))
+                .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Mật khẩu mới"));
         }
     }
 }

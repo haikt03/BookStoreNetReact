@@ -2,7 +2,7 @@
 using BookStoreNetReact.Application.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Twilio.Clients;
+using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
@@ -23,7 +23,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var optionsValue = _smsOption.Value;
-                var client = new TwilioRestClient(optionsValue.AccountSid, optionsValue.AuthToken);
+                TwilioClient.Init(optionsValue.AccountSid, optionsValue.AuthToken);
 
                 var messageResource = await MessageResource.CreateAsync(
                     body: message,

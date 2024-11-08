@@ -7,7 +7,7 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
     {
         public RefreshTokenValidator() 
         {
-            RuleFor(r => r.RefreshToken).NotEmpty().WithMessage(ValidationErrorMessages.Required);
+            RuleFor(r => r.RefreshToken).NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Refresh token"));
         }
     }
 }

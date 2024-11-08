@@ -14,7 +14,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         }
         public async Task<RefreshToken?> GetValidToken(string token)
         {
-            var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync
+            var refreshToken = await _context.RefreshTokens.Include(r => r.User).FirstOrDefaultAsync
             (
                 r => r.Token == token 
                 && r.ExpiresAt >= DateTime.UtcNow
