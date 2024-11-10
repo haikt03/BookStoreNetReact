@@ -13,7 +13,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-    .WithOrigins("http://localhost:5000"));
+    .WithOrigins("http://localhost:3000"));
 
 if (app.Environment.IsDevelopment())
 {

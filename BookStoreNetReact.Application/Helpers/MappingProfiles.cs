@@ -17,14 +17,11 @@ namespace BookStoreNetReact.Application.Helpers
             CreateMap<UpdateAppUserDto, AppUser>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AppUser, AppUserDto>();
-            CreateMap<AppUser, AppUserWithTokenDto>()
-                .ForMember(dest => dest.Token, opt => opt.Ignore());
             CreateMap<AppUser, DetailAppUserDto>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
 
             // Address
             CreateMap<UserAddress, UserAddressDto>();
-            CreateMap<CreateUserAddressDto, UserAddress>();
             CreateMap<UpdateUserAddressDto, UserAddress>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 

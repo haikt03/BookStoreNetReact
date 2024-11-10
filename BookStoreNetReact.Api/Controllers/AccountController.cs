@@ -17,12 +17,19 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUserWithTokenDto>> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _appUserService.LoginAsync(loginDto);
-            if (user == null)
+            var tokenDto = await _appUserService.LoginAsync(loginDto);
+            if (tokenDto == null)
                 return Unauthorized("Sai tài khoản hoặc mật khẩu");
-            return Ok(user);
+            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(7)
+            });
+            return Ok(tokenDto.AccessToken);
         }
 
         [HttpPost("register")]
@@ -45,7 +52,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize]
         [HttpGet("me")]
-        public async Task<ActionResult<DetailAppUserDto>> GetMe()
+        public async Task<ActionResult<DetailAppUserDto>> GetCurrentUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
@@ -185,13 +192,20 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok();
         }
 
-        [HttpPost("me/refresh")]
-        public async Task<ActionResult<TokenDto>> Refresh([FromBody] RefreshTokenDto refreshDto)
+        [HttpPost("refresh")]
+        public async Task<ActionResult<string>> Refresh([FromBody] RefreshTokenDto refreshDto)
         {
             var tokenDto = await _appUserService.RefreshAsync(refreshDto);
             if (tokenDto == null)
                 return Unauthorized();
-            return Ok(tokenDto);
+            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(7)
+            });
+            return Ok(tokenDto.AccessToken);
         }
     }
 }
