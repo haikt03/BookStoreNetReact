@@ -24,7 +24,22 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
                 .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Mật khẩu"));
             RuleFor(r => r.DateOfBirth)
                 .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Ngày sinh"))
-                .Must(dob => dob >= new DateOnly(1900, 1, 1) && dob <= DateOnly.FromDateTime(DateTime.Now)).WithMessage(ValidationErrorMessages.DateOfBirth);
+                .Must(BeAValidDate).WithMessage(ValidationErrorMessages.Invalid("Ngày sinh"))
+                .Must(BeAtLeast18YearsOld).WithMessage("Bạn phải đủ 18 tuổi.");
+        }
+
+        private bool BeAValidDate(string dateOfBirth)
+        {
+            return DateOnly.TryParse(dateOfBirth, out var parsedDate) &&
+                   parsedDate <= DateOnly.FromDateTime(DateTime.Today);
+        }
+
+        private bool BeAtLeast18YearsOld(string dateOfBirth)
+        {
+            if (!DateOnly.TryParse(dateOfBirth, out var parsedDate))
+                return false;
+            var minAgeDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-18));
+            return parsedDate <= minAgeDate;
         }
     }
 }
