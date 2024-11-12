@@ -17,6 +17,7 @@ function App() {
 
     const initApp = useCallback(async () => {
         try {
+            console.log("first render");
         } catch (error) {
             console.error(error);
         }

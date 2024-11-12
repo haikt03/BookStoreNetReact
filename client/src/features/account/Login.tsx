@@ -8,7 +8,7 @@ import {
     TextField,
     Grid,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch } from "../../app/store/configureStore";
@@ -17,6 +17,7 @@ import { LoginRequest } from "../../app/models/user";
 
 export default function Login() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -26,12 +27,8 @@ export default function Login() {
     });
 
     async function submitForm(data: LoginRequest) {
-        try {
-            await dispatch(loginAsync(data));
-            console.log("abc");
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(loginAsync(data));
+        navigate("/book");
     }
 
     return (

@@ -8,7 +8,7 @@ import {
     Grid,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined } from "@mui/icons-material";
 import { RegisterRequest } from "../../app/models/user";
 import { useAppDispatch } from "../../app/store/configureStore";
@@ -18,25 +18,27 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { toast } from "react-toastify";
 
 export default function Register() {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { isSubmitting, errors, isValid },
     } = useForm<RegisterRequest>({
         mode: "onTouched",
     });
-    const dispatch = useAppDispatch();
 
     async function submitForm(data: RegisterRequest) {
-        try {
-            console.log(data);
-            await dispatch(registerAsync(data));
-        } catch (errors) {
-            console.log(errors);
-        }
+        data.dateOfBirth = dayjs(data.dateOfBirth).format("YYYY-MM-DD");
+        await dispatch(registerAsync(data));
+        reset();
+        toast.success("Đăng ký thành công");
+        navigate("/login");
     }
 
     return (
@@ -87,10 +89,24 @@ export default function Register() {
                         control={control}
                         rules={{
                             required: "Ngày sinh không được để trống",
-                            validate: (value) =>
-                                (value &&
-                                    dayjs(value).isBefore(dayjs(), "day")) ||
-                                "Ngày sinh không hợp lệ",
+                            validate: (value) => {
+                                const selectedDate = dayjs(value);
+                                const today = dayjs();
+                                const isValidDate =
+                                    value &&
+                                    selectedDate.isBefore(today, "day");
+                                const isOlderThan18 = selectedDate.isBefore(
+                                    today.subtract(18, "years"),
+                                    "day"
+                                );
+
+                                if (!isValidDate) {
+                                    return "Ngày sinh không hợp lệ";
+                                } else if (!isOlderThan18) {
+                                    return "Tuổi phải lớn hơn 18";
+                                }
+                                return true;
+                            },
                         }}
                         render={({ field }) => (
                             <DatePicker
@@ -98,7 +114,18 @@ export default function Register() {
                                 label="Ngày sinh"
                                 format="DD/MM/YYYY"
                                 value={field.value ? dayjs(field.value) : null}
-                                onChange={(date) => field.onChange(date)}
+                                onChange={(date) => {
+                                    field.onChange(date);
+                                    field.onBlur();
+                                }}
+                                slotProps={{
+                                    textField: {
+                                        fullWidth: true,
+                                        error: !!errors.dateOfBirth,
+                                        helperText: errors?.dateOfBirth
+                                            ?.message as string,
+                                    },
+                                }}
                                 sx={{ width: "100%" }}
                             />
                         )}
@@ -129,6 +156,7 @@ export default function Register() {
                     required
                     fullWidth
                     label="Email"
+                    autoComplete="email"
                     {...register("email", {
                         required: "Email không được để trống",
                         pattern: {
@@ -152,8 +180,6 @@ export default function Register() {
                             message: "Số điện thoại không hợp lệ",
                         },
                     })}
-                    error={!!errors.phoneNumber}
-                    helperText={errors?.phoneNumber?.message as string}
                 />
                 <TextField
                     margin="normal"
@@ -161,6 +187,7 @@ export default function Register() {
                     fullWidth
                     label="Mật khẩu"
                     type="password"
+                    autoComplete="current-password"
                     {...register("password", {
                         required: "Mật khẩu không được để trống",
                         minLength: {

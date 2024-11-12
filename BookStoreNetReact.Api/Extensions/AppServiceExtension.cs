@@ -15,6 +15,7 @@ using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
+using BookStoreNetReact.Infrastructure.Identity;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -72,7 +73,8 @@ namespace BookStoreNetReact.Api.Extensions
                 })
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<VietnameseIdentityErrorDescriber>();
 
             // Authentication, authorization
             var jwtOptions = configuration.GetSection(JwtOptions.JwtSettings).Get<JwtOptions>();

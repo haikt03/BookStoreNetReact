@@ -42,12 +42,15 @@ axios.interceptors.response.use(
                     const modelStateErrors: string[] = [];
                     for (const key in data.errors) {
                         if (data.errors[key]) {
-                            modelStateErrors.push(data.errors[key]);
+                            modelStateErrors.push(data.errors[key][0]);
                         }
                     }
-                    throw modelStateErrors.flat();
+                    console.log("agent.ts: 400 error", modelStateErrors);
+                    modelStateErrors.forEach((error) => {
+                        toast.error(error);
+                    });
+                    toast.error(data.title);
                 }
-                toast.error(data.title);
                 break;
             case 401: {
                 const refreshToken = document.cookie
@@ -67,7 +70,7 @@ axios.interceptors.response.use(
                         return axios(originalRequest);
                     }
                 }
-                toast.error(data.title);
+                toast.error(data);
                 router.navigate("/login");
                 break;
             }

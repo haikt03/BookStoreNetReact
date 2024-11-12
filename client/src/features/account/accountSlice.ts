@@ -7,7 +7,6 @@ import {
     User,
 } from "../../app/models/user";
 import agent from "../../app/api/agent";
-import { router } from "../../app/router/routes";
 
 interface AccountState {
     user: User | null;
@@ -83,12 +82,6 @@ export const accountSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loginAsync.fulfilled, () => {
-                router.navigate("/books");
-            })
-            .addCase(registerAsync.fulfilled, () => {
-                router.navigate("/login");
-            })
             .addCase(getCurrentUserAsync.fulfilled, (state, action) => {
                 state.user = action.payload;
                 state.loading = false;

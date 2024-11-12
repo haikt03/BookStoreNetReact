@@ -45,7 +45,10 @@ namespace BookStoreNetReact.Api.Controllers
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
-                return ValidationProblem();
+                return ValidationProblem(new ValidationProblemDetails(ModelState)
+                {
+                    Title = "Đăng ký không thành công"
+                });
             }
             return StatusCode(201);
         }
@@ -136,7 +139,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("confirm-email")]
-        public async Task<ActionResult> ConfirmEmail([FromQuery]ConfirmEmailDto confirmDto)
+        public async Task<ActionResult> ConfirmEmail([FromQuery] ConfirmEmailDto confirmDto)
         {
             var result = await _appUserService.ConfirmEmailAsync(confirmDto.UserId, confirmDto.Token);
             if (result == null)
