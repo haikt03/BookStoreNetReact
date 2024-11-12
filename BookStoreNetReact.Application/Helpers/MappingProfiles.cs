@@ -13,8 +13,10 @@ namespace BookStoreNetReact.Application.Helpers
         public MappingProfiles()
         {
             // AppUser
-            CreateMap<RegisterDto, AppUser>();
+            CreateMap<RegisterDto, AppUser>()
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => ParseDate(src.DateOfBirth)));
             CreateMap<UpdateAppUserDto, AppUser>()
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => ParseDate(src.DateOfBirth)))
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AppUser, AppUserDto>();
             CreateMap<AppUser, DetailAppUserDto>()
@@ -48,6 +50,11 @@ namespace BookStoreNetReact.Application.Helpers
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, DetailCategoryDto>()
                 .ForMember(dest => dest.PCategory, opt => opt.MapFrom(src => src.PCategory));
+        }
+
+        private static DateOnly? ParseDate(string? dateOfBirth)
+        {
+            return DateOnly.TryParse(dateOfBirth, out var parsedDate) ? parsedDate : null;
         }
     }
 }

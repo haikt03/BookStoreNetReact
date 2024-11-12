@@ -4,7 +4,11 @@
     {
         public const string EmailAddress = "Email không hợp lệ";
         public const string PhoneNumber = "Số điện thoại không hợp lệ";
-        public const string DateOfBirth = "Ngày sinh không hợp lệ";
+
+        public static string Invalid(string? name = "Giá trị này")
+        {
+            return $"{name} không hợp lệ";
+        }
 
         public static string NotEmpty(string? name = "Giá trị này")
         {
