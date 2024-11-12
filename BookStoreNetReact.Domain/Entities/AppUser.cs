@@ -24,6 +24,5 @@ namespace BookStoreNetReact.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public UserAddress? Address { get; set; }
-        public List<RefreshToken>? RefreshTokens { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreNetReact.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241107165019_InitialDatabase")]
+    [Migration("20241112065134_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />
@@ -550,7 +550,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", "User")
-                        .WithMany("RefreshTokens")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -559,12 +559,10 @@ namespace BookStoreNetReact.Infrastructure.Migrations
 
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.UserAddress", b =>
                 {
-                    b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", "User")
+                    b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", null)
                         .WithOne("Address")
                         .HasForeignKey("BookStoreNetReact.Domain.Entities.UserAddress", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -621,8 +619,6 @@ namespace BookStoreNetReact.Infrastructure.Migrations
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.AppUser", b =>
                 {
                     b.Navigation("Address");
-
-                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Author", b =>

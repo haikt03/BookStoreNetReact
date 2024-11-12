@@ -16,15 +16,11 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
             builder.HasIndex(au => au.PhoneNumber).IsUnique();
             builder.Property(au => au.FullName).IsRequired();
             builder.Property(au => au.DateOfBirth).IsRequired();
+
             builder
                 .HasOne(au => au.Address)
-                .WithOne(ua => ua.User)
+                .WithOne()
                 .HasForeignKey<UserAddress>(ua => ua.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder
-                .HasMany(au => au.RefreshTokens)
-                .WithOne(rt => rt.User)
-                .HasForeignKey(rt => rt.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

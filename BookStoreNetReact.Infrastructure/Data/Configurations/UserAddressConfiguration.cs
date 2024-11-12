@@ -1,4 +1,5 @@
 ﻿using BookStoreNetReact.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookStoreNetReact.Infrastructure.Data.Configurations
