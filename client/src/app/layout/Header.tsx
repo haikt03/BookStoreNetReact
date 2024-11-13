@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
+import { useAppSelector } from "../store/configureStore";
+import SignedInMenu from "./SignedInMenu";
 
 const midLinks = [
     { title: "Sách", path: "/book" },
@@ -41,6 +43,8 @@ interface Props {
 }
 
 export default function Header({ handleThemeChange, darkMode }: Props) {
+    const { user } = useAppSelector((state) => state.account);
+
     return (
         <AppBar position="static">
             <Toolbar
@@ -74,6 +78,15 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                             {title.toUpperCase()}
                         </ListItem>
                     ))}
+                    {user && user.roles?.includes("Admin") && (
+                        <ListItem
+                            component={NavLink}
+                            to={"/inventory"}
+                            sx={navLinkStyles}
+                        >
+                            INVENTORY
+                        </ListItem>
+                    )}
                 </List>
 
                 <Box display="flex" alignItems="center">
@@ -90,18 +103,22 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                         </Badge>
                     </IconButton>
 
-                    <List sx={{ display: "flex" }}>
-                        {rightLinks.map(({ title, path }) => (
-                            <ListItem
-                                component={NavLink}
-                                to={path}
-                                key={path}
-                                sx={navLinkStyles}
-                            >
-                                {title.toUpperCase()}
-                            </ListItem>
-                        ))}
-                    </List>
+                    {user ? (
+                        <SignedInMenu />
+                    ) : (
+                        <List sx={{ display: "flex" }}>
+                            {rightLinks.map(({ title, path }) => (
+                                <ListItem
+                                    component={NavLink}
+                                    to={path}
+                                    key={path}
+                                    sx={navLinkStyles}
+                                >
+                                    {title.toUpperCase()}
+                                </ListItem>
+                            ))}
+                        </List>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>

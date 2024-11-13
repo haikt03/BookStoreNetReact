@@ -11,12 +11,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
-import { useAppDispatch } from "../../app/store/configureStore";
-import { loginAsync } from "./accountSlice";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { loginAsync, resetLoginStatus } from "./accountSlice";
 import { LoginRequest } from "../../app/models/user";
+import { useEffect } from "react";
 
 export default function Login() {
     const dispatch = useAppDispatch();
+    const { loginStatus } = useAppSelector((state) => state.account);
     const navigate = useNavigate();
     const {
         register,
@@ -26,9 +28,15 @@ export default function Login() {
         mode: "onTouched",
     });
 
+    useEffect(() => {
+        if (loginStatus.status) {
+            navigate("/book");
+            resetLoginStatus();
+        }
+    }, [loginStatus.status, navigate]);
+
     async function submitForm(data: LoginRequest) {
         await dispatch(loginAsync(data));
-        navigate("/book");
     }
 
     return (

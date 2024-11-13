@@ -39,18 +39,15 @@ axios.interceptors.response.use(
         switch (status) {
             case 400:
                 if (data.errors) {
-                    const modelStateErrors: string[] = [];
                     for (const key in data.errors) {
                         if (data.errors[key]) {
-                            modelStateErrors.push(data.errors[key][0]);
+                            data.error[key].forEach((error: string) => {
+                                toast.error(error);
+                            });
                         }
                     }
-                    console.log("agent.ts: 400 error", modelStateErrors);
-                    modelStateErrors.forEach((error) => {
-                        toast.error(error);
-                    });
-                    toast.error(data.title);
                 }
+                toast.error(data.title);
                 break;
             case 401: {
                 const refreshToken = document.cookie

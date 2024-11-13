@@ -11,17 +11,19 @@ import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined } from "@mui/icons-material";
 import { RegisterRequest } from "../../app/models/user";
-import { useAppDispatch } from "../../app/store/configureStore";
-import { registerAsync } from "./accountSlice";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { registerAsync, resetRegisterStatus } from "./accountSlice";
 import { LoadingButton } from "@mui/lab";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function Register() {
     const dispatch = useAppDispatch();
+    const { registerStatus } = useAppSelector((state) => state.account);
     const navigate = useNavigate();
     const {
         register,
@@ -33,12 +35,18 @@ export default function Register() {
         mode: "onTouched",
     });
 
+    useEffect(() => {
+        if (registerStatus.status) {
+            reset();
+            toast.success("Đăng ký thành công");
+            navigate("/login");
+            resetRegisterStatus();
+        }
+    }, [registerStatus.status, reset, navigate]);
+
     async function submitForm(data: RegisterRequest) {
         data.dateOfBirth = dayjs(data.dateOfBirth).format("YYYY-MM-DD");
         await dispatch(registerAsync(data));
-        reset();
-        toast.success("Đăng ký thành công");
-        navigate("/login");
     }
 
     return (
