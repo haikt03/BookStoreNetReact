@@ -54,6 +54,34 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [Authorize]
+        [HttpPost("me/logout")]
+        public async Task<ActionResult> Logout([FromBody] RefreshTokenDto logoutDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+
+            await _appUserService.LogoutAsync(logoutDto);
+            return Ok();
+        }
+
+        [HttpPost("refresh")]
+        public async Task<ActionResult<string>> Refresh([FromBody] RefreshTokenDto refreshDto)
+        {
+            var tokenDto = await _appUserService.RefreshAsync(refreshDto);
+            if (tokenDto == null)
+                return Unauthorized();
+            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(7)
+            });
+            return Ok(tokenDto.AccessToken);
+        }
+
+        [Authorize]
         [HttpGet("me")]
         public async Task<ActionResult<DetailAppUserDto>> GetCurrentUser()
         {
@@ -181,34 +209,6 @@ namespace BookStoreNetReact.Api.Controllers
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Xác nhận số điện thoại không thành công" });
             return Ok("Xác nhận email thành công");
-        }
-
-        [Authorize]
-        [HttpPost("me/logout")]
-        public async Task<ActionResult> Logout([FromBody] RefreshTokenDto logoutDto)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-                return Unauthorized();
-
-            await _appUserService.LogoutAsync(logoutDto);
-            return Ok();
-        }
-
-        [HttpPost("refresh")]
-        public async Task<ActionResult<string>> Refresh([FromBody] RefreshTokenDto refreshDto)
-        {
-            var tokenDto = await _appUserService.RefreshAsync(refreshDto);
-            if (tokenDto == null)
-                return Unauthorized();
-            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddDays(7)
-            });
-            return Ok(tokenDto.AccessToken);
         }
     }
 }

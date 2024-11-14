@@ -77,7 +77,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{userId}/address")]
-        public async Task<ActionResult> UpdateUserAddres([FromBody] UpdateUserAddressDto updateDto, int userId, int addressId)
+        public async Task<ActionResult> UpdateUserAddres([FromBody]UpdateUserAddressDto updateDto, int userId, int addressId)
         {
             var result = await _appUserService.UpdateUserAddressAsync(updateDto, userId);
             if (!result)

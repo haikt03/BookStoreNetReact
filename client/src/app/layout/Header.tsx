@@ -43,7 +43,7 @@ interface Props {
 }
 
 export default function Header({ handleThemeChange, darkMode }: Props) {
-    const { user } = useAppSelector((state) => state.account);
+    const { isAuthenticated, user } = useAppSelector((state) => state.account);
 
     return (
         <AppBar position="static">
@@ -78,7 +78,7 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                             {title.toUpperCase()}
                         </ListItem>
                     ))}
-                    {user && user.roles?.includes("Admin") && (
+                    {isAuthenticated && user?.roles?.includes("Admin") && (
                         <ListItem
                             component={NavLink}
                             to={"/inventory"}

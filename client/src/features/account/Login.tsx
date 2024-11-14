@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { loginAsync, resetLoginStatus } from "./accountSlice";
-import { LoginRequest } from "../../app/models/user";
+import { LoginRequest } from "../../app/models/account";
 import { useEffect } from "react";
 
 export default function Login() {
@@ -29,11 +29,11 @@ export default function Login() {
     });
 
     useEffect(() => {
-        if (loginStatus.status) {
+        if (loginStatus) {
             navigate("/book");
-            resetLoginStatus();
+            dispatch(resetLoginStatus());
         }
-    }, [loginStatus.status, navigate]);
+    }, [loginStatus, navigate, dispatch]);
 
     async function submitForm(data: LoginRequest) {
         await dispatch(loginAsync(data));

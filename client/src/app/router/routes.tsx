@@ -6,6 +6,7 @@ import Login from "../../features/account/Login";
 import Register from "../../features/account/Register";
 import Book from "../../features/book/Book";
 import Author from "../../features/author/Author";
+import RequireAuth from "./RequiredAuth";
 
 export const router = createBrowserRouter(
     [
@@ -13,6 +14,14 @@ export const router = createBrowserRouter(
             path: "/",
             element: <App />,
             children: [
+                {
+                    element: <RequireAuth />,
+                    children: [],
+                },
+                {
+                    element: <RequireAuth roles={["Admin"]} />,
+                    children: [],
+                },
                 { path: "book", element: <Book /> },
                 { path: "author", element: <Author /> },
                 { path: "login", element: <Login /> },

@@ -1,12 +1,16 @@
 import { Button, Menu, Fade, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { Link } from "react-router-dom";
-import { logoutAsync } from "../../features/account/accountSlice";
+import { Link, useNavigate } from "react-router-dom";
+import {
+    logoutAsync,
+    resetLogoutState,
+} from "../../features/account/accountSlice";
 
 export default function SignedInMenu() {
     const dispatch = useAppDispatch();
-    const { user } = useAppSelector((state) => state.account);
+    const navigate = useNavigate();
+    const { user, logoutStatus } = useAppSelector((state) => state.account);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -17,6 +21,13 @@ export default function SignedInMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    useEffect(() => {
+        if (logoutStatus) {
+            navigate("/");
+            dispatch(resetLogoutState());
+        }
+    }, [logoutStatus, navigate, dispatch]);
 
     const handleLogout = async () => {
         await dispatch(logoutAsync());
@@ -29,7 +40,7 @@ export default function SignedInMenu() {
                 onClick={handleClick}
                 sx={{ typography: "h6" }}
             >
-                {user?.email}
+                {user?.userName}
             </Button>
             <Menu
                 anchorEl={anchorEl}

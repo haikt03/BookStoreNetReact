@@ -1,16 +1,6 @@
 import { Address } from "./address";
 
-export interface User {
-    id: number;
-    userName: string;
-    email: string;
-    phoneNumber: string;
-    fullName: string;
-    publicId: string | null;
-    imageUrl: string | null;
-}
-
-export interface DetailUser {
+export interface Account {
     id: number;
     userName: string;
     email: string;
@@ -22,19 +12,36 @@ export interface DetailUser {
     publicId: string | null;
     imageUrl: string | null;
     address: Address | null;
+    roles: string[];
 }
 
-export interface UserParams {
-    pageSize: number;
-    pageIndex: number;
-    search: string;
-    sort: string;
+export interface LoginRequest {
+    userName: string;
+    password: string;
 }
 
-export interface UpdateUserRequest {
+export interface RegisterRequest {
+    userName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    fullName: string;
+    dateOfBirth: string;
+}
+
+export interface LogoutRequest {
+    refreshToken: string;
+}
+
+export interface RefreshRequest {
+    refreshToken: string;
+}
+
+export interface UpdateMeRequest {
     userName: string | null;
     email: string | null;
     phoneNumber: string | null;
+    password: string | null;
     fullName: string | null;
     dateOfBirth: string | null;
     file: File | null;
@@ -52,4 +59,9 @@ export interface UpdateUserAddressRequest {
 export interface ChangePasswordRequest {
     currentPassword: string;
     newPassword: string;
+}
+
+export interface ConfirmEmailQuery {
+    userId: string;
+    token: string;
 }

@@ -10,7 +10,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined } from "@mui/icons-material";
-import { RegisterRequest } from "../../app/models/user";
+import { RegisterRequest } from "../../app/models/account";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { registerAsync, resetRegisterStatus } from "./accountSlice";
 import { LoadingButton } from "@mui/lab";
@@ -36,13 +36,13 @@ export default function Register() {
     });
 
     useEffect(() => {
-        if (registerStatus.status) {
+        if (registerStatus) {
             reset();
             toast.success("Đăng ký thành công");
             navigate("/login");
-            resetRegisterStatus();
+            dispatch(resetRegisterStatus());
         }
-    }, [registerStatus.status, reset, navigate]);
+    }, [registerStatus, reset, navigate, dispatch]);
 
     async function submitForm(data: RegisterRequest) {
         data.dateOfBirth = dayjs(data.dateOfBirth).format("YYYY-MM-DD");
@@ -188,6 +188,8 @@ export default function Register() {
                             message: "Số điện thoại không hợp lệ",
                         },
                     })}
+                    error={!!errors.phoneNumber}
+                    helperText={errors?.phoneNumber?.message as string}
                 />
                 <TextField
                     margin="normal"

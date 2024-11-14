@@ -9,19 +9,22 @@ import { ToastContainer } from "react-toastify";
 import Header from "./Header";
 import LoadingComponent from "./LoadingComponent";
 import Home from "../../features/home/Home";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { getCurrentUserAsync } from "../../features/account/accountSlice";
 
 function App() {
+    const location = useLocation();
+    const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
+    const { isAuthenticated } = useAppSelector((state) => state.account);
 
     const initApp = useCallback(async () => {
-        try {
-            console.log("first render");
-        } catch (error) {
-            console.error(error);
+        if (isAuthenticated) {
+            await dispatch(getCurrentUserAsync());
         }
-    }, []);
+    }, [dispatch, isAuthenticated]);
 
     useEffect(() => {
         initApp().then(() => setLoading(false));

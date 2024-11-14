@@ -2,14 +2,18 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/routes";
 import { PaginatedResponse } from "../models/pagination";
+import { store } from "../store/configureStore";
+import { refreshAsync } from "../../features/account/accountSlice";
 import {
+    ChangePasswordRequest,
+    ConfirmEmailQuery,
     LoginRequest,
     LogoutRequest,
     RefreshRequest,
     RegisterRequest,
-} from "../models/user";
-import { store } from "../store/configureStore";
-import { refreshAsync } from "../../features/account/accountSlice";
+    UpdateMeRequest,
+    UpdateUserAddressRequest,
+} from "../models/account";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL as string;
 axios.defaults.withCredentials = true;
@@ -17,7 +21,7 @@ axios.defaults.withCredentials = true;
 const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.request.use((config) => {
-    const token = store.getState().account.user?.accessToken;
+    const token = store.getState().account.accessToken;
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 });
@@ -40,11 +44,7 @@ axios.interceptors.response.use(
             case 400:
                 if (data.errors) {
                     for (const key in data.errors) {
-                        if (data.errors[key]) {
-                            data.error[key].forEach((error: string) => {
-                                toast.error(error);
-                            });
-                        }
+                        toast.error(data.errors[key][0]);
                     }
                 }
                 toast.error(data.title);
@@ -55,9 +55,8 @@ axios.interceptors.response.use(
                     .find((row) => row.startsWith("refreshToken"))
                     ?.split("=")[1];
                 if (refreshToken) {
-                    const newAccessToken = await store.dispatch(
-                        refreshAsync({ refreshToken })
-                    );
+                    await store.dispatch(refreshAsync({ refreshToken }));
+                    const newAccessToken = store.getState().account.accessToken;
 
                     const originalRequest = error.config;
                     if (originalRequest) {
@@ -105,19 +104,42 @@ const requests = {
             .then(responseBody),
 };
 
+function createFormData(item: any) {
+    const formData = new FormData();
+    for (const key in item) {
+        formData.append(key, item[key]);
+    }
+    return formData;
+}
+
 const account = {
-    login: (values: LoginRequest) => requests.post("account/login", values),
-    register: (values: RegisterRequest) =>
-        requests.post("account/register", values),
-    logout: (values: LogoutRequest) =>
-        requests.post("account/me/logout", values),
+    login: (body: LoginRequest) => requests.post("account/login", body),
+    register: (body: RegisterRequest) =>
+        requests.post("account/register", body),
+    logout: (body: LogoutRequest) => requests.post("account/me/logout", body),
+    refresh: (body: RefreshRequest) => requests.post("account/refresh", body),
     getCurrentUser: () => requests.get("account/me"),
-    refresh: (values: RefreshRequest) =>
-        requests.post("account/refresh", values),
+    updateMe: (body: UpdateMeRequest) =>
+        requests.putForm("account/me", createFormData(body)),
+    updateUserAddress: (body: UpdateUserAddressRequest) =>
+        requests.put("account/me/address", body),
+    changePassword: (body: ChangePasswordRequest) =>
+        requests.put("account/me/password", body),
+    sendConfirmationEmail: () =>
+        requests.post("account/me/send-confirmation-email", {}),
+    confirmEmail: (query: ConfirmEmailQuery) =>
+        requests.get(
+            `account/confirm-email?userId=${query.userId}&token=${query.token}`
+        ),
+};
+
+const user = {
+    getAllUsers: (params: URLSearchParams) => requests.get("users", params),
 };
 
 const agent = {
     account,
+    user,
 };
 
 export default agent;
