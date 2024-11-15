@@ -127,9 +127,9 @@ const account = {
         requests.put("account/me/password", body),
     sendConfirmationEmail: () =>
         requests.post("account/me/send-confirmation-email", {}),
-    confirmEmail: (query: ConfirmEmailQuery) =>
+    confirmEmail: (params: URLSearchParams) =>
         requests.get(
-            `account/confirm-email?userId=${query.userId}&token=${query.token}`
+            'account/confirm-email'
         ),
 };
 

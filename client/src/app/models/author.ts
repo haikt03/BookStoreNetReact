@@ -6,11 +6,6 @@ export interface Author {
     imageUrl: string | null;
 }
 
-export interface DetailAuthor {
-    id: number;
-    fullName: string;
+export interface DetailAuthor extends Author {
     biography: string;
-    country: string;
-    publicId: string | null;
-    imageUrl: string | null;
 }

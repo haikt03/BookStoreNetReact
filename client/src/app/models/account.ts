@@ -33,9 +33,7 @@ export interface LogoutRequest {
     refreshToken: string;
 }
 
-export interface RefreshRequest {
-    refreshToken: string;
-}
+export interface RefreshRequest extends LogoutRequest {}
 
 export interface UpdateMeRequest {
     userName: string | null;

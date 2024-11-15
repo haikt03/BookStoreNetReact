@@ -1,3 +1,7 @@
+export interface PaginationParams {
+    pageIndex: number;
+    pageSize: number;
+}
 export interface MetaData {
     pageIndex: number;
     totalPages: number;

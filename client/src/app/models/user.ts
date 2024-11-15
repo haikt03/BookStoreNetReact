@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { PaginationParams } from "./pagination";
 
 export interface User {
     id: number;
@@ -10,23 +11,14 @@ export interface User {
     imageUrl: string | null;
 }
 
-export interface DetailUser {
-    id: number;
-    userName: string;
-    email: string;
+export interface DetailUser extends User {
     emailConfirmed: boolean;
-    phoneNumber: string;
     phoneNumberConfirmed: boolean;
-    fullName: string;
     dateOfBirth: string;
-    publicId: string | null;
-    imageUrl: string | null;
     address: Address | null;
 }
 
-export interface UserParams {
-    pageSize: number;
-    pageIndex: number;
+export interface UserParams extends PaginationParams {
     search: string;
     sort: string;
 }
