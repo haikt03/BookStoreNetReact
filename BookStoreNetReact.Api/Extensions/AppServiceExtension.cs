@@ -120,19 +120,21 @@ namespace BookStoreNetReact.Api.Extensions
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IAppUserRepository, AppUserRepository>();
-            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
             services.AddScoped<ICloudUploadService, CloudUploadService>();
-            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAppUserService, AppUserService>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISmsService, SmsService>();
 
             // Others

@@ -83,7 +83,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize]
         [HttpGet("me")]
-        public async Task<ActionResult<DetailAppUserDto>> GetCurrentUser()
+        public async Task<ActionResult<AppUserDetailDto>> GetCurrentUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)

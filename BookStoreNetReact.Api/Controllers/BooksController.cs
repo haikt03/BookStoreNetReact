@@ -27,7 +27,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetBookById))]
-        public async Task<ActionResult<DetailBookDto>> GetBookById(int id)
+        public async Task<ActionResult<BookDetailDto>> GetBookById(int id)
         {
             var bookDto = await _bookService.GetBookByIdAsync(id);
             if (bookDto == null)
@@ -37,7 +37,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DetailBookDto>> CreateBook([FromForm] CreateBookDto createDto)
+        public async Task<ActionResult<BookDetailDto>> CreateBook([FromForm] CreateBookDto createDto)
         {
             var bookDto = await _bookService.CreateBookAsync(createDto);
             if (bookDto == null)
@@ -65,22 +65,13 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("publishers")]
-        public async Task<ActionResult<List<string>>> GetAllPublishersOfBooks()
+        [HttpGet("filter")]
+        public async Task<ActionResult<BookFilterDto>> GetFilter()
         {
-            var result = await _bookService.GetAllPublishersOfBooksAsync();
-            if (result == null || result.Count == 0)
-                return BadRequest(new ProblemDetails { Title = "Không tìm thấy các nhà xuất bản" });
-            return Ok(result);
-        }
-
-        [HttpGet("languages")]
-        public async Task<ActionResult<List<string>>> GetAllLanguagesOfBooks()
-        {
-            var result = await _bookService.GetAllLanguagesOfBooksAsync();
-            if (result == null || result.Count == 0)
-                return BadRequest(new ProblemDetails { Title = "Không tìm thấy các ngôn ngữ" });
-            return Ok(result);
+            var filterDto = await _bookService.GetFilterAsync();
+            if (filterDto == null)
+                return BadRequest(new ProblemDetails { Title = "Không tìm thấy bộ lọc sách" });
+            return Ok(filterDto);
         }
     }
 }

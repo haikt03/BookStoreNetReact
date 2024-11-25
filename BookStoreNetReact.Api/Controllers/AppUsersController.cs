@@ -29,7 +29,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetUserById))]
-        public async Task<ActionResult<DetailAppUserDto>> GetUserById(int id)
+        public async Task<ActionResult<AppUserDetailDto>> GetUserById(int id)
         {
             var userDto = await _appUserService.GetUserByIdAsync(id);
             if (userDto == null)

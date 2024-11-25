@@ -28,7 +28,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetCategoryById))]
-        public async Task<ActionResult<DetailCategoryDto>> GetCategoryById(int id)
+        public async Task<ActionResult<CategoryDetailDto>> GetCategoryById(int id)
         {
             var categoryDto = await _categoryService.GetCategoryByIdAsync(id);
             if (categoryDto == null)
@@ -38,7 +38,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DetailCategoryDto>> CreateCategory([FromForm] CreateCategoryDto createDto)
+        public async Task<ActionResult<CategoryDetailDto>> CreateCategory([FromForm] CreateCategoryDto createDto)
         {
             var categoryDto = await _categoryService.CreateCategoryAsync(createDto);
             if (categoryDto == null)

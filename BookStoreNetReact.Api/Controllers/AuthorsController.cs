@@ -28,7 +28,7 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetAuthorById))]
-        public async Task<ActionResult<DetailAuthorDto>> GetAuthorById(int id)
+        public async Task<ActionResult<AuthorDetailDto>> GetAuthorById(int id)
         {
             var authorDto = await _authorService.GetAuthorByIdAsync(id);
             if (authorDto == null)
@@ -38,7 +38,7 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DetailAuthorDto>> CreateAuthor([FromForm] CreateAuthorDto createDto)
+        public async Task<ActionResult<AuthorDetailDto>> CreateAuthor([FromForm] CreateAuthorDto createDto)
         {
             var authorDto = await _authorService.CreateAuthorAsync(createDto);
             if (authorDto == null)
@@ -66,13 +66,13 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("countries")]
-        public async Task<ActionResult<List<string>>> GetAllCountriesOfAuthors()
+        [HttpGet("filter")]
+        public async Task<ActionResult<AuthorFilterDto>> GetFilterAsync()
         {
-            var result = await _authorService.GetAllCountriesOfAuthorsAsync();
-            if (result == null || result.Count == 0)
-                return BadRequest(new ProblemDetails { Title = "Không tìm thấy nơi sinh của các tác giả " });
-            return Ok(result);
+            var filterDto = await _authorService.GetFilterAsync();
+            if (filterDto == null)
+                return BadRequest(new ProblemDetails { Title = "Không tìm thấy bộ lọc tác giả " });
+            return Ok(filterDto);
         }
 
         [HttpGet("{id}/books")]
