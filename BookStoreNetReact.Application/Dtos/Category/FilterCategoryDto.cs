@@ -2,10 +2,8 @@
 
 namespace BookStoreNetReact.Application.Dtos.Category
 {
-    public class FilterCategoryDto : PaginationDto
+    public class FilterCategoryDto : FilterDto
     {
-        public string? Search { get; set; } = "";
-        public int? PId = 0;
-        public string? Sort { get; set; } = "";
+        public int? PId { get; set; } = 0;
     }
 }

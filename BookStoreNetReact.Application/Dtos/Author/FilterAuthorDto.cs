@@ -2,10 +2,8 @@
 
 namespace BookStoreNetReact.Application.Dtos.Author
 {
-    public class FilterAuthorDto : PaginationDto
+    public class FilterAuthorDto : FilterDto
     {
-        public string? Search { get; set; } = "";
         public string? Countries { get; set; } = "";
-        public string? Sort { get; set; } = "";
     }
 }

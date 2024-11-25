@@ -39,18 +39,13 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
                 if (uploadResult == null)
-                    throw new NullReferenceException("Upload result not found");
+                    throw new NullReferenceException("Failed to upload image");
 
                 return new ImageDto
                 {
                     PublicId = uploadResult.PublicId,
                     ImageUrl = uploadResult.SecureUrl.ToString()
                 };
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Upload result not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -67,13 +62,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var deleteResult = await _cloudinary.DestroyAsync(deleteParams);
 
                 if (deleteResult == null)
-                    throw new NullReferenceException("Delete result not found");
+                    throw new NullReferenceException("Failed to delete image");
                 return deleteResult.Result == "ok";
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Delete result not found");
-                return false;
             }
             catch (Exception ex)
             {

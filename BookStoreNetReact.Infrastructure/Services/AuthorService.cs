@@ -32,25 +32,20 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting all authors");
+                _logger.LogWarning(ex, "An error occurred while getting authors");
                 return null;
             }
         }
 
-        public async Task<DetailAuthorDto?> GetAuthorByIdAsync(int authorId)
+        public async Task<AuthorDetailDto?> GetAuthorByIdAsync(int authorId)
         {
             try
             {
                 var author = await _unitOfWork.AuthorRepository.GetByIdAsync(authorId);
                 if (author == null)
                     throw new NullReferenceException("Author not found");
-                var authorDto = _mapper.Map<DetailAuthorDto>(author);
+                var authorDto = _mapper.Map<AuthorDetailDto>(author);
                 return authorDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Author not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -59,7 +54,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<DetailAuthorDto?> CreateAuthorAsync(CreateAuthorDto createDto)
+        public async Task<AuthorDetailDto?> CreateAuthorAsync(CreateAuthorDto createDto)
         {
             try
             {
@@ -77,15 +72,10 @@ namespace BookStoreNetReact.Infrastructure.Services
                 await _unitOfWork.AuthorRepository.AddAsync(author);
                 var result = await _unitOfWork.CompleteAsync();
                 if (!result)
-                    throw new InvalidOperationException("Failed to save changes author data");
+                    throw new InvalidOperationException("Failed to create author");
 
-                var authorDto = _mapper.Map<DetailAuthorDto>(await _unitOfWork.AuthorRepository.GetByIdAsync(author.Id));
+                var authorDto = _mapper.Map<AuthorDetailDto>(await _unitOfWork.AuthorRepository.GetByIdAsync(author.Id));
                 return authorDto;
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Failed to save changes author data");
-                return null;
             }
             catch (Exception ex)
             {
@@ -120,11 +110,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Author not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating author");
@@ -147,11 +132,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Author not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while deleting author");
@@ -159,16 +139,16 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<List<string>?> GetAllCountriesOfAuthorsAsync()
+        public async Task<AuthorFilterDto?> GetFilterAsync()
         {
             try
             {
-                var countries = await _unitOfWork.AuthorRepository.GetAllCountriesAsync();
-                return countries;
+                var filterDto = await _unitOfWork.AuthorRepository.GetFilterAsync();
+                return filterDto;
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting all countries of authors");
+                _logger.LogWarning(ex, "An error occurred while getting author filter");
                 return null;
             }
         }

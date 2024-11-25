@@ -13,12 +13,8 @@ namespace BookStoreNetReact.Application.Dtos.UserAddress
                 .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Quận/Huyện"));
             RuleFor(uu => uu.Ward)
                 .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Phường/Xã"));
-            RuleFor(uu => uu.Street)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Đường/Phố"));
-            RuleFor(uu => uu.Alley)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Ngõ/Ngách/Hẻm"));
-            RuleFor(uu => uu.HouseNumber)
-                .Length(1, 5).WithMessage(ValidationErrorMessages.Length("Số nhà"));
+            RuleFor(uu => uu.SpecificAddress)
+                .Length(1, 100).WithMessage(ValidationErrorMessages.Length("Địa chỉ cụ thể"));
         }
     }
 }

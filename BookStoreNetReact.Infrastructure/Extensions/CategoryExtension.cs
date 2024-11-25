@@ -7,9 +7,7 @@ namespace BookStoreNetReact.Infrastructure.Extensions
         public static IQueryable<Category> Search(this IQueryable<Category> query, string? search = null)
         {
             if (string.IsNullOrWhiteSpace(search))
-            {
                 return query;
-            }
             var lowerCaseSearch = search.Trim().ToLower();
             var result = query.Where(c => c.Name.ToLower().Contains(lowerCaseSearch));
             return result;
@@ -25,12 +23,10 @@ namespace BookStoreNetReact.Infrastructure.Extensions
         public static IQueryable<Category> Sort(this IQueryable<Category> query, string? sort = null)
         {
             if (string.IsNullOrWhiteSpace(sort))
-            {
                 return query.OrderBy(c => c.Name);
-            }
             var result = sort switch
             {
-                "name" => query.OrderBy(c => c.Name),
+                "nameAsc" => query.OrderBy(c => c.Name),
                 "nameDesc" => query.OrderByDescending(c => c.Name),
                 _ => query.OrderBy(c => c.Name)
             };

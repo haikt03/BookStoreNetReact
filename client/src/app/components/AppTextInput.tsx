@@ -1,7 +1,9 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { useController, UseControllerProps } from "react-hook-form";
 
-interface Props extends UseControllerProps {
+interface Props
+    extends UseControllerProps,
+        Omit<TextFieldProps, "name" | "defaultValue"> {
     label: string;
     multiline?: boolean;
     rows?: number;
@@ -9,19 +11,20 @@ interface Props extends UseControllerProps {
 }
 
 export default function AppTextInput(props: Props) {
-    const {fieldState, field} = useController({...props, defaultValue: ''})
+    const { field, fieldState } = useController({
+        ...props,
+        defaultValue: props.defaultValue || "",
+    });
 
     return (
-        <TextField 
-            {...props}
+        <TextField
             {...field}
-            multiline={props.multiline}
-            rows={props.rows}
-            type={props.type}
+            {...props}
             fullWidth
+            margin="normal"
             variant="outlined"
             error={!!fieldState.error}
             helperText={fieldState.error?.message}
         />
-    )
+    );
 }

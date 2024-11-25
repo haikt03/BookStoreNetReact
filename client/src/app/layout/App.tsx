@@ -12,6 +12,7 @@ import Home from "../../features/home/Home";
 import { Outlet, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { getCurrentUserAsync } from "../../features/account/accountSlice";
+import { getBasketAsync } from "../../features/basket/basketSlice";
 
 function App() {
     const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
     const initApp = useCallback(async () => {
         if (isAuthenticated) {
             await dispatch(getCurrentUserAsync());
+            await dispatch(getBasketAsync());
         }
     }, [dispatch, isAuthenticated]);
 

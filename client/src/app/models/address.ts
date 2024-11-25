@@ -3,7 +3,5 @@ export interface Address {
     city: string;
     district: string;
     ward: string;
-    street: string;
-    alley: string;
-    houseNumber: string;
+    specificAddress: string;
 }

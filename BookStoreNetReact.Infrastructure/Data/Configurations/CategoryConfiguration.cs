@@ -10,6 +10,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         {
             base.Configure(builder);
             builder.Property(c => c.Name).IsRequired();
+
             builder
                 .HasOne(c => c.PCategory)
                 .WithMany(c => c.CCategories)

@@ -2,7 +2,7 @@
 
 namespace BookStoreNetReact.Application.Dtos.Category
 {
-    public class DetailCategoryDto
+    public class CategoryDetailDto
     {
         public required int Id { get; set; }
         public required string Name { get; set; }

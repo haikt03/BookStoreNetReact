@@ -3,7 +3,7 @@ using BookStoreNetReact.Application.Dtos.Category;
 
 namespace BookStoreNetReact.Application.Dtos.Book
 {
-    public class DetailBookDto
+    public class BookDetailDto
     {
         public required int Id { get; set; }
         public required string Name { get; set; }

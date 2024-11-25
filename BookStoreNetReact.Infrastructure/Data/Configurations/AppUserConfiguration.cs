@@ -18,9 +18,9 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
             builder.Property(au => au.DateOfBirth).IsRequired();
 
             builder
-                .HasOne(au => au.Address)
+                .HasOne(u => u.Address)
                 .WithOne()
-                .HasForeignKey<UserAddress>(ua => ua.UserId)
+                .HasForeignKey<UserAddress>(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

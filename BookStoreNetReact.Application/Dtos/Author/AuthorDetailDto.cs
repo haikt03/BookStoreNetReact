@@ -2,7 +2,7 @@
 
 namespace BookStoreNetReact.Application.Dtos.Author
 {
-    public class DetailAuthorDto
+    public class AuthorDetailDto
     {
         public required int Id { get; set; }
         public required string FullName { get; set; }

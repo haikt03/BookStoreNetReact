@@ -32,25 +32,20 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting all categories");
+                _logger.LogWarning(ex, "An error occurred while getting categories");
                 return null;
             }
         }
 
-        public async Task<DetailCategoryDto?> GetCategoryByIdAsync(int categoryId)
+        public async Task<CategoryDetailDto?> GetCategoryByIdAsync(int categoryId)
         {
             try
             {
                 var category = await _unitOfWork.CategoryRepository.GetDetailByIdAsync(categoryId);
                 if (category == null)
                     throw new NullReferenceException("Category not found");
-                var categoryDto = _mapper.Map<DetailCategoryDto>(category);
+                var categoryDto = _mapper.Map<CategoryDetailDto>(category);
                 return categoryDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Category not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -59,7 +54,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<DetailCategoryDto?> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
+        public async Task<CategoryDetailDto?> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
             try
             {
@@ -68,15 +63,10 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
 
                 if (!result)
-                    throw new InvalidOperationException("Failed to save changes category data");
+                    throw new InvalidOperationException("Failed to creating category");
 
-                var categoryDto = _mapper.Map<DetailCategoryDto>(await _unitOfWork.CategoryRepository.GetDetailByIdAsync(category.Id));
+                var categoryDto = _mapper.Map<CategoryDetailDto>(await _unitOfWork.CategoryRepository.GetDetailByIdAsync(category.Id));
                 return categoryDto;
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Failed to save changes category data");
-                return null;
             }
             catch (Exception ex)
             {
@@ -97,11 +87,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 _unitOfWork.CategoryRepository.Update(category);
                 return await _unitOfWork.CompleteAsync();
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Category not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating category");
@@ -119,11 +104,6 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 _unitOfWork.CategoryRepository.Remove(category);
                 return await _unitOfWork.CompleteAsync();
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Category not found");
-                return false;
             }
             catch (Exception ex)
             {

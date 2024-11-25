@@ -12,6 +12,6 @@ namespace BookStoreNetReact.Domain.Entities
         public required string Country { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
-        public List<Book>? Books { get; set; }
+        public List<Book> Books { get; set; } = new List<Book>();
     }
 }

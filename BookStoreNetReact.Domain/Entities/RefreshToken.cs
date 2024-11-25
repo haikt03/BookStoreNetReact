@@ -8,7 +8,7 @@ namespace BookStoreNetReact.Domain.Entities
         public required DateTime ExpiresAt { get; set; }
         public DateTime? RevokedAt { get; set; }
         [Range(1, int.MaxValue)]
-        public int? UserId { get; set; }
+        public required int UserId { get; set; }
         public AppUser? User { get; set; }
     }
 }

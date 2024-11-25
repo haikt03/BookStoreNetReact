@@ -43,8 +43,10 @@ namespace BookStoreNetReact.Application.Dtos.Book
                 .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Số lượng tồn kho"))
                 .GreaterThanOrEqualTo(0).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Số lượng tồn kho"));
             RuleFor(cb => cb.CategoryId)
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Id thể loại"))
                 .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Id thể loại"));
             RuleFor(cb => cb.AuthorId)
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Id tác giả"))
                 .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Id tác giả"));
         }
     }

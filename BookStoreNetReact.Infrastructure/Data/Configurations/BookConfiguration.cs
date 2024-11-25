@@ -19,6 +19,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
             builder.Property(b => b.Description).IsRequired();
             builder.Property(b => b.Price).IsRequired();
             builder.Property(b => b.QuantityInStock).IsRequired();
+
             builder
                 .HasOne(b => b.Author)
                 .WithMany(a => a.Books)

@@ -16,6 +16,8 @@ namespace BookStoreNetReact.Infrastructure.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

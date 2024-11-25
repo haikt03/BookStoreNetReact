@@ -36,12 +36,19 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var user = _mapper.Map<AppUser>(registerDto);
-                var result = await _unitOfWork.AppUserRepository.AddAsync(user, registerDto.Password);
-                return result;
+                var identityResult = await _unitOfWork.AppUserRepository.AddAsync(user, registerDto.Password);
+
+                var basket = new Basket { UserId = user.Id };
+                await _unitOfWork.BasketRepository.AddAsync(basket);
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
+                    throw new InvalidOperationException("Failed to initialize basket");
+
+                return identityResult;
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while creating app user");
+                _logger.LogWarning(ex, "An error occurred while signing up");
                 return null;
             }
         }
@@ -63,14 +70,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var tokenDto = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
                 return tokenDto;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
-            }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while login");
+                _logger.LogWarning(ex, "An error occurred while sigining in");
                 return null;
             }
         }
@@ -91,25 +93,20 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting app users");
+                _logger.LogWarning(ex, "An error occurred while getting users");
                 return null;
             }
         }
 
-        public async Task<DetailAppUserDto?> GetUserByIdAsync(int userId)
+        public async Task<AppUserDetailDto?> GetUserByIdAsync(int userId)
         {
             try
             {
                 var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
                 if (user == null)
                     throw new NullReferenceException("User not found");
-                var userDto = _mapper.Map<DetailAppUserDto>(user);
+                var userDto = _mapper.Map<AppUserDetailDto>(user);
                 return userDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -143,11 +140,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.AppUserRepository.UpdateAsync(user);
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating user");
@@ -169,11 +161,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.AppUserRepository.RemoveAsync(user);
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while deleting user");
@@ -186,10 +173,8 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
-                if (user == null)
-                    throw new NullReferenceException("User not found");
-                if (user.Address == null)
-                    user.Address = new UserAddress { City = "", Alley = "", District = "", Ward = "", Street = "", HouseNumber = "" };
+                if (user == null || user.Address == null)
+                    throw new NullReferenceException("Address not found");
 
                 var address = user.Address;
                 _mapper.Map(updateDto, address);
@@ -198,14 +183,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return false;
-            }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while updating user address");
+                _logger.LogWarning(ex, "An error occurred while updating address");
                 return false;
             }
         }
@@ -220,11 +200,6 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var result = await _unitOfWork.AppUserRepository.ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
                 return result;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -255,11 +230,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 );
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User or email not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while sending confimation email");
@@ -279,11 +249,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.AppUserRepository.ConfirmEmailAsync(user, decodedToken);
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while confirming email");
@@ -295,11 +260,13 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                await _tokenService.RemoveRefreshTokenAsync(logoutDto.RefreshToken);
+                var result = await _tokenService.RemoveRefreshTokenAsync(logoutDto.RefreshToken);
+                if (!result)
+                    throw new InvalidOperationException("Failed to logout");
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while logout");
+                _logger.LogWarning(ex, "An error occurred while signing out");
             }
         }
 
@@ -317,11 +284,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                     return null;
                 var tokenDto = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
                 return tokenDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -351,14 +313,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                     return false;
                 return true;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User or phone number not found");
-                return false;
-            }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while sending code");
+                _logger.LogWarning(ex, "An error occurred while sending phone number confirmation code");
                 return false;
             }
         }
@@ -377,14 +334,9 @@ namespace BookStoreNetReact.Infrastructure.Services
                 await _unitOfWork.AppUserRepository.UpdateAsync(user);
                 return true;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "User not found");
-                return false;
-            }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while confirm phone number");
+                _logger.LogWarning(ex, "An error occurred while confirming phone number");
                 return false;
             }
         }

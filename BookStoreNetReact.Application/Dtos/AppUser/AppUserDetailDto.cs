@@ -2,7 +2,7 @@
 
 namespace BookStoreNetReact.Application.Dtos.AppUser
 {
-    public class DetailAppUserDto
+    public class AppUserDetailDto
     {
         public required int Id { get; set; }
         public required string UserName { get; set; }

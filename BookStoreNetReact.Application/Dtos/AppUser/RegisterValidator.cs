@@ -1,4 +1,5 @@
-﻿using BookStoreNetReact.Application.Helpers;
+﻿using BookStoreNetReact.Application.Dtos.UserAddress;
+using BookStoreNetReact.Application.Helpers;
 using FluentValidation;
 
 namespace BookStoreNetReact.Application.Dtos.AppUser
@@ -26,6 +27,8 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
                 .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Ngày sinh"))
                 .Must(dob => dob >= new DateOnly(1900, 1, 1)).WithMessage(ValidationErrorMessages.Invalid("Ngày sinh"))
                 .Must(dob => dob <= DateOnly.FromDateTime(DateTime.Today.AddYears(-18))).WithMessage("Bạn phải đủ 18 tuổi");
+            RuleFor(r => r.Address)
+                .SetValidator(new CreateUserAddressValidator());
         }
     }
 }

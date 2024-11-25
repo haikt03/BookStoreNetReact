@@ -1,14 +1,9 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import {
-    Account,
-    LoginRequest,
-    LogoutRequest,
-    RefreshRequest,
-    RegisterRequest,
-} from "../../app/models/account";
+import { Account } from "../../app/models/account";
 import agent from "../../app/api/agent";
 import Cookies from "js-cookie";
 import { State } from "../../app/store/configureStore";
+import { FieldValues } from "react-hook-form";
 
 interface AccountState {
     user: Account | null;
@@ -38,7 +33,7 @@ const initialState: AccountState = {
     },
 };
 
-export const loginAsync = createAsyncThunk<string, LoginRequest>(
+export const loginAsync = createAsyncThunk<string, FieldValues>(
     "account/login",
     async (data, thunkAPI) => {
         try {
@@ -50,7 +45,7 @@ export const loginAsync = createAsyncThunk<string, LoginRequest>(
     }
 );
 
-export const registerAsync = createAsyncThunk<void, RegisterRequest>(
+export const registerAsync = createAsyncThunk<void, FieldValues>(
     "account/register",
     async (data, thunkAPI) => {
         try {
@@ -61,7 +56,7 @@ export const registerAsync = createAsyncThunk<void, RegisterRequest>(
     }
 );
 
-export const logoutAsync = createAsyncThunk<void, LogoutRequest>(
+export const logoutAsync = createAsyncThunk<void>(
     "account/logout",
     async (_, thunkAPI) => {
         try {
@@ -75,7 +70,7 @@ export const logoutAsync = createAsyncThunk<void, LogoutRequest>(
     }
 );
 
-export const refreshAsync = createAsyncThunk<string, RefreshRequest>(
+export const refreshAsync = createAsyncThunk<string, FieldValues>(
     "account/refresh",
     async (data, thunkAPI) => {
         try {
@@ -136,7 +131,7 @@ export const accountSlice = createSlice({
                 state.isAuthenticated = false;
             })
             .addCase(getCurrentUserAsync.fulfilled, (state, action) => {
-                state.user = action.payload;
+                state.user = { ...state.user, ...action.payload };
                 state.getCurrentUserStatus.loading = false;
                 state.getCurrentUserStatus.status = true;
             })
@@ -160,14 +155,14 @@ export const accountSlice = createSlice({
                     const claims = JSON.parse(
                         atob(action.payload.split(".")[1])
                     );
-                    const roles =
+                    const role =
                         claims[
                             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
                         ];
                     state.user = {
                         ...state.user,
                         accessToken: action.payload,
-                        roles: typeof roles === "string" ? [roles] : roles,
+                        role: role,
                     } as Account;
                     state.accessToken = action.payload;
                     if (action.type === loginAsync.fulfilled.type) {

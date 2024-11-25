@@ -1,6 +1,6 @@
 ﻿namespace BookStoreNetReact.Application.Dtos.Pagination
 {
-    public class PaginationDto
+    public class FilterDto
     {
         private const int MaxPageSize = 50;
         private int _pageSize = 6;
@@ -10,5 +10,7 @@
             set => _pageSize = value > MaxPageSize ? MaxPageSize : value;
         }
         public int PageIndex { get; set; } = 1;
+        public string? Search { get; set; } = "";
+        public string? Sort { get; set; } = "";
     }
 }

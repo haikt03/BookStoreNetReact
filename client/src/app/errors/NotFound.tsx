@@ -8,7 +8,7 @@ export default function NotFound() {
                 Chúng tôi không thể tìm thấy trang bạn yêu cầu
             </Typography>
             <Divider />
-            <Button component={Link} to="/catalog" fullWidth>
+            <Button component={Link} to="/book" fullWidth>
                 Quay trở lại
             </Button>
         </Container>

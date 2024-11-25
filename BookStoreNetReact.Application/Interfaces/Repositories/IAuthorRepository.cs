@@ -8,7 +8,7 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
     {
         IQueryable<Author> GetAll(FilterAuthorDto filterDto);
         Task<Author?> GetByIdAsync(int authorId);
-        Task<List<string>> GetAllCountriesAsync();
         IQueryable<Book> GetAllBooks(FilterBookDto filterDto, int authorId);
+        Task<AuthorFilterDto> GetFilterAsync();
     }
 }

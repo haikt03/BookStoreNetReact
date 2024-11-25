@@ -29,7 +29,7 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress(optionsValue.SmtpFrom, "HUCE Book Conner"),
+                    From = new MailAddress(optionsValue.SmtpFrom, "Book Conner"),
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = true

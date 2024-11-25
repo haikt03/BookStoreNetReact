@@ -17,7 +17,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -213,6 +213,63 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.ToTable("Authors");
                 });
 
+            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -348,7 +405,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -366,11 +423,6 @@ namespace BookStoreNetReact.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Alley")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -384,20 +436,17 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("HouseNumber")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("SpecificAddress")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Ward")
@@ -408,8 +457,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("UserAddresses");
                 });
@@ -517,6 +565,34 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Basket", b =>
+                {
+                    b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", "User")
+                        .WithOne()
+                        .HasForeignKey("BookStoreNetReact.Domain.Entities.Basket", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.BasketItem", b =>
+                {
+                    b.HasOne("BookStoreNetReact.Domain.Entities.Basket", null)
+                        .WithMany("Items")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookStoreNetReact.Domain.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Book", b =>
                 {
                     b.HasOne("BookStoreNetReact.Domain.Entities.Author", "Author")
@@ -549,7 +625,8 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -559,7 +636,8 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.HasOne("BookStoreNetReact.Domain.Entities.AppUser", null)
                         .WithOne("Address")
                         .HasForeignKey("BookStoreNetReact.Domain.Entities.UserAddress", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -621,6 +699,11 @@ namespace BookStoreNetReact.Infrastructure.Migrations
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Basket", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Category", b =>

@@ -1,4 +1,4 @@
-import { LockOutlined } from "@mui/icons-material";
+import { LoginOutlined } from "@mui/icons-material";
 import {
     Container,
     Paper,
@@ -9,11 +9,10 @@ import {
     Grid,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { loginAsync, resetLoginStatus } from "./accountSlice";
-import { LoginRequest } from "../../app/models/account";
 import { useEffect } from "react";
 
 export default function Login() {
@@ -24,7 +23,7 @@ export default function Login() {
         register,
         handleSubmit,
         formState: { isSubmitting, errors, isValid },
-    } = useForm<LoginRequest>({
+    } = useForm({
         mode: "onTouched",
     });
 
@@ -35,7 +34,7 @@ export default function Login() {
         }
     }, [loginStatus, navigate, dispatch]);
 
-    async function submitForm(data: LoginRequest) {
+    async function submitForm(data: FieldValues) {
         await dispatch(loginAsync(data));
     }
 
@@ -51,7 +50,7 @@ export default function Login() {
             }}
         >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlined />
+                <LoginOutlined />
             </Avatar>
             <Typography component="h1" variant="h5">
                 Đăng nhập

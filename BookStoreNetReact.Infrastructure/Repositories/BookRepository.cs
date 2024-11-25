@@ -16,11 +16,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IQueryable<Book> GetAll(FilterBookDto filterDto)
         {
             var books = _context.Books
-                .Search(filterDto.Search)
+                .Search(filterDto.Search, filterDto.AuthorSearch)
                 .Filter
                 (
                     publishers: filterDto.Publishers,
                     languages: filterDto.Languages,
+                    categories: filterDto.Categories,
                     minPrice: filterDto.MinPrice,
                     maxPrice: filterDto.MaxPrice
                 )
@@ -61,6 +62,32 @@ namespace BookStoreNetReact.Infrastructure.Repositories
                 .Distinct()
                 .ToListAsync();
             return languages;
+        }
+
+        public async Task<BookFilterDto> GetFilterAsync()
+        {
+            var publishers = await _context.Books
+                .Select(b => b.Publisher)
+                .Where(p => !string.IsNullOrEmpty(p))
+                .Distinct()
+                .ToListAsync();
+
+            var languages = await _context.Books
+                .Select(b => b.Language)
+                .Where(l => !string.IsNullOrEmpty(l))
+                .Distinct()
+                .ToListAsync();
+
+            var minPrice = await _context.Books.MinAsync(b => b.Price);
+            var maxPrice = await _context.Books.MaxAsync(b => b.Price);
+
+            return new BookFilterDto
+            {
+                Publishers = publishers,
+                Languages = languages,
+                MinPrice = (int)(Math.Floor(minPrice / 100000.0) * 100000),
+                MaxPrice = (int)(Math.Ceiling(maxPrice / 100000.0) * 100000)
+            };
         }
     }
 }

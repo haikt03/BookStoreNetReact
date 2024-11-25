@@ -10,6 +10,6 @@ namespace BookStoreNetReact.Domain.Entities
         public int? PId { get; set; }
         public Category? PCategory { get; set; }
         public List<Category>? CCategories { get; set; }
-        public List<Book>? Books { get; set; }
+        public List<Book> Books { get; set; } = new List<Book>();
     }
 }

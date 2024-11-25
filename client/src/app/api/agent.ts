@@ -4,16 +4,8 @@ import { router } from "../router/routes";
 import { PaginatedResponse } from "../models/pagination";
 import { store } from "../store/configureStore";
 import { refreshAsync } from "../../features/account/accountSlice";
-import {
-    ChangePasswordRequest,
-    ConfirmEmailQuery,
-    LoginRequest,
-    LogoutRequest,
-    RefreshRequest,
-    RegisterRequest,
-    UpdateMeRequest,
-    UpdateUserAddressRequest,
-} from "../models/account";
+
+// const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL as string;
 axios.defaults.withCredentials = true;
@@ -28,6 +20,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
     async (response) => {
+        // if (import.meta.env.DEV) await sleep();
         const pagination = response.headers["pagination"];
         if (pagination) {
             response.data = new PaginatedResponse(
@@ -66,7 +59,6 @@ axios.interceptors.response.use(
                         return axios(originalRequest);
                     }
                 }
-                toast.error(data);
                 router.navigate("/login");
                 break;
             }
@@ -113,33 +105,58 @@ function createFormData(item: any) {
 }
 
 const account = {
-    login: (body: LoginRequest) => requests.post("account/login", body),
-    register: (body: RegisterRequest) =>
-        requests.post("account/register", body),
-    logout: (body: LogoutRequest) => requests.post("account/me/logout", body),
-    refresh: (body: RefreshRequest) => requests.post("account/refresh", body),
+    login: (body: any) => requests.post("account/login", body),
+    register: (body: any) => requests.post("account/register", body),
+    logout: (body: any) => requests.post("account/me/logout", body),
+    refresh: (body: any) => requests.post("account/refresh", body),
     getCurrentUser: () => requests.get("account/me"),
-    updateMe: (body: UpdateMeRequest) =>
+    updateMe: (body: any) =>
         requests.putForm("account/me", createFormData(body)),
-    updateUserAddress: (body: UpdateUserAddressRequest) =>
-        requests.put("account/me/address", body),
-    changePassword: (body: ChangePasswordRequest) =>
-        requests.put("account/me/password", body),
+    updateUserAddress: (body: any) => requests.put("account/me/address", body),
+    changePassword: (body: any) => requests.put("account/me/password", body),
     sendConfirmationEmail: () =>
         requests.post("account/me/send-confirmation-email", {}),
     confirmEmail: (params: URLSearchParams) =>
-        requests.get(
-            'account/confirm-email'
+        requests.get("account/confirm-email", params),
+};
+
+const book = {
+    getBooks: (params: URLSearchParams) => requests.get("books", params),
+    getBook: (id: number) => requests.get(`books/${id}`),
+    createBook: (body: any) => requests.post("books", body),
+    updateBook: (id: number, body: any) => requests.put(`books/${id}`, body),
+    deleteBook: (id: number) => requests.del(`books/${id}`),
+    getBookFilter: () => requests.get("books/filter"),
+};
+
+const basket = {
+    getBasket: () => requests.get("basket"),
+    addBasketItem: (bookId: number, quantity = 1) =>
+        requests.post(`basket/add?bookId=${bookId}&quantity=${quantity}`, {}),
+    removeBasketItem: (bookId: number, quantity = 1) =>
+        requests.post(
+            `basket/remove?bookId=${bookId}&quantity=${quantity}`,
+            {}
         ),
 };
 
-const user = {
-    getAllUsers: (params: URLSearchParams) => requests.get("users", params),
+const author = {
+    getAuthors: (params: URLSearchParams) => requests.get("authors", params),
+    getAuthor: (id: number) => requests.get(`authors/${id}`),
+    createAuthor: (body: any) => requests.post("authors", body),
+    updateAuthor: (id: number, body: any) =>
+        requests.put(`authors/${id}`, body),
+    deleteAuthor: (id: number) => requests.del(`authors/${id}`),
+    getAuthorFilter: () => requests.get("authors/filter"),
+    getBooksByAuthor: (id: number, params: URLSearchParams) =>
+        requests.get(`authors/${id}/books`, params),
 };
 
 const agent = {
     account,
-    user,
+    book,
+    basket,
+    author,
 };
 
 export default agent;

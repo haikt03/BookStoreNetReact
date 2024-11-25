@@ -18,10 +18,8 @@ namespace BookStoreNetReact.Infrastructure.Extensions
         {
             try
             {
-                if (pageIndex < 1)
-                    throw new ArgumentOutOfRangeException(nameof(pageIndex));
-                if (pageSize < 1)
-                    throw new ArgumentOutOfRangeException(nameof(pageSize));
+                if (pageIndex < 1 || pageSize < 1)
+                    throw new ArgumentOutOfRangeException("Paging parameters are out of range");
 
                 var totalCount = await query.CountAsync();
                 var items = await query.Skip((pageIndex - 1) * pageSize)
@@ -29,11 +27,6 @@ namespace BookStoreNetReact.Infrastructure.Extensions
                                        .Select(selector)
                                        .ToListAsync();
                 return new PagedList<TDto>(items, totalCount, pageSize, pageIndex);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                logger.LogWarning(ex, "Paging parameters are out of range");
-                return null;
             }
             catch (Exception ex)
             {

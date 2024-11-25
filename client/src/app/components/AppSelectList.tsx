@@ -1,5 +1,11 @@
-import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
-import { UseControllerProps, useController } from 'react-hook-form';
+import {
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    FormHelperText,
+} from "@mui/material";
+import { UseControllerProps, useController } from "react-hook-form";
 
 interface Props extends UseControllerProps {
     label: string;
@@ -7,7 +13,8 @@ interface Props extends UseControllerProps {
 }
 
 export default function AppSelectList(props: Props) {
-    const {fieldState, field} = useController({...props, defaultValue: ''})
+    const { fieldState, field } = useController({ ...props, defaultValue: "" });
+
     return (
         <FormControl fullWidth error={!!fieldState.error}>
             <InputLabel>{props.label}</InputLabel>
@@ -17,10 +24,12 @@ export default function AppSelectList(props: Props) {
                 onChange={field.onChange}
             >
                 {props.items.map((item, index) => (
-                    <MenuItem value={item} key={index}>{item}</MenuItem>
+                    <MenuItem value={item} key={index}>
+                        {item}
+                    </MenuItem>
                 ))}
             </Select>
             <FormHelperText>{fieldState.error?.message}</FormHelperText>
         </FormControl>
-    )
+    );
 }

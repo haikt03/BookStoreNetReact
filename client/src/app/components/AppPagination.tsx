@@ -1,14 +1,14 @@
 import { Box, Typography, Pagination } from "@mui/material";
-import { MetaData } from '../models/pagination';
-import { useState } from 'react';
+import { MetaData } from "../models/pagination";
+import { useState } from "react";
 
 interface Props {
-    metaData: MetaData,
+    metaData: MetaData;
     onPageChange: (page: number) => void;
 }
 
-export default function AppPagination({metaData, onPageChange}: Props) {
-    const {pageSize, pageIndex, totalCount, totalPages} = metaData;
+export default function AppPagination({ metaData, onPageChange }: Props) {
+    const { pageSize, pageIndex, totalCount, totalPages } = metaData;
     const [pageNumber, setPageNumber] = useState(pageIndex);
 
     function handlePageChange(page: number) {
@@ -17,21 +17,27 @@ export default function AppPagination({metaData, onPageChange}: Props) {
     }
 
     return (
-        <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ marginBottom: 3 }}>
-            <Typography variant='body1'>
-                Displaying {(pageIndex-1)*pageSize+1}-
-                    {pageIndex*pageSize > totalCount!
-                        ? totalCount
-                        : pageIndex * pageSize
-                    } of {totalCount} results
+        <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ marginBottom: 3 }}
+        >
+            <Typography variant="body1">
+                Hiển thị {(pageIndex - 1) * pageSize + 1}-
+                {pageIndex * pageSize > totalCount!
+                    ? totalCount
+                    : pageIndex * pageSize}{" "}
+                trong tổng số {totalCount} kết quả
             </Typography>
+
             <Pagination
-                color='secondary'
-                size='large'
+                color="secondary"
+                size="large"
                 count={totalPages}
                 page={pageNumber}
                 onChange={(_e, page) => handlePageChange(page)}
             />
         </Box>
-    )
+    );
 }

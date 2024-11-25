@@ -10,24 +10,40 @@ import {
     Typography,
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
-import { ShoppingCart } from "@mui/icons-material";
+import {
+    ShoppingCart,
+    MenuBook,
+    People,
+    PersonAdd,
+    LoginOutlined,
+    Category,
+} from "@mui/icons-material";
 import { useAppSelector } from "../store/configureStore";
 import SignedInMenu from "./SignedInMenu";
 
-const midLinks = [
-    { title: "Sách", path: "/book" },
-    { title: "Tác giả", path: "/author" },
+const midLinksMember = [
+    { title: "Sách", path: "/book", icon: <MenuBook /> },
+    { title: "Tác giả", path: "/author", icon: <People /> },
+];
+
+const midLinksAdmin = [
+    { title: "Sách", path: "/book", icon: <MenuBook /> },
+    { title: "Tác giả", path: "/author", icon: <People /> },
+    { title: "Thể loại", path: "/category", icon: <Category /> },
 ];
 
 const rightLinks = [
-    { title: "Đăng nhập", path: "/login" },
-    { title: "Đăng ký", path: "/register" },
+    { title: "Đăng nhập", path: "/login", icon: <LoginOutlined /> },
+    { title: "Đăng ký", path: "/register", icon: <PersonAdd /> },
 ];
 
 const navLinkStyles = {
     color: "inherit",
     textDecoration: "none",
     typography: "h6",
+    display: "flex",
+    alignItems: "center",
+    gap: 1,
     "&:hover": {
         color: "grey.500",
     },
@@ -44,9 +60,14 @@ interface Props {
 
 export default function Header({ handleThemeChange, darkMode }: Props) {
     const { isAuthenticated, user } = useAppSelector((state) => state.account);
+    const { basket } = useAppSelector((state) => state.basket);
+    const itemCount = basket?.items.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+    );
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar
                 sx={{
                     display: "flex",
@@ -54,7 +75,7 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                     alignItems: "center",
                 }}
             >
-                <Box display="flex" alignItems="center">
+                <Box display="flex" alignItems="center" gap={2}>
                     <Typography
                         variant="h6"
                         key="home"
@@ -67,53 +88,60 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                     <Switch checked={darkMode} onChange={handleThemeChange} />
                 </Box>
 
-                <List sx={{ display: "flex" }}>
-                    {midLinks.map(({ title, path }) => (
-                        <ListItem
-                            component={NavLink}
-                            to={path}
-                            key={path}
-                            sx={navLinkStyles}
-                        >
-                            {title.toUpperCase()}
-                        </ListItem>
-                    ))}
-                    {isAuthenticated && user?.roles?.includes("Admin") && (
-                        <ListItem
-                            component={NavLink}
-                            to={"/inventory"}
-                            sx={navLinkStyles}
-                        >
-                            INVENTORY
-                        </ListItem>
-                    )}
+                <List sx={{ display: "flex", gap: 2 }}>
+                    {user && user.role === "Admin"
+                        ? midLinksAdmin.map(({ title, path, icon }) => (
+                              <ListItem
+                                  component={NavLink}
+                                  to={path}
+                                  key={path}
+                                  sx={navLinkStyles}
+                              >
+                                  {icon}
+                                  {title.toUpperCase()}
+                              </ListItem>
+                          ))
+                        : midLinksMember.map(({ title, path, icon }) => (
+                              <ListItem
+                                  component={NavLink}
+                                  to={path}
+                                  key={path}
+                                  sx={navLinkStyles}
+                              >
+                                  {icon}
+                                  {title.toUpperCase()}
+                              </ListItem>
+                          ))}
                 </List>
 
-                <Box display="flex" alignItems="center">
-                    <IconButton
-                        component={Link}
-                        to="/basket"
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        sx={{ mr: 2 }}
-                    >
-                        <Badge badgeContent={0} color="secondary">
-                            <ShoppingCart />
-                        </Badge>
-                    </IconButton>
+                <Box display="flex" alignItems="center" gap={2}>
+                    {user && user.role === "Member" && (
+                        <IconButton
+                            component={Link}
+                            to="/basket"
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            sx={{ mr: 2 }}
+                        >
+                            <Badge badgeContent={itemCount} color="secondary">
+                                <ShoppingCart />
+                            </Badge>
+                        </IconButton>
+                    )}
 
-                    {user ? (
+                    {isAuthenticated ? (
                         <SignedInMenu />
                     ) : (
-                        <List sx={{ display: "flex" }}>
-                            {rightLinks.map(({ title, path }) => (
+                        <List sx={{ display: "flex", gap: 2 }}>
+                            {rightLinks.map(({ title, path, icon }) => (
                                 <ListItem
                                     component={NavLink}
                                     to={path}
                                     key={path}
                                     sx={navLinkStyles}
                                 >
+                                    {icon}
                                     {title.toUpperCase()}
                                 </ListItem>
                             ))}

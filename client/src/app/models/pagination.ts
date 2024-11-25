@@ -1,6 +1,8 @@
-export interface PaginationParams {
+export interface FilterParams {
     pageIndex: number;
     pageSize: number;
+    search?: string;
+    sort: string;
 }
 export interface MetaData {
     pageIndex: number;

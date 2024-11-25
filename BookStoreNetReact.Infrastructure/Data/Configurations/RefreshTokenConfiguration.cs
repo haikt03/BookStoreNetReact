@@ -11,6 +11,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
             base.Configure(builder);
             builder.Property(rt => rt.Token).IsRequired();
             builder.Property(rt => rt.ExpiresAt).IsRequired();
+            builder.Property(rt => rt.UserId).IsRequired();
 
             builder
                 .HasOne(rt => rt.User)

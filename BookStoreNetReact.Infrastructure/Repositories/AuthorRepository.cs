@@ -29,16 +29,6 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return author;
         }
 
-        public async Task<List<string>> GetAllCountriesAsync()
-        {
-            var countries = await _context.Authors
-                .Select(a => a.Country)
-                .Where(c => !string.IsNullOrEmpty(c))
-                .Distinct()
-                .ToListAsync();
-            return countries;
-        }
-
         public IQueryable<Book> GetAllBooks(FilterBookDto filterDto, int authorId)
         {
             var books = _context.Authors
@@ -54,6 +44,16 @@ namespace BookStoreNetReact.Infrastructure.Repositories
                 )
                 .Sort(filterDto.Sort);
             return books;
+        }
+
+        public async Task<AuthorFilterDto> GetFilterAsync()
+        {
+            var contries = await _context.Authors
+                .Select(a => a.Country)
+                .Where(c => !string.IsNullOrEmpty(c))
+                .Distinct()
+                .ToListAsync();
+            return new AuthorFilterDto { Countries = contries };
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BookStoreNetReact.Application.Dtos.Book;
+using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -31,25 +33,20 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting all books");
+                _logger.LogWarning(ex, "An error occurred while getting books");
                 return null;
             }
         }
 
-        public async Task<DetailBookDto?> GetBookByIdAsync(int bookId)
+        public async Task<BookDetailDto?> GetBookByIdAsync(int bookId)
         {
             try
             {
                 var book = await _unitOfWork.BookRepository.GetDetailByIdAsync(bookId);
                 if (book == null)
                     throw new NullReferenceException("Book not found");
-                var bookDto = _mapper.Map<DetailBookDto>(book);
+                var bookDto = _mapper.Map<BookDetailDto>(book);
                 return bookDto;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Book not found");
-                return null;
             }
             catch (Exception ex)
             {
@@ -58,7 +55,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<DetailBookDto?> CreateBookAsync(CreateBookDto createDto)
+        public async Task<BookDetailDto?> CreateBookAsync(CreateBookDto createDto)
         {
             try
             {
@@ -76,15 +73,10 @@ namespace BookStoreNetReact.Infrastructure.Services
                 await _unitOfWork.BookRepository.AddAsync(book);
                 var result = await _unitOfWork.CompleteAsync();
                 if (!result)
-                    throw new InvalidOperationException("Failed to save changes book data");
+                    throw new InvalidOperationException("Failed to creating book");
 
-                var bookDto = _mapper.Map<DetailBookDto>(await _unitOfWork.BookRepository.GetDetailByIdAsync(book.Id));
+                var bookDto = _mapper.Map<BookDetailDto>(await _unitOfWork.BookRepository.GetDetailByIdAsync(book.Id));
                 return bookDto;
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Failed to save changes book data");
-                return null;
             }
             catch (Exception ex)
             {
@@ -119,11 +111,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Book not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating book");
@@ -146,11 +133,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var result = await _unitOfWork.CompleteAsync();
                 return result;
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Book not found");
-                return false;
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while deleting book");
@@ -158,30 +140,21 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<List<string>?> GetAllPublishersOfBooksAsync()
+        public async Task<BookFilterDto?> GetFilterAsync()
         {
             try
             {
-                var publishers = await _unitOfWork.BookRepository.GetAllPublishersAsync();
-                return publishers;
+                var filterDto = await _unitOfWork.BookRepository.GetFilterAsync();
+                var categoriesDto = await _unitOfWork.CategoryRepository
+                    .GetAll()
+                    .Select(c => _mapper.Map<CategoryDto>(c))
+                    .ToListAsync();
+                filterDto.Categories = categoriesDto;
+                return filterDto;
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while getting all publishers of authors");
-                return null;
-            }
-        }
-
-        public async Task<List<string>?> GetAllLanguagesOfBooksAsync()
-        {
-            try
-            {
-                var languages = await _unitOfWork.BookRepository.GetAllLanguagesAsync();
-                return languages;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "An error occurred while getting all languages of authors");
+                _logger.LogWarning(ex, "An error occurred while getting book filter");
                 return null;
             }
         }

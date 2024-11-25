@@ -58,11 +58,6 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Username or email not found");
-                return "";
-            }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while generating access token");
@@ -109,11 +104,6 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     return false;
                 return true;
-            }
-            catch (NullReferenceException ex)
-            {
-                _logger.LogWarning(ex, "Token not found");
-                return false;
             }
             catch (Exception ex)
             {

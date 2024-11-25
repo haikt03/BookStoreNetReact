@@ -1,4 +1,4 @@
-import { PaginationParams } from "./pagination";
+import { FilterParams } from "./pagination";
 import { Author } from "./author";
 import { Category } from "./category";
 
@@ -8,12 +8,12 @@ export interface Book {
     price: number;
     discount: number;
     quantityInStock: number;
-    publicId: string | null;
-    imageUrl: string | null;
+    publicId?: string;
+    imageUrl?: string;
 }
 
-export interface DetailBook extends Book {
-    translator: string | null;
+export interface BookDetail extends Book {
+    translator?: string;
     publisher: string;
     publishedYear: number;
     language: string;
@@ -21,15 +21,15 @@ export interface DetailBook extends Book {
     numberOfPages: number;
     form: string;
     description: string;
-    category: Category | null;
-    author: Author | null;
+    category?: Category;
+    author?: Author;
 }
 
-export interface BookParams extends PaginationParams {
-    search: string;
+export interface BookParams extends FilterParams {
     publishers: string[];
     languages: string[];
-    minPrice: number;
-    maxPrice: number;
-    sort: string;
+    categories: number[];
+    authorSearch?: string;
+    minPrice?: number;
+    maxPrice?: number;
 }
