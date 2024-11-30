@@ -10,6 +10,9 @@ import RequireAuth from "./RequiredAuth";
 import BookDetail from "../../features/book/member/BookDetail";
 import AuthorDetail from "../../features/author/member/AuthorDetail";
 import Basket from "../../features/basket/member/Basket";
+import ManageBook from "../../features/book/admin/ManageBook";
+import ManageAuthor from "../../features/author/admin/ManageAuthor";
+import Profile from "../../features/profile/Profile";
 
 export const router = createBrowserRouter(
     [
@@ -18,12 +21,18 @@ export const router = createBrowserRouter(
             element: <App />,
             children: [
                 {
-                    element: <RequireAuth role="Member" />,
-                    children: [{ path: "/basket", element: <Basket /> }],
+                    element: <RequireAuth requiredRole="Member" />,
+                    children: [
+                        { path: "/basket", element: <Basket /> },
+                        { path: "/profile", element: <Profile /> },
+                    ],
                 },
                 {
-                    element: <RequireAuth role="Admin" />,
-                    children: [],
+                    element: <RequireAuth requiredRole="Admin" />,
+                    children: [
+                        { path: "/manage/book", element: <ManageBook /> },
+                        { path: "/manage/author", element: <ManageAuthor /> },
+                    ],
                 },
                 { path: "/book", element: <Book /> },
                 { path: "/book/:id", element: <BookDetail /> },

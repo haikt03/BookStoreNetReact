@@ -12,10 +12,6 @@ namespace BookStoreNetReact.Application.Dtos.AppUser
             RuleFor(ua => ua.DateOfBirth)
                 .Must(dob => dob >= new DateOnly(1900, 1, 1)).WithMessage(ValidationErrorMessages.Invalid("Ngày sinh"))
                 .Must(dob => dob <= DateOnly.FromDateTime(DateTime.Today.AddYears(-18))).WithMessage("Bạn phải đủ 18 tuổi");
-            RuleFor(ua => ua.UserName)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Tên người dùng"));
-            RuleFor(ua => ua.Password)
-                .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Mật khẩu"));
             RuleFor(ua => ua.Email)
                 .EmailAddress().WithMessage(ValidationErrorMessages.EmailAddress);
             RuleFor(ua => ua.PhoneNumber)

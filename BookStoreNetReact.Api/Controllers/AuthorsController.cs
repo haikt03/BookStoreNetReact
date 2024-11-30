@@ -48,12 +48,12 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAuthor([FromForm] UpdateAuthorDto updateDto, int id)
+        public async Task<ActionResult<AuthorDetailDto>> UpdateAuthor([FromForm] UpdateAuthorDto updateDto, int id)
         {
-            var result = await _authorService.UpdateAuthorAsync(updateDto, id);
-            if (!result)
+            var authorDto = await _authorService.UpdateAuthorAsync(updateDto, id);
+            if (authorDto == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật tác giả không thành công" });
-            return Ok();
+            return Ok(authorDto);
         }
 
         [Authorize(Roles = "Admin")]
@@ -83,6 +83,15 @@ namespace BookStoreNetReact.Api.Controllers
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
             Response.AddPaginationHeader(booksDto.Pagination);
             return Ok(booksDto);
+        }
+
+        [HttpGet("upsert-book")]
+        public async Task<ActionResult<List<AuthorForUpsertBookDto>>> GetAuthorsForUpsertBook()
+        {
+            var authorsDto = await _authorService.GetAllAuthorsForUpsertBookAsync();
+            if (authorsDto == null)
+                return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
+            return Ok(authorsDto);
         }
     }
 }

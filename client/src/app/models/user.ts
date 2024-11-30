@@ -11,11 +11,11 @@ export interface User {
     imageUrl?: string;
 }
 
-export interface DetailUser extends User {
+export interface UserDetail extends User {
     emailConfirmed: boolean;
     phoneNumberConfirmed: boolean;
     dateOfBirth: string;
-    address?: Address;
+    address: Address;
 }
 
 export interface UserParams extends FilterParams {}

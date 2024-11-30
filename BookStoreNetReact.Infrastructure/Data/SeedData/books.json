@@ -12,7 +12,7 @@
         "Price": 50000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 1,
         "ImagePath": "cay-cam-ngot-cua-toi.jpg"
     },
@@ -29,7 +29,7 @@
         "Price": 360000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 2,
         "ImagePath": "nha-gia-kim-tai-ban-2020.jpg"
     },
@@ -45,7 +45,7 @@
         "Price": 480000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 3,
         "ImagePath": "truong-ca-achilles.jpg"
     },
@@ -61,7 +61,7 @@
         "Price": 465000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 4,
         "ImagePath": "mot-thoang-ta-ruc-ro-o-nhan-gian.jpg"
     },
@@ -78,7 +78,7 @@
         "Price": 490000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 5,
         "ImagePath": "dune-xu-cat.jpg"
     },
@@ -95,7 +95,7 @@
         "Price": 50000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 6,
         "ImagePath": "vo-moi-cua-chong-toi.jpg"
     },
@@ -111,7 +111,7 @@
         "Price": 345000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 7,
         "ImagePath": "len-nhat-chuyen-doi.jpg"
     },
@@ -128,7 +128,7 @@
         "Price": 245000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 8,
         "ImagePath": "doraemon-tieu-thuyet-nobita-va-ban-giao-huong-dia-cau.jpg"
     },
@@ -144,7 +144,7 @@
         "Price": 240000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 9,
         "ImagePath": "mua-he-khong-ten-tang-kem-bookmark-2-mat-poster-tranh-chu-k.jpg"
     },
@@ -161,7 +161,7 @@
         "Price": 55000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 17,
+        "Category": "Tiểu thuyết",
         "AuthorId": 10,
         "ImagePath": "nguoi-ba-tai-gioi-vung-saga.jpg"
     },
@@ -177,7 +177,7 @@
         "Price": 480000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 11,
         "ImagePath": "vi-cau-la-ban-nho-cua-to.jpg"
     },
@@ -193,7 +193,7 @@
         "Price": 500000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 12,
         "ImagePath": "dam-tre-o-dai-duong-den.jpg"
     },
@@ -209,7 +209,7 @@
         "Price": 150000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 13,
         "ImagePath": "tron-len-mai-nha-de-khoc-tang-kem-bookmark.jpg"
     },
@@ -225,7 +225,7 @@
         "Price": 405000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 14,
         "ImagePath": "cat-cho-toi-nhung-ngay-xanh-nang-ha.jpg"
     },
@@ -242,7 +242,7 @@
         "Price": 455000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 15,
         "ImagePath": "999-la-thu-gui-cho-chinh-minh-nhung-la-thu-an-tuong-nhat-phie.jpg"
     },
@@ -258,7 +258,7 @@
         "Price": 405000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 16,
         "ImagePath": "chuyen-ke-rang-co-nang-va-toi.jpg"
     },
@@ -274,7 +274,7 @@
         "Price": 365000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 17,
         "ImagePath": "tu-dien-tieng-em-tai-ban-2021.jpg"
     },
@@ -290,7 +290,7 @@
         "Price": 155000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 18,
         "ImagePath": "cam-on-anh-da-danh-mat-em.jpg"
     },
@@ -306,7 +306,7 @@
         "Price": 260000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 19,
         "ImagePath": "anh-khong-ban-chi-la-khong-nho-em-tai-ban-2023.jpg"
     },
@@ -323,7 +323,7 @@
         "Price": 370000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 18,
+        "Category": "Truyện ngắn - Tản văn",
         "AuthorId": 16,
         "ImagePath": "co-mot-ngay-bo-me-se-gia-di.jpg"
     },
@@ -340,7 +340,7 @@
         "Price": 350000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 20,
         "ImagePath": "arya-ban-ben-thinh-thoang-lai-treu-gheo-toi-bang-tieng-nga-ta.jpg"
     },
@@ -357,7 +357,7 @@
         "Price": 175000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 21,
         "ImagePath": "light-novel-duoc-su-tu-su-tap-1.jpg"
     },
@@ -374,7 +374,7 @@
         "Price": 430000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 20,
         "ImagePath": "arya-ban-ben-thinh-thoang-lai-treu-gheo-toi-bang-tieng-nga-tap.jpg"
     },
@@ -391,7 +391,7 @@
         "Price": 260000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 20,
         "ImagePath": "arya-ban-ben-thinh-thoang-lai-treu-gheo-toi-bang-tieng-nga-t.jpg"
     },
@@ -408,7 +408,7 @@
         "Price": 320000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 22,
         "ImagePath": "ma-vuong-toi-day-nen-yeu-co-dau-elf-cua-minh-nhu-the-nao-tap.jpg"
     },
@@ -425,7 +425,7 @@
         "Price": 240000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 23,
         "ImagePath": "neu-gap-lai-em-tren-ngon-doi-hoa-no-tang-kem-bookmark.jpg"
     },
@@ -442,7 +442,7 @@
         "Price": 500000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 21,
         "ImagePath": "light-novel-duoc-su-tu-su-tap-3-tang-kem-bookmark.jpg"
     },
@@ -459,7 +459,7 @@
         "Price": 55000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 24,
         "ImagePath": "va-roi-thang-9-khong-co-cau-da-toi.jpg"
     },
@@ -476,7 +476,7 @@
         "Price": 275000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 25,
         "ImagePath": "toi-muon-bao-ve-cau-du-phai-mat-di-tinh-yeu-nay.jpg"
     },
@@ -493,7 +493,7 @@
         "Price": 335000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 19,
+        "Category": "Light novel",
         "AuthorId": 26,
         "ImagePath": "thien-su-nha-ben-tap-1.jpg"
     },
@@ -510,7 +510,7 @@
         "Price": 255000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 27,
         "ImagePath": "ben-xe-tai-ban-2020.jpg"
     },
@@ -527,7 +527,7 @@
         "Price": 310000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 28,
         "ImagePath": "kho-do-danh-tap-1-tang-kem-bookmark-boi-cung.jpg"
     },
@@ -544,7 +544,7 @@
         "Price": 65000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 28,
         "ImagePath": "vung-trom-yeu-anh-bo-2-tap.jpg"
     },
@@ -561,7 +561,7 @@
         "Price": 460000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 29,
         "ImagePath": "eo-thon-nho.jpg"
     },
@@ -578,7 +578,7 @@
         "Price": 365000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 30,
         "ImagePath": "that-tich-khong-mua-tai-ban-2017.jpg"
     },
@@ -595,7 +595,7 @@
         "Price": 170000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 31,
         "ImagePath": "gio-nam-hieu-long-toi.jpg"
     },
@@ -612,7 +612,7 @@
         "Price": 130000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 32,
         "ImagePath": "all-in-love-ngap-tran-yeu-thuong-tai-ban-2020.jpg"
     },
@@ -628,7 +628,7 @@
         "Price": 440000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 33,
         "ImagePath": "su-diu-dang-kho-cuong-tai-ban-2019.jpg"
     },
@@ -645,7 +645,7 @@
         "Price": 345000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 34,
         "ImagePath": "tran-hon-tap-3.jpg"
     },
@@ -662,7 +662,7 @@
         "Price": 465000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 20,
+        "Category": "Ngôn tình",
         "AuthorId": 35,
         "ImagePath": "treu-nham-tap-1-ban-dac-biet-tang-kem-bookmark-boi-cung.jpg"
     },
@@ -678,7 +678,7 @@
         "Price": 460000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 36,
         "ImagePath": "48-nguyen-tac-chu-chot-cua-quyen-luc-tai-ban-2020.jpg"
     },
@@ -695,7 +695,7 @@
         "Price": 350000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 37,
         "ImagePath": "nghi-giau-and-lam-giau-tai-ban-2020.jpg"
     },
@@ -712,7 +712,7 @@
         "Price": 240000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 38,
         "ImagePath": "nghe-thuat-tu-duy-chien-luoc.jpg"
     },
@@ -728,7 +728,7 @@
         "Price": 285000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 39,
         "ImagePath": "tu-duy-nguoc-dich-chuyen-the-gioi-originals-how-non-conformist.jpg"
     },
@@ -744,7 +744,7 @@
         "Price": 225000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 40,
         "ImagePath": "tu-tot-den-vi-dai-jim-collins-tai-ban-2021.jpg"
     },
@@ -761,7 +761,7 @@
         "Price": 280000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 38,
         "ImagePath": "tu-duy-chien-luoc-ly-thuyet-tro-choi-thuc-hanh.jpg"
     },
@@ -778,7 +778,7 @@
         "Price": 465000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 41,
         "ImagePath": "tao-lap-mo-hinh-kinh-doanh-tai-ban.jpg"
     },
@@ -795,7 +795,7 @@
         "Price": 460000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 42,
         "ImagePath": "loi-thu-toi-cua-mot-sat-thu-kinh-te-bia-cung-tai-ban-2023.jpg"
     },
@@ -812,7 +812,7 @@
         "Price": 200000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 43,
         "ImagePath": "nhung-ke-xuat-chung-tai-ban-2021.jpg"
     },
@@ -829,7 +829,7 @@
         "Price": 105000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 21,
+        "Category": "Nhân vật - Bài học kinh doanh",
         "AuthorId": 44,
         "ImagePath": "doc-het-trai-tim-tai-ban-2018.jpg"
     },
@@ -846,7 +846,7 @@
         "Price": 310000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 45,
         "ImagePath": "mba-bang-hinh-the-usual-mba.jpg"
     },
@@ -862,7 +862,7 @@
         "Price": 185000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 46,
         "ImagePath": "bi-mat-tu-duy-trieu-phu-tai-ban-2021.jpg"
     },
@@ -879,7 +879,7 @@
         "Price": 145000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 47,
         "ImagePath": "vi-tu-si-ban-chiec-ferrari-tai-ban-tu-cuon-tim-ve-suc-manh-v.jpg"
     },
@@ -896,7 +896,7 @@
         "Price": 155000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 47,
         "ImagePath": "nha-lanh-dao-khong-chuc-danh-tai-ban-2022.jpg"
     },
@@ -912,7 +912,7 @@
         "Price": 480000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 48,
         "ImagePath": "mot-doi-quan-tri-tai-ban-2019.jpg"
     },
@@ -928,7 +928,7 @@
         "Price": 260000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 48,
         "ImagePath": "con-loc-quan-tri-ba-tru-cot-cua-van-hoa-doanh-nghiep.jpg"
     },
@@ -945,7 +945,7 @@
         "Price": 385000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 49,
         "ImagePath": "nha-lanh-dao-tuong-lai-tai-ban-2023.jpg"
     },
@@ -961,7 +961,7 @@
         "Price": 80000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 50,
         "ImagePath": "the-book-of-leadership-dan-dat-ban-than-doi-nhom-va-to-chu.jpg"
     },
@@ -978,7 +978,7 @@
         "Price": 270000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 51,
         "ImagePath": "kiem-soat-chi-phi-mua-hang-va-quan-li-nha-cung-cap-2022.jpg"
     },
@@ -994,7 +994,7 @@
         "Price": 155000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 22,
+        "Category": "Quản trị - Lãnh đạo",
         "AuthorId": 52,
         "ImagePath": "d-trump-nghe-thuat-dam-phan-tai-ban-2020.jpg"
     },
@@ -1011,7 +1011,7 @@
         "Price": 335000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 53,
         "ImagePath": "tiktok-marketing.jpg"
     },
@@ -1028,7 +1028,7 @@
         "Price": 360000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 16,
         "ImagePath": "nguoi-ban-hang-vi-dai-nhat-the-gioi.jpg"
     },
@@ -1045,7 +1045,7 @@
         "Price": 465000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 55,
         "ImagePath": "the-design-thinking-playbook-thuc-hanh-tu-duy-thiet-ke.jpg"
     },
@@ -1061,7 +1061,7 @@
         "Price": 450000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 16,
         "ImagePath": "rio-book-no1-xau-the-nao-dep-ra-sao-tai-ban-2021.jpg"
     },
@@ -1078,7 +1078,7 @@
         "Price": 455000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 56,
         "ImagePath": "22-quy-luat-bat-bien-trong-marketing-the-22-immutable-law.jpg"
     },
@@ -1095,7 +1095,7 @@
         "Price": 215000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 57,
         "ImagePath": "tiktok-tat-tan-tat.jpg"
     },
@@ -1112,7 +1112,7 @@
         "Price": 465000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 58,
         "ImagePath": "tiep-thi-50-cong-nghe-vi-nhan-sinh.jpg"
     },
@@ -1129,7 +1129,7 @@
         "Price": 385000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 59,
         "ImagePath": "nghe-thuat-ban-hang-bang-cau-chuyen-tai-ban-2023.jpg"
     },
@@ -1145,7 +1145,7 @@
         "Price": 480000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 60,
         "ImagePath": "ky-nang-ban-hang-tuyet-dinh-tai-ban-2022.jpg"
     },
@@ -1161,7 +1161,7 @@
         "Price": 485000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 23,
+        "Category": "Marketing - Bán hàng",
         "AuthorId": 61,
         "ImagePath": "90-20-30-90-bai-hoc-vo-long-ve-y-tuong-va-cau-chu-ta.jpg"
     },
@@ -1178,7 +1178,7 @@
         "Price": 185000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 62,
         "ImagePath": "chien-tranh-tien-te-phan-1-ai-thuc-su-la-nguoi-giau-nha.jpg"
     },
@@ -1195,7 +1195,7 @@
         "Price": 295000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 63,
         "ImagePath": "chinh-sach-tien-te-the-ky-21.jpg"
     },
@@ -1212,7 +1212,7 @@
         "Price": 215000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 64,
         "ImagePath": "economix-cac-nen-kinh-te-van-hanh-va-khong-van-hanh-th.jpg"
     },
@@ -1228,7 +1228,7 @@
         "Price": 310000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 65,
         "ImagePath": "lam-chu-business-analytics-phan-tich-du-lieu-de-di-den-quye.jpg"
     },
@@ -1245,7 +1245,7 @@
         "Price": 425000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 66,
         "ImagePath": "thien-nga-den-tai-ban-2020.jpg"
     },
@@ -1262,7 +1262,7 @@
         "Price": 425000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 62,
         "ImagePath": "chien-tranh-tien-te-phan-2-su-thong-tri-cua-quyen-luc-ta.jpg"
     },
@@ -1279,7 +1279,7 @@
         "Price": 75000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 67,
         "ImagePath": "thoi-dai-ai-va-tuong-lai-loai-nguoi-chung-ta.jpg"
     },
@@ -1296,7 +1296,7 @@
         "Price": 155000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 62,
         "ImagePath": "chien-tranh-tien-te-bien-gioi-tien-te-nhan-to-bi-an-tron.jpg"
     },
@@ -1313,7 +1313,7 @@
         "Price": 315000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 68,
         "ImagePath": "chip-war-cuoc-chien-vi-mach-bia-cung.jpg"
     },
@@ -1329,7 +1329,7 @@
         "Price": 95000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 24,
+        "Category": "Phân tích kinh tế",
         "AuthorId": 36,
         "ImagePath": "33-chien-luoc-cua-chien-tranh-tai-ban-2021.jpg"
     },
@@ -1345,7 +1345,7 @@
         "Price": 470000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 69,
         "ImagePath": "hieu-ve-trai-tim-tai-ban-2023.jpg"
     },
@@ -1362,7 +1362,7 @@
         "Price": 220000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 70,
         "ImagePath": "atomic-habits-thay-doi-ti-hon-hieu-qua-bat-ngo-tai-ban-202.jpg"
     },
@@ -1378,7 +1378,7 @@
         "Price": 165000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 71,
         "ImagePath": "tuoi-tre-dang-gia-bao-nhieu-tai-ban-2021.jpg"
     },
@@ -1395,7 +1395,7 @@
         "Price": 130000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 16,
         "ImagePath": "tu-duy-nguoc.jpg"
     },
@@ -1412,7 +1412,7 @@
         "Price": 160000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 73,
         "ImagePath": "kheo-an-noi-se-co-duoc-thien-ha-tai-ban-2022.jpg"
     },
@@ -1428,7 +1428,7 @@
         "Price": 485000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 74,
         "ImagePath": "38-la-thu-rockefeller-gui-cho-con-trai.jpg"
     },
@@ -1444,7 +1444,7 @@
         "Price": 135000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 36,
         "ImagePath": "nhung-quy-luat-cua-ban-chat-con-nguoi.jpg"
     },
@@ -1461,7 +1461,7 @@
         "Price": 295000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 75,
         "ImagePath": "yeu-nhung-dieu-khong-hoan-hao.jpg"
     },
@@ -1478,7 +1478,7 @@
         "Price": 335000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 76,
         "ImagePath": "con-duong-chang-may-ai-di.jpg"
     },
@@ -1494,7 +1494,7 @@
         "Price": 425000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 25,
+        "Category": "Kỹ năng sống",
         "AuthorId": 77,
         "ImagePath": "flow-dong-chay.jpg"
     },
@@ -1511,7 +1511,7 @@
         "Price": 390000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 78,
         "ImagePath": "dac-nhan-tam-tai-ban-2021.jpg"
     },
@@ -1528,7 +1528,7 @@
         "Price": 390000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 78,
         "ImagePath": "dac-nhan-tam-bia-cung-tai-ban-2021.jpg"
     },
@@ -1545,7 +1545,7 @@
         "Price": 355000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 78,
         "ImagePath": "dac-nhan-tam.jpg"
     },
@@ -1561,7 +1561,7 @@
         "Price": 75000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 79,
         "ImagePath": "vuot-len-chinh-minh.jpg"
     },
@@ -1578,7 +1578,7 @@
         "Price": 430000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 54,
         "ImagePath": "quyet-tam-thanh-cong-se-toi.jpg"
     },
@@ -1594,7 +1594,7 @@
         "Price": 480000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 80,
         "ImagePath": "giai-dap-chuyen-yeu.jpg"
     },
@@ -1610,7 +1610,7 @@
         "Price": 470000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 81,
         "ImagePath": "gian-truan-chi-la-thu-thach.jpg"
     },
@@ -1626,7 +1626,7 @@
         "Price": 310000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 82,
         "ImagePath": "cac-cuoc-doi-ngoai-hang.jpg"
     },
@@ -1643,7 +1643,7 @@
         "Price": 325000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 78,
         "ImagePath": "dac-nhan-tam-tai-ban-2023.jpg"
     },
@@ -1660,7 +1660,7 @@
         "Price": 115000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 26,
+        "Category": "Rèn luyện nhân cách",
         "AuthorId": 83,
         "ImagePath": "tu-tin-nghe-thuat-giup-ban-dat-duoc-moi-mong-muon.jpg"
     },
@@ -1677,7 +1677,7 @@
         "Price": 175000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 84,
         "ImagePath": "ly-thuyet-tro-choi.jpg"
     },
@@ -1694,7 +1694,7 @@
         "Price": 315000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 85,
         "ImagePath": "tinh-duc-thuo-hong-hoang-tai-ban-2020.jpg"
     },
@@ -1711,7 +1711,7 @@
         "Price": 455000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 86,
         "ImagePath": "dua-tre-hieu-chuyen-thuong-khong-co-keo-an.jpg"
     },
@@ -1728,7 +1728,7 @@
         "Price": 310000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 87,
         "ImagePath": "tam-ly-hoc-toi-pham-phac-hoa-chan-dung-ke-pham-toi.jpg"
     },
@@ -1745,7 +1745,7 @@
         "Price": 395000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 88,
         "ImagePath": "thuat-thao-tung-goc-toi-an-sau-moi-cau-noi.jpg"
     },
@@ -1762,7 +1762,7 @@
         "Price": 145000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 89,
         "ImagePath": "thien-tai-ben-trai-ke-dien-ben-phai-tai-ban-2021.jpg"
     },
@@ -1779,7 +1779,7 @@
         "Price": 450000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 90,
         "ImagePath": "dinh-luat-murphy-moi-bi-mat-tam-ly-thao-tung-cuoc-doi-ban.jpg"
     },
@@ -1796,7 +1796,7 @@
         "Price": 405000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 91,
         "ImagePath": "tam-ly-hoc-ve-tien.jpg"
     },
@@ -1812,7 +1812,7 @@
         "Price": 485000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 92,
         "ImagePath": "dai-duong-den-nhung-cau-chuyen-tu-the-gioi-cua-tram-cam.jpg"
     },
@@ -1829,7 +1829,7 @@
         "Price": 120000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 27,
+        "Category": "Tâm lý",
         "AuthorId": 93,
         "ImagePath": "how-psychology-works-hieu-het-ve-tam-ly-hoc.jpg"
     },
@@ -1845,7 +1845,7 @@
         "Price": 215000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 94,
         "ImagePath": "cach-de-yeu-1-nguoi.jpg"
     },
@@ -1861,7 +1861,7 @@
         "Price": 270000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 95,
         "ImagePath": "cam-nang-tuoi-day-thi-danh-cho-ban-gai-tai-ban-2023.jpg"
     },
@@ -1877,7 +1877,7 @@
         "Price": 160000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 16,
         "ImagePath": "cam-nang-be-gai-tuoi-day-thi-quyen-1-160-cau-hoi-dap-v.jpg"
     },
@@ -1893,7 +1893,7 @@
         "Price": 490000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 96,
         "ImagePath": "39-cau-hoi-cho-nguoi-tre-tai-ban-2023.jpg"
     },
@@ -1910,7 +1910,7 @@
         "Price": 370000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 97,
         "ImagePath": "cam-nang-con-trai-tai-ban-2021.jpg"
     },
@@ -1926,7 +1926,7 @@
         "Price": 340000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 98,
         "ImagePath": "xao-xuyen-tuoi-hoc-tro-candy-book.jpg"
     },
@@ -1942,7 +1942,7 @@
         "Price": 165000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 16,
         "ImagePath": "cam-nang-be-gai-tuoi-day-thi-quyen-2-tat-tan-tat-khuc-ma.jpg"
     },
@@ -1959,7 +1959,7 @@
         "Price": 400000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 99,
         "ImagePath": "ki-nang-xa-hoi-cho-hoc-sinh-tieu-hoc-tu-duy-tich-cuc.jpg"
     },
@@ -1975,7 +1975,7 @@
         "Price": 310000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 100,
         "ImagePath": "hoc-cho-ai-hoc-de-lam-gi-tap-1-tai-ban-2019.jpg"
     },
@@ -1992,7 +1992,7 @@
         "Price": 275000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 28,
+        "Category": "Sách cho tuổi mới lớn",
         "AuthorId": 101,
         "ImagePath": "gioi-han-cua-ban-chi-la-xuat-phat-diem-cua-toi-tai-ban.jpg"
     },
@@ -2009,7 +2009,7 @@
         "Price": 185000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 102,
         "ImagePath": "loi-noi-than-ky-nuoi-duong-nhung-dua-tre-hanh-phuc-0-6-tuoi.jpg"
     },
@@ -2025,7 +2025,7 @@
         "Price": 490000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 103,
         "ImagePath": "doc-vi-moi-van-de-cua-tre-tai-ban-2021.jpg"
     },
@@ -2041,7 +2041,7 @@
         "Price": 395000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 104,
         "ImagePath": "cha-voi-day-con-nen-nguoi-o-thoi-dai-so.jpg"
     },
@@ -2058,7 +2058,7 @@
         "Price": 210000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 105,
         "ImagePath": "cha-me-doc-hai-toxic-parents-tai-ban-2022.jpg"
     },
@@ -2075,7 +2075,7 @@
         "Price": 95000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 106,
         "ImagePath": "90percent-tre-thong-minh-nho-cach-tro-chuyen-dung-dan-cua-cha-m.jpg"
     },
@@ -2091,7 +2091,7 @@
         "Price": 135000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 107,
         "ImagePath": "nuoi-day-em-be-co-chinh-kien.jpg"
     },
@@ -2107,7 +2107,7 @@
         "Price": 170000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 108,
         "ImagePath": "nuoi-con-khong-phai-la-cuoc-chien-1-chao-con-em-be-so-sin.jpg"
     },
@@ -2123,7 +2123,7 @@
         "Price": 85000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 109,
         "ImagePath": "30-ngay-cung-con-hoc-hieu-ve-chong-xam-hai.jpg"
     },
@@ -2140,7 +2140,7 @@
         "Price": 395000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 110,
         "ImagePath": "cach-khen-cach-mang-cach-phat-con-tai-ban-2021.jpg"
     },
@@ -2156,7 +2156,7 @@
         "Price": 260000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 29,
+        "Category": "Cẩm nang làm cha mẹ",
         "AuthorId": 111,
         "ImagePath": "tu-sach-lam-cha-me-giao-duc-nhi-dong-tai-ban-2023.jpg"
     },
@@ -2173,7 +2173,7 @@
         "Price": 350000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 112,
         "ImagePath": "montessori-phuong-phap-giao-duc-toan-dien-cho-tre-0-6-tuo.jpg"
     },
@@ -2190,7 +2190,7 @@
         "Price": 55000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 113,
         "ImagePath": "vo-cung-tan-nhan-vo-cung-yeu-thuong-3.jpg"
     },
@@ -2207,7 +2207,7 @@
         "Price": 350000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 114,
         "ImagePath": "kinh-nghiem-tu-nuoc-nhat-giup-con-tu-lap-tu-0-6-tuoi.jpg"
     },
@@ -2224,7 +2224,7 @@
         "Price": 330000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 102,
         "ImagePath": "nuoi-day-be-gai-tu-0-den-6-tuoi-tai-ban-2020.jpg"
     },
@@ -2241,7 +2241,7 @@
         "Price": 170000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 115,
         "ImagePath": "phuong-phap-giao-duc-som-montessori-cho-tre-tu-0-3-tuoi.jpg"
     },
@@ -2257,7 +2257,7 @@
         "Price": 170000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 116,
         "ImagePath": "kinh-nghiem-tu-nuoc-nhat-43-ki-nang-kiem-soat-tuc-gian-dan.jpg"
     },
@@ -2274,7 +2274,7 @@
         "Price": 185000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 95,
         "ImagePath": "phuong-phap-giao-duc-con-cua-nguoi-do-thai-giup-tre-tu-ti.jpg"
     },
@@ -2291,7 +2291,7 @@
         "Price": 90000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 117,
         "ImagePath": "che-tac-binh-an-va-hanh-phuc-trong-giao-duc.jpg"
     },
@@ -2307,7 +2307,7 @@
         "Price": 330000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 118,
         "ImagePath": "hoc-montessori-de-day-tre-theo-phuong-phap-montessori-10.jpg"
     },
@@ -2324,7 +2324,7 @@
         "Price": 315000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 30,
+        "Category": "Phương pháp giáo dục trẻ cả nước",
         "AuthorId": 117,
         "ImagePath": "trong-mot-nu-cuoi-cung-tre-thuc-hanh-chanh-niem.jpg"
     },
@@ -2340,7 +2340,7 @@
         "Price": 120000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 119,
         "ImagePath": "phat-trien-nang-luc-tri-tue-cho-con-theo-phuong-phap-shichida.jpg"
     },
@@ -2356,7 +2356,7 @@
         "Price": 495000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 120,
         "ImagePath": "cham-trai-tim-con-am.jpg"
     },
@@ -2373,7 +2373,7 @@
         "Price": 250000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 121,
         "ImagePath": "101-tips-giup-con-quang-ganh-lo-au.jpg"
     },
@@ -2390,7 +2390,7 @@
         "Price": 500000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 122,
         "ImagePath": "15-tinh-huong-cung-con-vuot-qua-kho-khan-nhung-thac-ma.jpg"
     },
@@ -2407,7 +2407,7 @@
         "Price": 235000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 123,
         "ImagePath": "danh-thuc-tiem-nang-tri-tue-nho-lau-hieu-sau-4-5-tuoi.jpg"
     },
@@ -2424,7 +2424,7 @@
         "Price": 135000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 124,
         "ImagePath": "33-cau-chuyen-voi-cac-ba-me-cung-con-phat-trien-ban-than.jpg"
     },
@@ -2441,7 +2441,7 @@
         "Price": 130000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 125,
         "ImagePath": "day-con-nhung-bai-hoc-ve-tien-bac.jpg"
     },
@@ -2458,7 +2458,7 @@
         "Price": 65000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 126,
         "ImagePath": "day-con-hoc-le-giao-lop-choi-1.jpg"
     },
@@ -2475,7 +2475,7 @@
         "Price": 390000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 127,
         "ImagePath": "101-tips-giup-con-vui-khoe.jpg"
     },
@@ -2492,7 +2492,7 @@
         "Price": 220000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 31,
+        "Category": "Phát triển kỹ năng, trí tuệ cho trẻ",
         "AuthorId": 128,
         "ImagePath": "phat-trien-eq-cho-tre-mau-giao-to-nguong-oi-la-nguong.jpg"
     },
@@ -2509,7 +2509,7 @@
         "Price": 360000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 129,
         "ImagePath": "kingdom-tap-68.jpg"
     },
@@ -2526,7 +2526,7 @@
         "Price": 480000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 130,
         "ImagePath": "hananoi-va-trieu-chung-tinh-yeu-tap-13.jpg"
     },
@@ -2543,7 +2543,7 @@
         "Price": 295000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 131,
         "ImagePath": "fire-force-tap-24-tang-kem-bookmark-giay-hinh-nhan-vat.jpg"
     },
@@ -2559,7 +2559,7 @@
         "Price": 335000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 132,
         "ImagePath": "tho-bay-mau-va-nhung-nguoi-nghi-no-la-ban-tai-ban-2023.jpg"
     },
@@ -2575,7 +2575,7 @@
         "Price": 255000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 133,
         "ImagePath": "doraemon-do-vui-doraemon-nhung-cuoc-phieu-luu-tai-ban-202.jpg"
     },
@@ -2592,7 +2592,7 @@
         "Price": 405000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 133,
         "ImagePath": "doraemon-hoat-hinh-mau-nobita-va-vien-bao-tang-bao-bo.jpg"
     },
@@ -2609,7 +2609,7 @@
         "Price": 255000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 134,
         "ImagePath": "neon-genesis-evangelion-collectors-edition-tap-1-tan.jpg"
     },
@@ -2626,7 +2626,7 @@
         "Price": 255000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 135,
         "ImagePath": "solo-leveling-toi-thang-cap-mot-minh-tap-2.jpg"
     },
@@ -2643,7 +2643,7 @@
         "Price": 170000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 136,
         "ImagePath": "attack-on-titan-tap-7-tang-kem-bookmark-nam-cham.jpg"
     },
@@ -2660,7 +2660,7 @@
         "Price": 445000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 32,
+        "Category": "Manga - Comic",
         "AuthorId": 137,
         "ImagePath": "veil-tap-1-than-nhiet-cua-sac-cam-tang-kem-postcard.jpg"
     },
@@ -2677,7 +2677,7 @@
         "Price": 360000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 138,
         "ImagePath": "100-ky-nang-sinh-ton.jpg"
     },
@@ -2694,7 +2694,7 @@
         "Price": 125000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 139,
         "ImagePath": "kham-pha-the-gioi-dong-vat-ki-thu-the-gioi-cua-nhung-loa.jpg"
     },
@@ -2711,7 +2711,7 @@
         "Price": 130000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 140,
         "ImagePath": "bach-khoa-tri-thuc-ve-kham-pha-the-gioi-cho-tre-em-ca-ma.jpg"
     },
@@ -2728,7 +2728,7 @@
         "Price": 360000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 141,
         "ImagePath": "tieu-su-cac-quoc-gia-qua-goc-nhin-lay-loi.jpg"
     },
@@ -2745,7 +2745,7 @@
         "Price": 175000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 16,
         "ImagePath": "geography-encyclopedia-bach-khoa-toan-thu-ve-dia-ly.jpg"
     },
@@ -2762,7 +2762,7 @@
         "Price": 470000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 142,
         "ImagePath": "bach-khoa-tri-thuc-cho-tre-em-kham-pha-va-sang-tao.jpg"
     },
@@ -2778,7 +2778,7 @@
         "Price": 55000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 143,
         "ImagePath": "be-trai-xe-tai.jpg"
     },
@@ -2795,7 +2795,7 @@
         "Price": 405000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 144,
         "ImagePath": "1000-phat-minh-and-kham-pha-vi-dai.jpg"
     },
@@ -2811,7 +2811,7 @@
         "Price": 215000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 145,
         "ImagePath": "the-nao-va-tai-sao-thoi-tiet-khong-khi-gio-va-may.jpg"
     },
@@ -2828,7 +2828,7 @@
         "Price": 125000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 33,
+        "Category": "Kiến thức bách khoa",
         "AuthorId": 146,
         "ImagePath": "hoi-dap-ve-bong-da.jpg"
     },
@@ -2845,7 +2845,7 @@
         "Price": 445000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 16,
         "ImagePath": "sticker-khung-long-phat-trien-tri-thong-minh-cho-tre-tap-4.jpg"
     },
@@ -2862,7 +2862,7 @@
         "Price": 85000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 16,
         "ImagePath": "sticker-khung-long-phat-trien-tri-thong-minh-cho-tre-tap-2.jpg"
     },
@@ -2879,7 +2879,7 @@
         "Price": 250000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 16,
         "ImagePath": "sticker-khung-long-phat-trien-tri-thong-minh-cho-tre-tap-3.jpg"
     },
@@ -2896,7 +2896,7 @@
         "Price": 90000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 147,
         "ImagePath": "nhung-cau-chuyen-truyen-cam-hung-i-will-be-better-nguo.jpg"
     },
@@ -2913,7 +2913,7 @@
         "Price": 435000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 16,
         "ImagePath": "sticker-khung-long-phat-trien-tri-thong-minh-cho-tre-tap-1.jpg"
     },
@@ -2930,7 +2930,7 @@
         "Price": 345000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 148,
         "ImagePath": "100-ky-nang-tu-bao-ve-ban-than-cho-tre-ung-pho-voi-ngu.jpg"
     },
@@ -2947,7 +2947,7 @@
         "Price": 365000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 149,
         "ImagePath": "giao-duc-dau-doi-cho-tre-nhung-bai-hoc-tu-bao-ve-ban-than.jpg"
     },
@@ -2964,7 +2964,7 @@
         "Price": 285000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 150,
         "ImagePath": "truyen-ke-bon-mua-con-gian-chong-qua-giup-con-kiem-soa.jpg"
     },
@@ -2980,7 +2980,7 @@
         "Price": 410000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 151,
         "ImagePath": "gieo-mam-tinh-cach-tu-tin-tai-ban-2019.jpg"
     },
@@ -2997,7 +2997,7 @@
         "Price": 480000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 34,
+        "Category": "Sách tranh kỹ năng sống cho trẻ",
         "AuthorId": 99,
         "ImagePath": "ki-nang-xa-hoi-cho-hoc-sinh-tieu-hoc-giao-tiep-hieu-qua.jpg"
     },
@@ -3013,7 +3013,7 @@
         "Price": 305000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 152,
         "ImagePath": "cung-choi-voi-be-xin-chao-xin-chao-tai-ban-2019.jpg"
     },
@@ -3029,7 +3029,7 @@
         "Price": 200000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 153,
         "ImagePath": "big-book-cuon-sach-khong-lo-ve-cac-ngoi-sao-va-cac-hanh-tin.jpg"
     },
@@ -3046,7 +3046,7 @@
         "Price": 250000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 154,
         "ImagePath": "sach-tuong-tac-thong-minh-dung-cham-vao-ca-map.jpg"
     },
@@ -3062,7 +3062,7 @@
         "Price": 135000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 155,
         "ImagePath": "tu-sach-tuong-tac-sach-am-thanh-be-hoc-noi-phien-ban-da.jpg"
     },
@@ -3079,7 +3079,7 @@
         "Price": 380000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 156,
         "ImagePath": "sach-tuong-tac-vua-hoc-vua-choi-vu-tru-dieu-ky.jpg"
     },
@@ -3095,7 +3095,7 @@
         "Price": 125000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 153,
         "ImagePath": "big-book-cuon-sach-khong-lo-ve-cac-loai-dong-vat-bien-ta.jpg"
     },
@@ -3111,7 +3111,7 @@
         "Price": 475000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 157,
         "ImagePath": "sach-thoi-trang-cong-chua-co-tich.jpg"
     },
@@ -3127,7 +3127,7 @@
         "Price": 180000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 158,
         "ImagePath": "200-mieng-boc-dan-thong-minh-be-hoc-toan.jpg"
     },
@@ -3144,7 +3144,7 @@
         "Price": 485000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 159,
         "ImagePath": "tro-choi-me-cung-phan-doan-thong-minh-2-8-tuoi.jpg"
     },
@@ -3161,7 +3161,7 @@
         "Price": 135000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 35,
+        "Category": "Vừa học, vừa chơi với trẻ",
         "AuthorId": 160,
         "ImagePath": "ren-luyen-tu-duy-nang-cao-iq-tim-diem-khac-nhau.jpg"
     },
@@ -3177,7 +3177,7 @@
         "Price": 90000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 161,
         "ImagePath": "tinh-binh-tuong-nho-phi-nhung-bia-cung.jpg"
     },
@@ -3193,7 +3193,7 @@
         "Price": 365000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 162,
         "ImagePath": "thu-cho-em.jpg"
     },
@@ -3209,7 +3209,7 @@
         "Price": 450000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 163,
         "ImagePath": "tu-truyen-nguyen-bich-lan-khong-guc-nga-tai-ban.jpg"
     },
@@ -3225,7 +3225,7 @@
         "Price": 105000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 164,
         "ImagePath": "khi-hoi-tho-hoa-thinh-khong-tai-ban-2020.jpg"
     },
@@ -3241,7 +3241,7 @@
         "Price": 295000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 165,
         "ImagePath": "diep-vien-hoan-hao-x6-pham-xuan-an.jpg"
     },
@@ -3258,7 +3258,7 @@
         "Price": 470000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 166,
         "ImagePath": "toi-noi-gi-khi-noi-ve-chay-bo-tai-ban-2021.jpg"
     },
@@ -3274,7 +3274,7 @@
         "Price": 145000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 167,
         "ImagePath": "nguoi-dan-chuyen.jpg"
     },
@@ -3290,7 +3290,7 @@
         "Price": 430000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 168,
         "ImagePath": "duong-nguoc-chieu-tu-ban-nguoi-dao-den-hoc-bong-erasmus.jpg"
     },
@@ -3307,7 +3307,7 @@
         "Price": 480000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 169,
         "ImagePath": "ly-do-de-song-tiep.jpg"
     },
@@ -3323,7 +3323,7 @@
         "Price": 340000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 170,
         "ImagePath": "ngheo-la-von-lieng-tang-kem-the-cao.jpg"
     },
@@ -3340,7 +3340,7 @@
         "Price": 360000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 171,
         "ImagePath": "tu-truyen-benjamin-franklin-tai-ban-2018.jpg"
     },
@@ -3357,7 +3357,7 @@
         "Price": 260000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 172,
         "ImagePath": "putin-logic-cua-quyen-luc-putin-innenansichten-der-macht.jpg"
     },
@@ -3374,7 +3374,7 @@
         "Price": 95000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 173,
         "ImagePath": "gia-toc-morgan.jpg"
     },
@@ -3391,7 +3391,7 @@
         "Price": 270000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 174,
         "ImagePath": "hoi-ky-ly-quang-dieu-tap-1-cau-chuyen-singapore-tai-ba.jpg"
     },
@@ -3408,7 +3408,7 @@
         "Price": 260000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 175,
         "ImagePath": "cuoc-doi-cua-cac-triet-gia-noi-tieng.jpg"
     },
@@ -3425,7 +3425,7 @@
         "Price": 285000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 36,
+        "Category": "Câu chuyện cuộc đời",
         "AuthorId": 174,
         "ImagePath": "hoi-ky-ly-quang-dieu-tap-2-tu-the-gioi-thu-ba-vuon-len-th.jpg"
     },
@@ -3442,7 +3442,7 @@
         "Price": 435000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 37,
+        "Category": "Chính trị",
         "AuthorId": 176,
         "ImagePath": "dau-va-mau-bia-cung.jpg"
     },
@@ -3459,7 +3459,7 @@
         "Price": 95000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 37,
+        "Category": "Chính trị",
         "AuthorId": 177,
         "ImagePath": "napoleon-dai-de-bia-cung-tai-ban-2023.jpg"
     },
@@ -3476,7 +3476,7 @@
         "Price": 500000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 37,
+        "Category": "Chính trị",
         "AuthorId": 16,
         "ImagePath": "huyen-thoai-che-ban-linh-tinh-cach-tinh-yeu-va-su-bat-t.jpg"
     },
@@ -3493,7 +3493,7 @@
         "Price": 400000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 37,
+        "Category": "Chính trị",
         "AuthorId": 178,
         "ImagePath": "loi-nguyen-cau-chernobyl.jpg"
     },
@@ -3509,7 +3509,7 @@
         "Price": 290000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 179,
         "ImagePath": "ky-uc-theo-dong-doi.jpg"
     },
@@ -3525,7 +3525,7 @@
         "Price": 235000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 180,
         "ImagePath": "kinh-te-nhat-ban-giai-doan-phat-trien-than-ky-1955-1973.jpg"
     },
@@ -3542,7 +3542,7 @@
         "Price": 340000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 181,
         "ImagePath": "soi-gia-pho-wall-phan-3.jpg"
     },
@@ -3559,7 +3559,7 @@
         "Price": 355000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 182,
         "ImagePath": "su-giau-va-ngheo-cua-cac-dan-toc-tai-ban.jpg"
     },
@@ -3576,7 +3576,7 @@
         "Price": 250000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 181,
         "ImagePath": "soi-gia-pho-wall-phan-2-tai-ban-2022.jpg"
     },
@@ -3593,7 +3593,7 @@
         "Price": 120000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 183,
         "ImagePath": "ly-gia-thanh-ong-chu-cua-nhung-ong-chu-trong-gioi-kin.jpg"
     },
@@ -3610,7 +3610,7 @@
         "Price": 220000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 184,
         "ImagePath": "nhung-ong-trum-tu-ban-cuoi-cung-o-thuong-hai-hai-de-che-kin.jpg"
     },
@@ -3627,7 +3627,7 @@
         "Price": 500000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 185,
         "ImagePath": "trump-101-con-duong-dan-den-thanh-cong.jpg"
     },
@@ -3644,7 +3644,7 @@
         "Price": 320000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 186,
         "ImagePath": "bill-gates-tham-vong-lon-lao-va-qua-trinh-hinh-thanh-de-ch.jpg"
     },
@@ -3661,7 +3661,7 @@
         "Price": 235000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 38,
+        "Category": "Kinh tế",
         "AuthorId": 187,
         "ImagePath": "the-big-four-4-dai-gia-kiem-toan-deloitte-pwc-ey.jpg"
     },
@@ -3677,7 +3677,7 @@
         "Price": 340000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 188,
         "ImagePath": "trinh-cong-son-thu-tinh-gui-mot-nguoi.jpg"
     },
@@ -3694,7 +3694,7 @@
         "Price": 160000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 189,
         "ImagePath": "chau-nhuan-phat-dai-hiep-hong-kong.jpg"
     },
@@ -3711,7 +3711,7 @@
         "Price": 95000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 190,
         "ImagePath": "nguoi-dan-ba-trong-toi-the-woman-in-me-tang-kem-poster.jpg"
     },
@@ -3728,7 +3728,7 @@
         "Price": 90000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 191,
         "ImagePath": "giai-ma-nganh-cong-nghiep-am-nhac.jpg"
     },
@@ -3745,7 +3745,7 @@
         "Price": 355000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 192,
         "ImagePath": "kien-thuc-can-ban-can-biet-theo-dong-lich-su-dien-anh.jpg"
     },
@@ -3762,7 +3762,7 @@
         "Price": 215000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 193,
         "ImagePath": "michelangelo-sau-kiet-tac-cuoc-doi.jpg"
     },
@@ -3779,7 +3779,7 @@
         "Price": 65000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 194,
         "ImagePath": "map-of-the-soul-7-persona-shadow-and-ego-in-the-world-of-bt.jpg"
     },
@@ -3795,7 +3795,7 @@
         "Price": 415000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 195,
         "ImagePath": "marilyn-o-manhattan-mot-nam-hanh-phuc.jpg"
     },
@@ -3811,7 +3811,7 @@
         "Price": 370000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 39,
+        "Category": "Nghệ thuật - Giải trí",
         "AuthorId": 196,
         "ImagePath": "fashion-stylist-ven-man-hau-truong-cua-nhung-buoc-chan-40.jpg"
     },
@@ -3827,7 +3827,7 @@
         "Price": 120000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "toan-12-tap-1-chan-troi-chuan.jpg"
     },
@@ -3843,7 +3843,7 @@
         "Price": 100000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "toan-12-tap-2-chan-troi-chuan.jpg"
     },
@@ -3859,7 +3859,7 @@
         "Price": 55000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "ngu-van-12-tap-2-chan-troi-chuan.jpg"
     },
@@ -3875,7 +3875,7 @@
         "Price": 280000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "toan-11-tap-2-chan-troi-sang-tao-chuan.jpg"
     },
@@ -3891,7 +3891,7 @@
         "Price": 90000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "tieng-anh-12-friends-global-student-book.jpg"
     },
@@ -3907,7 +3907,7 @@
         "Price": 250000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "lich-su-11-chan-troi-sang-tao-chuan.jpg"
     },
@@ -3923,7 +3923,7 @@
         "Price": 350000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "global-success-tieng-anh-11-student-book-2023.jpg"
     },
@@ -3939,7 +3939,7 @@
         "Price": 215000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "toan-12-tap-2-canh-dieu-chuan.jpg"
     },
@@ -3955,7 +3955,7 @@
         "Price": 70000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "hoa-hoc-11-chan-troi-sang-tao-chuan.jpg"
     },
@@ -3971,7 +3971,7 @@
         "Price": 440000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 40,
+        "Category": "Sách giáo khoa",
         "AuthorId": 16,
         "ImagePath": "vat-li-11-chan-troi-sang-tao-chuan.jpg"
     },
@@ -3987,7 +3987,7 @@
         "Price": 240000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 197,
         "ImagePath": "bang-cuu-chuong-bang-chia.jpg"
     },
@@ -4003,7 +4003,7 @@
         "Price": 330000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 198,
         "ImagePath": "bang-tuan-hoan-cac-nguyen-to-hoa-hoc-theo-chuong-trinh-gia.jpg"
     },
@@ -4019,7 +4019,7 @@
         "Price": 425000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 199,
         "ImagePath": "bang-tuan-hoan-cac-nguyen-to-hoa-hoc-danh-cho-hoc-sinh-thcs.jpg"
     },
@@ -4035,7 +4035,7 @@
         "Price": 50000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 200,
         "ImagePath": "bang-he-thong-tuan-hoan-cac-nguyen-to-hoa-hoc.jpg"
     },
@@ -4051,7 +4051,7 @@
         "Price": 215000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 201,
         "ImagePath": "cam-nang-su-dung-bang-tuan-hoan-cac-nguyen-to-hoa-hoc-tai-ba.jpg"
     },
@@ -4067,7 +4067,7 @@
         "Price": 65000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 202,
         "ImagePath": "bang-tuan-hoan-cac-nguyen-to-hoa-hoc.jpg"
     },
@@ -4083,7 +4083,7 @@
         "Price": 255000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 197,
         "ImagePath": "bang-am-van-lop-1-bang-chu-cai-chu-ghep.jpg"
     },
@@ -4099,7 +4099,7 @@
         "Price": 475000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 16,
         "ImagePath": "atlat-dia-li-viet-nam-theo-chuong-trinh-giao-duc-pho-thon.jpg"
     },
@@ -4115,7 +4115,7 @@
         "Price": 55000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 203,
         "ImagePath": "phieu-bai-tap-cuoi-tuan-mon-toan-lop-3.jpg"
     },
@@ -4131,7 +4131,7 @@
         "Price": 100000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 214,
         "ImagePath": "bang-am-van-bo-canh-dieu.jpg"
     },
@@ -4147,7 +4147,7 @@
         "Price": 110000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 41,
+        "Category": "Sách tham khảo",
         "AuthorId": 204,
         "ImagePath": "giao-trinh-thuc-hanh-lai-xe-co-ban.jpg"
     },
@@ -4163,7 +4163,7 @@
         "Price": 300000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 42,
+        "Category": "Luyện thi ĐH, CĐ",
         "AuthorId": 205,
         "ImagePath": "giao-trinh-do-luong-cam-bien-ly-thuyet-thuc-hanh.jpg"
     },
@@ -4179,7 +4179,7 @@
         "Price": 180000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 42,
+        "Category": "Luyện thi ĐH, CĐ",
         "AuthorId": 206,
         "ImagePath": "giao-trinh-quan-tri-chien-luoc-trong-to-chuc-du-lich.jpg"
     },
@@ -4195,7 +4195,7 @@
         "Price": 385000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 42,
+        "Category": "Luyện thi ĐH, CĐ",
         "AuthorId": 16,
         "ImagePath": "giao-trinh-kinh-te-thuong-mai-dich-vu-danh-cho-nganh-kinh-te.jpg"
     },
@@ -4211,7 +4211,7 @@
         "Price": 305000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 42,
+        "Category": "Luyện thi ĐH, CĐ",
         "AuthorId": 207,
         "ImagePath": "kinh-te-cac-quoc-gia-khu-vuc-asean.jpg"
     },
@@ -4227,7 +4227,7 @@
         "Price": 470000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 16,
         "ImagePath": "bang-phep-cong-phep-tru-chu-cai-chu-ghep-va-van.jpg"
     },
@@ -4243,7 +4243,7 @@
         "Price": 240000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 208,
         "ImagePath": "bang-chu-cai-viet-hoa-viet-thuong.jpg"
     },
@@ -4259,7 +4259,7 @@
         "Price": 50000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 209,
         "ImagePath": "bang-chu-cai-chu-ghep.jpg"
     },
@@ -4275,7 +4275,7 @@
         "Price": 410000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 210,
         "ImagePath": "bang-chu-cai-va-so.jpg"
     },
@@ -4291,7 +4291,7 @@
         "Price": 475000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 208,
         "ImagePath": "bang-chu-cai-tieng-anh-so-dem.jpg"
     },
@@ -4307,7 +4307,7 @@
         "Price": 470000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 211,
         "ImagePath": "tap-danh-van-tieng-viet-theo-so-do-tu-duy-4-6-tuoi-phie.jpg"
     },
@@ -4323,7 +4323,7 @@
         "Price": 135000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 209,
         "ImagePath": "vo-tap-to-net-co-ban-danh-cho-tre-4-5-tuoi.jpg"
     },
@@ -4339,7 +4339,7 @@
         "Price": 310000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 212,
         "ImagePath": "ong-con-cham-chi-to-mau-the-gioi-dong-vat-tai-ban-2023.jpg"
     },
@@ -4355,7 +4355,7 @@
         "Price": 240000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 213,
         "ImagePath": "cung-khung-long-tap-viet-chu-co-ban-chu-cai-tieng-viet-vie.jpg"
     },
@@ -4371,7 +4371,7 @@
         "Price": 70000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 43,
+        "Category": "Mẫu giáo",
         "AuthorId": 214,
         "ImagePath": "be-chuan-bi-vao-lop-1-vo-tap-viet-net-co-ban.jpg"
     },
@@ -4388,7 +4388,7 @@
         "Price": 375000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 215,
         "ImagePath": "destination-b1-grammar-and-vocabulary-with-answer-key.jpg"
     },
@@ -4404,7 +4404,7 @@
         "Price": 500000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 216,
         "ImagePath": "giai-thich-ngu-phap-tieng-anh-tai-ban-2022.jpg"
     },
@@ -4420,7 +4420,7 @@
         "Price": 195000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 217,
         "ImagePath": "mindmap-english-grammar-ngu-phap-tieng-anh-bang-so-do-t.jpg"
     },
@@ -4436,7 +4436,7 @@
         "Price": 275000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 218,
         "ImagePath": "tu-hoc-2000-tu-vung-tieng-anh-theo-chu-de-tai-ban.jpg"
     },
@@ -4452,7 +4452,7 @@
         "Price": 245000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 219,
         "ImagePath": "chem-tieng-anh-khong-can-dong-nao-tang-kem-bo-video-luye.jpg"
     },
@@ -4468,7 +4468,7 @@
         "Price": 240000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 220,
         "ImagePath": "mind-map-english-vocabulary-tu-vung-tieng-anh-qua-so-do-t.jpg"
     },
@@ -4485,7 +4485,7 @@
         "Price": 290000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 221,
         "ImagePath": "nuance-50-sac-thai-cua-tu.jpg"
     },
@@ -4501,7 +4501,7 @@
         "Price": 190000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 16,
         "ImagePath": "cambridge-ielts-18-academic-with-answer-audio-kem-audio.jpg"
     },
@@ -4517,7 +4517,7 @@
         "Price": 480000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 44,
+        "Category": "Tiếng Anh",
         "AuthorId": 222,
         "ImagePath": "giup-tri-nho-ngu-phap-tieng-anh-va-dong-tu-bat-quy-tac.jpg"
     },
@@ -4533,7 +4533,7 @@
         "Price": 400000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 223,
         "ImagePath": "tieng-nhat-cho-moi-nguoi-so-cap-1-ban-tieng-nhat-ban-moi.jpg"
     },
@@ -4549,7 +4549,7 @@
         "Price": 410000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 223,
         "ImagePath": "tieng-nhat-cho-moi-nguoi-so-cap-1-ban-dich-va-giai-thic.jpg"
     },
@@ -4566,7 +4566,7 @@
         "Price": 175000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 224,
         "ImagePath": "3000-tu-vung-tieng-nhat-theo-chu-de.jpg"
     },
@@ -4583,7 +4583,7 @@
         "Price": 355000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 225,
         "ImagePath": "28-ngay-tu-hoc-tieng-nhat.jpg"
     },
@@ -4599,7 +4599,7 @@
         "Price": 385000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 224,
         "ImagePath": "tu-hoc-tieng-nhat-cho-nguoi-moi-bat-dau-tai-ban-2018.jpg"
     },
@@ -4616,7 +4616,7 @@
         "Price": 475000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 226,
         "ImagePath": "n5-1000-tu-vung-can-thiet-cho-ky-thi-nang-luc-nhat-ngu.jpg"
     },
@@ -4632,7 +4632,7 @@
         "Price": 420000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 227,
         "ImagePath": "try-thi-nang-luc-nhat-ngu-n5-phat-trien-cac-ky-nang-tien.jpg"
     },
@@ -4648,7 +4648,7 @@
         "Price": 120000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 223,
         "ImagePath": "tieng-nhat-cho-moi-nguoi-so-cap-1-tong-hop-cac-bai-tap-ch.jpg"
     },
@@ -4664,7 +4664,7 @@
         "Price": 165000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 228,
         "ImagePath": "bang-tra-han-tu-va-cach-doc-theo-am-han-am-nhat.jpg"
     },
@@ -4680,7 +4680,7 @@
         "Price": 285000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 45,
+        "Category": "Tiếng Nhật",
         "AuthorId": 224,
         "ImagePath": "tap-viet-tieng-nhat-bang-chu-cai-hiragana.jpg"
     },
@@ -4697,7 +4697,7 @@
         "Price": 500000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 229,
         "ImagePath": "giao-trinh-chuan-hsk-1-tai-ban-2023.jpg"
     },
@@ -4713,7 +4713,7 @@
         "Price": 160000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 230,
         "ImagePath": "giao-trinh-han-ngu-1-tap-1-quyen-thuong-phien-ban-moi-ta.jpg"
     },
@@ -4729,7 +4729,7 @@
         "Price": 180000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 232,
         "ImagePath": "tap-viet-chu-han-theo-giao-trinh-han-ngu-phien-ban-moi.jpg"
     },
@@ -4745,7 +4745,7 @@
         "Price": 105000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 233,
         "ImagePath": "keep-it-up-tap-viet-chu-han-hoc-tieng-trung-cho-nguoi-mo.jpg"
     },
@@ -4762,7 +4762,7 @@
         "Price": 420000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 229,
         "ImagePath": "Giáo Trình Chuẩn HSK 1 - Sách Bài Tập (Tái Bản 2023).jpg"
     },
@@ -4778,7 +4778,7 @@
         "Price": 465000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 235,
         "ImagePath": "giao-trinh-chuan-hsk-4-tap-1.jpg"
     },
@@ -4794,7 +4794,7 @@
         "Price": 140000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 236,
         "ImagePath": "giao-trinh-han-ngu-boya-so-cap-tap-1-tai-ban-2022.jpg"
     },
@@ -4810,7 +4810,7 @@
         "Price": 445000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 46,
+        "Category": "Tiếng Trung",
         "AuthorId": 237,
         "ImagePath": "giao-trinh-chuan-yct-1-sach-bai-tap.jpg"
     },
@@ -4826,7 +4826,7 @@
         "Price": 465000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 16,
         "ImagePath": "tieng-han-tong-hop-danh-cho-nguoi-viet-nam-so-cap-1-sac.jpg"
     },
@@ -4842,7 +4842,7 @@
         "Price": 65000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 16,
         "ImagePath": "tieng-han-tong-hop-danh-cho-nguoi-viet-nam-so-cap-1-tai-ba.jpg"
     },
@@ -4858,7 +4858,7 @@
         "Price": 440000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 238,
         "ImagePath": "tu-hoc-tieng-han-danh-cho-nguoi-moi-bat-dau-tai-ban-2023.jpg"
     },
@@ -4874,7 +4874,7 @@
         "Price": 220000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 238,
         "ImagePath": "6000-cau-giao-tiep-tieng-han-theo-chu-de.jpg"
     },
@@ -4890,7 +4890,7 @@
         "Price": 60000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 16,
         "ImagePath": "tieng-han-tong-hop-danh-cho-nguoi-viet-nam-so-cap-1-ba.jpg"
     },
@@ -4906,7 +4906,7 @@
         "Price": 155000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 239,
         "ImagePath": "ngu-phap-tieng-han-thong-dung-so-cap-tai-ban.jpg"
     },
@@ -4922,7 +4922,7 @@
         "Price": 410000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 238,
         "ImagePath": "5000-tu-vung-tieng-han-thong-dung-tai-ban-2020.jpg"
     },
@@ -4939,7 +4939,7 @@
         "Price": 155000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 240,
         "ImagePath": "all-in-one-korean-tieng-han-3-trong-1.jpg"
     },
@@ -4955,7 +4955,7 @@
         "Price": 55000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 241,
         "ImagePath": "luyen-dich-song-ngu-han-viet-qua-3000-tieu-de-bao-chi.jpg"
     },
@@ -4971,7 +4971,7 @@
         "Price": 155000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 47,
+        "Category": "Tiếng Hàn",
         "AuthorId": 238,
         "ImagePath": "15-phut-tu-hoc-tieng-han-moi-ngay.jpg"
     },
@@ -4987,7 +4987,7 @@
         "Price": 260000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 242,
         "ImagePath": "all-the-light-we-cannot-see.jpg"
     },
@@ -5003,7 +5003,7 @@
         "Price": 475000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 2,
         "ImagePath": "the-alchemist-25th-anniversary-a-fable-about-following-you.jpg"
     },
@@ -5019,7 +5019,7 @@
         "Price": 150000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 243,
         "ImagePath": "perfume-the-story-of-a-murderer.jpg"
     },
@@ -5035,7 +5035,7 @@
         "Price": 410000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 244,
         "ImagePath": "normal-people-a-novel.jpg"
     },
@@ -5051,7 +5051,7 @@
         "Price": 455000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 166,
         "ImagePath": "norwegian-wood.jpg"
     },
@@ -5067,7 +5067,7 @@
         "Price": 105000,
         "Discount": 1,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 166,
         "ImagePath": "colorless-tsukuru-tazaki-and-his-years-of-pilgrimage.jpg"
     },
@@ -5083,7 +5083,7 @@
         "Price": 150000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 239,
         "ImagePath": "the-fountainhead.jpg"
     },
@@ -5099,7 +5099,7 @@
         "Price": 85000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 246,
         "ImagePath": "a-gentleman-in-moscow.jpg"
     },
@@ -5115,7 +5115,7 @@
         "Price": 385000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 266,
         "ImagePath": "jane-eyre.jpg"
     },
@@ -5131,7 +5131,7 @@
         "Price": 270000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 48,
+        "Category": "Contemporary fiction",
         "AuthorId": 247,
         "ImagePath": "to-kill-a-mockingbird.jpg"
     },
@@ -5147,7 +5147,7 @@
         "Price": 430000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 248,
         "ImagePath": "me-before-you-a-novel-movie-tie-in.jpg"
     },
@@ -5163,7 +5163,7 @@
         "Price": 75000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 249,
         "ImagePath": "the-seven-husbands-of-evelyn-hugo.jpg"
     },
@@ -5179,7 +5179,7 @@
         "Price": 465000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 250,
         "ImagePath": "the-book-thief-brei.jpg"
     },
@@ -5195,7 +5195,7 @@
         "Price": 465000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 251,
         "ImagePath": "the-fault-in-our-stars.jpg"
     },
@@ -5211,7 +5211,7 @@
         "Price": 385000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 252,
         "ImagePath": "after-the-after-series.jpg"
     },
@@ -5227,7 +5227,7 @@
         "Price": 175000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 253,
         "ImagePath": "the-notebook.jpg"
     },
@@ -5243,7 +5243,7 @@
         "Price": 495000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 254,
         "ImagePath": "flipped.jpg"
     },
@@ -5259,7 +5259,7 @@
         "Price": 250000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 255,
         "ImagePath": "5-centimeters-per-second-one-more-side.jpg"
     },
@@ -5275,7 +5275,7 @@
         "Price": 360000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 256,
         "ImagePath": "to-all-the-boys-ive-loved-before.jpg"
     },
@@ -5291,7 +5291,7 @@
         "Price": 85000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 49,
+        "Category": "Romance",
         "AuthorId": 257,
         "ImagePath": "the-love-hypothesis.jpg"
     },
@@ -5307,7 +5307,7 @@
         "Price": 345000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 5,
         "ImagePath": "dune.jpg"
     },
@@ -5323,7 +5323,7 @@
         "Price": 410000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 5,
         "ImagePath": "dune-movie-tie-in.jpg"
     },
@@ -5339,7 +5339,7 @@
         "Price": 305000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 258,
         "ImagePath": "fourth-wing-the-empyrean-series.jpg"
     },
@@ -5355,7 +5355,7 @@
         "Price": 425000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 259,
         "ImagePath": "percy-jackson-and-the-olympians-the-graphic-novel-book-3.jpg"
     },
@@ -5371,7 +5371,7 @@
         "Price": 125000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 260,
         "ImagePath": "the-lord-of-the-rings.jpg"
     },
@@ -5387,7 +5387,7 @@
         "Price": 240000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 259,
         "ImagePath": "percy-jackson-and-the-olympians-3-the-titans-curse.jpg"
     },
@@ -5403,7 +5403,7 @@
         "Price": 330000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 258,
         "ImagePath": "iron-flame-the-empyrean-series.jpg"
     },
@@ -5419,7 +5419,7 @@
         "Price": 295000,
         "Discount": 5,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 261,
         "ImagePath": "a-clash-of-kings.jpg"
     },
@@ -5435,7 +5435,7 @@
         "Price": 95000,
         "Discount": 27,
         "QuantityInStock": 100,
-        "CategoryId": 50,
+        "Category": "Fantasy",
         "AuthorId": 259,
         "ImagePath": "the-heroes-of-olympus-1-the-lost-hero.jpg"
     },
@@ -5451,7 +5451,7 @@
         "Price": 130000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 263,
         "ImagePath": "the-great-gatsby.jpg"
     },
@@ -5467,7 +5467,7 @@
         "Price": 340000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 269,
         "ImagePath": "pride-and-prejudice.jpg"
     },
@@ -5483,7 +5483,7 @@
         "Price": 370000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 264,
         "ImagePath": "les-miserables.jpg"
     },
@@ -5499,7 +5499,7 @@
         "Price": 375000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 266,
         "ImagePath": "jane-eyre-collins-classics.jpg"
     },
@@ -5515,7 +5515,7 @@
         "Price": 105000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 267,
         "ImagePath": "lolita-penguin-essentials.jpg"
     },
@@ -5531,7 +5531,7 @@
         "Price": 150000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 268,
         "ImagePath": "little-women-illustrated-by-ella-bailey-alma-junior-classic.jpg"
     },
@@ -5547,7 +5547,7 @@
         "Price": 475000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 269,
         "ImagePath": "pride-and-prejudice-penguin-english-library.jpg"
     },
@@ -5563,7 +5563,7 @@
         "Price": 365000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 270,
         "ImagePath": "the-call-of-the-wild-and-selected-stories.jpg"
     },
@@ -5579,7 +5579,7 @@
         "Price": 125000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 51,
+        "Category": "Classics",
         "AuthorId": 269,
         "ImagePath": "pride-and-prejudice-collins-classics.jpg"
     },
@@ -5595,7 +5595,7 @@
         "Price": 140000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 271,
         "ImagePath": "principles.jpg"
     },
@@ -5611,7 +5611,7 @@
         "Price": 275000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 272,
         "ImagePath": "zero-to-one-notes-on-start-ups-or-how-to-build-the-future.jpg"
     },
@@ -5627,7 +5627,7 @@
         "Price": 350000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 58,
         "ImagePath": "marketing-60-the-future-is-immersive.jpg"
     },
@@ -5643,7 +5643,7 @@
         "Price": 445000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 273,
         "ImagePath": "bad-blood-secrets-and-lies-in-a-silicon-valley-startup.jpg"
     },
@@ -5659,7 +5659,7 @@
         "Price": 345000,
         "Discount": 21,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 274,
         "ImagePath": "the-8020-principle.jpg"
     },
@@ -5675,7 +5675,7 @@
         "Price": 410000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 40,
         "ImagePath": "good-to-great-why-some-companies-make-the-leapand-other.jpg"
     },
@@ -5691,7 +5691,7 @@
         "Price": 50000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 275,
         "ImagePath": "the-art-of-war-harper-perennial-modern-classics.jpg"
     },
@@ -5707,7 +5707,7 @@
         "Price": 250000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 276,
         "ImagePath": "measure-what-matters.jpg"
     },
@@ -5723,7 +5723,7 @@
         "Price": 410000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 277,
         "ImagePath": "elon-musk-how-the-billionaire-ceo-of-spacex-and-tesla-i.jpg"
     },
@@ -5739,7 +5739,7 @@
         "Price": 215000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 52,
+        "Category": "Business & Management",
         "AuthorId": 40,
         "ImagePath": "good-to-great-why-some-companies-make-the-leap-and-other.jpg"
     },
@@ -5755,7 +5755,7 @@
         "Price": 65000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 271,
         "ImagePath": "principles-for-dealing-with-the-changing-world-order-wh.jpg"
     },
@@ -5771,7 +5771,7 @@
         "Price": 465000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 278,
         "ImagePath": "why-nations-fail-the-origins-of-power-prosperity-an.jpg"
     },
@@ -5787,7 +5787,7 @@
         "Price": 60000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 279,
         "ImagePath": "predictably-irrational-the-hidden-forces-that-shape-ou.jpg"
     },
@@ -5803,7 +5803,7 @@
         "Price": 50000,
         "Discount": 29,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 280,
         "ImagePath": "thank-you-for-being-late.jpg"
     },
@@ -5819,7 +5819,7 @@
         "Price": 495000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 281,
         "ImagePath": "think-like-a-freak-the-authors-of-freakonomics-offer-t.jpg"
     },
@@ -5835,7 +5835,7 @@
         "Price": 255000,
         "Discount": 3,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 282,
         "ImagePath": "the-big-short.jpg"
     },
@@ -5851,7 +5851,7 @@
         "Price": 170000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 283,
         "ImagePath": "gigged-the-gig-economy-the-end-of-the-job-and-the-future-o.jpg"
     },
@@ -5867,7 +5867,7 @@
         "Price": 60000,
         "Discount": 15,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 40,
         "ImagePath": "built-to-last.jpg"
     },
@@ -5883,7 +5883,7 @@
         "Price": 155000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 53,
+        "Category": "Economics",
         "AuthorId": 284,
         "ImagePath": "davos-man-how-the-billionaires-devoured-the-world.jpg"
     },
@@ -5899,7 +5899,7 @@
         "Price": 305000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 285,
         "ImagePath": "the-snowball-warren-buffett-and-the-business-of-life.jpg"
     },
@@ -5915,7 +5915,7 @@
         "Price": 100000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 66,
         "ImagePath": "fooled-by-randomness-the-hidden-role-of-chance-in-life-and-i.jpg"
     },
@@ -5931,7 +5931,7 @@
         "Price": 260000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 286,
         "ImagePath": "you-are-a-badass-at-making-money.jpg"
     },
@@ -5947,7 +5947,7 @@
         "Price": 420000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 287,
         "ImagePath": "billion-dollar-loser-the-epic-rise-and-spectacular-fall-o.jpg"
     },
@@ -5963,7 +5963,7 @@
         "Price": 345000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 288,
         "ImagePath": "collusion-how-central-bankers-rigged-the-world.jpg"
     },
@@ -5979,7 +5979,7 @@
         "Price": 495000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 66,
         "ImagePath": "the-black-swan.jpg"
     },
@@ -5995,7 +5995,7 @@
         "Price": 460000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 289,
         "ImagePath": "finance-and-accounting-for-nonfinancial-managers.jpg"
     },
@@ -6011,7 +6011,7 @@
         "Price": 295000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 290,
         "ImagePath": "everybody-lies-what-the-internet-can-tell-us-about-who-w.jpg"
     },
@@ -6027,7 +6027,7 @@
         "Price": 485000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 291,
         "ImagePath": "the-algebra-of-wealth.jpg"
     },
@@ -6043,7 +6043,7 @@
         "Price": 105000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 54,
+        "Category": "Finance & Accounting",
         "AuthorId": 292,
         "ImagePath": "the-money-ladder.jpg"
     },
@@ -6059,7 +6059,7 @@
         "Price": 115000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 70,
         "ImagePath": "atomic-habits-an-easy-and-proven-way-to-build-good-habits.jpg"
     },
@@ -6075,7 +6075,7 @@
         "Price": 265000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 293,
         "ImagePath": "the-subtle-art-of-not-giving-a-fck-a-counterintuitiv.jpg"
     },
@@ -6091,7 +6091,7 @@
         "Price": 355000,
         "Discount": 17,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 294,
         "ImagePath": "quiet-the-power-of-introverts-in-a-world-that-cant-sto.jpg"
     },
@@ -6107,7 +6107,7 @@
         "Price": 200000,
         "Discount": 4,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 78,
         "ImagePath": "how-to-win-friends-and-influence-people.jpg"
     },
@@ -6123,7 +6123,7 @@
         "Price": 280000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 295,
         "ImagePath": "12-rules-for-life-an-antidote-to-chaos.jpg"
     },
@@ -6139,7 +6139,7 @@
         "Price": 180000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 93,
         "ImagePath": "how-psychology-works.jpg"
     },
@@ -6155,7 +6155,7 @@
         "Price": 115000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 296,
         "ImagePath": "1000-little-things-happy-successful-people-do-differently.jpg"
     },
@@ -6171,7 +6171,7 @@
         "Price": 395000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 297,
         "ImagePath": "the-power-of-habit.jpg"
     },
@@ -6187,7 +6187,7 @@
         "Price": 485000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 55,
+        "Category": "Popular Psychology",
         "AuthorId": 47,
         "ImagePath": "the-leader-who-had-no-title-a-modern-fable-on-real-success-i.jpg"
     },
@@ -6203,7 +6203,7 @@
         "Price": 320000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 298,
         "ImagePath": "who-moved-my-cheese.jpg"
     },
@@ -6219,7 +6219,7 @@
         "Price": 315000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 271,
         "ImagePath": "principles-for-success.jpg"
     },
@@ -6235,7 +6235,7 @@
         "Price": 290000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 299,
         "ImagePath": "act-like-a-lady-think-like-a-man-expanded-edition-what-me.jpg"
     },
@@ -6251,7 +6251,7 @@
         "Price": 120000,
         "Discount": 13,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 300,
         "ImagePath": "the-4-hour-work-week-escape-the-9-5-live-anywhere-and-joi.jpg"
     },
@@ -6267,7 +6267,7 @@
         "Price": 55000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 45,
         "ImagePath": "the-visual-mba-a-quick-guide-to-everything-youll-learn-i.jpg"
     },
@@ -6283,7 +6283,7 @@
         "Price": 245000,
         "Discount": 26,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 302,
         "ImagePath": "the-5-second-rule-transform-your-life-work-and-confidenc.jpg"
     },
@@ -6299,7 +6299,7 @@
         "Price": 155000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 303,
         "ImagePath": "awaken-the-giant-within.jpg"
     },
@@ -6315,7 +6315,7 @@
         "Price": 160000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 56,
+        "Category": "Advice on careers & Achieving success",
         "AuthorId": 304,
         "ImagePath": "digital-minimalism.jpg"
     },
@@ -6331,7 +6331,7 @@
         "Price": 230000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 305,
         "ImagePath": "the-richest-man-in-babylon.jpg"
     },
@@ -6347,7 +6347,7 @@
         "Price": 215000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 306,
         "ImagePath": "nice-girls-dont-get-rich-75-unavoidable-mistakes-women-mak.jpg"
     },
@@ -6363,7 +6363,7 @@
         "Price": 350000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 307,
         "ImagePath": "millionaire-by-thirty-the-quickest-path-to-early-financia.jpg"
     },
@@ -6379,7 +6379,7 @@
         "Price": 480000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 308,
         "ImagePath": "the-intelligent-investor-the-classic-text-on-value-investing.jpg"
     },
@@ -6395,7 +6395,7 @@
         "Price": 425000,
         "Discount": 2,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 309,
         "ImagePath": "the-anxious-investor-mastering-the-mental-game-of-investing.jpg"
     },
@@ -6411,7 +6411,7 @@
         "Price": 440000,
         "Discount": 11,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 310,
         "ImagePath": "one-up-on-wall-street-how-to-use-what-you-already-know-t.jpg"
     },
@@ -6427,7 +6427,7 @@
         "Price": 255000,
         "Discount": 8,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 37,
         "ImagePath": "think-and-grow-rich-vermilion-life-essentials-vermilio.jpg"
     },
@@ -6443,7 +6443,7 @@
         "Price": 445000,
         "Discount": 10,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 311,
         "ImagePath": "wealth-secrets.jpg"
     },
@@ -6459,7 +6459,7 @@
         "Price": 160000,
         "Discount": 24,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 312,
         "ImagePath": "swiped-how-to-protect-yourself-in-a-world-full-of-scammers.jpg"
     },
@@ -6475,7 +6475,7 @@
         "Price": 125000,
         "Discount": 14,
         "QuantityInStock": 100,
-        "CategoryId": 57,
+        "Category": "Personal Finance",
         "AuthorId": 313,
         "ImagePath": "invest-now.jpg"
     },
@@ -6491,7 +6491,7 @@
         "Price": 80000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 314,
         "ImagePath": "baby-shark.jpg"
     },
@@ -6507,7 +6507,7 @@
         "Price": 260000,
         "Discount": 0,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 315,
         "ImagePath": "disney-mickey-clubhouse-my-busy-book.jpg"
     },
@@ -6523,7 +6523,7 @@
         "Price": 110000,
         "Discount": 23,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 315,
         "ImagePath": "marvel-spider-man-tattle-tales.jpg"
     },
@@ -6539,7 +6539,7 @@
         "Price": 280000,
         "Discount": 30,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 316,
         "ImagePath": "peppa-pig-peppa-goes-on-holiday.jpg"
     },
@@ -6555,7 +6555,7 @@
         "Price": 375000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 317,
         "ImagePath": "early-learning-abc-sticker-activity.jpg"
     },
@@ -6571,7 +6571,7 @@
         "Price": 140000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 318,
         "ImagePath": "10-little-rubber-ducks-board-book-world-of-eric-carle.jpg"
     },
@@ -6587,7 +6587,7 @@
         "Price": 490000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 316,
         "ImagePath": "peppa-pig-happy-birthday-peppa.jpg"
     },
@@ -6603,7 +6603,7 @@
         "Price": 410000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 319,
         "ImagePath": "paw-patrol-pup-heroes-story-book.jpg"
     },
@@ -6619,7 +6619,7 @@
         "Price": 185000,
         "Discount": 22,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 317,
         "ImagePath": "my-first-abc.jpg"
     },
@@ -6635,7 +6635,7 @@
         "Price": 410000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 58,
+        "Category": "Picture & Activity books",
         "AuthorId": 315,
         "ImagePath": "my-first-puzzle-book-moonbug-blippi.jpg"
     },
@@ -6651,7 +6651,7 @@
         "Price": 365000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 321,
         "ImagePath": "diary-of-a-wimpy-kid-book-1-penguin-books-uk.jpg"
     },
@@ -6667,7 +6667,7 @@
         "Price": 245000,
         "Discount": 12,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 321,
         "ImagePath": "diary-of-a-wimpy-kid-18-no-brainer.jpg"
     },
@@ -6683,7 +6683,7 @@
         "Price": 495000,
         "Discount": 6,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 322,
         "ImagePath": "wonder.jpg"
     },
@@ -6699,7 +6699,7 @@
         "Price": 480000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 323,
         "ImagePath": "harry-potter-and-the-philosophers-stone-minalima-edition.jpg"
     },
@@ -6715,7 +6715,7 @@
         "Price": 365000,
         "Discount": 9,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 323,
         "ImagePath": "harry-potter-and-the-philosophers-stone.jpg"
     },
@@ -6731,7 +6731,7 @@
         "Price": 425000,
         "Discount": 18,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 323,
         "ImagePath": "harry-potter-and-the-prisoner-of-azkaban.jpg"
     },
@@ -6747,7 +6747,7 @@
         "Price": 85000,
         "Discount": 16,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 324,
         "ImagePath": "charlottes-web.jpg"
     },
@@ -6763,7 +6763,7 @@
         "Price": 215000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 323,
         "ImagePath": "harry-potter-and-the-deathly-hallows.jpg"
     },
@@ -6779,7 +6779,7 @@
         "Price": 170000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 323,
         "ImagePath": "harry-potter-and-the-half-blood-prince.jpg"
     },
@@ -6795,7 +6795,7 @@
         "Price": 160000,
         "Discount": 25,
         "QuantityInStock": 100,
-        "CategoryId": 59,
+        "Category": "Fiction (for kids & teen)",
         "AuthorId": 321,
         "ImagePath": "diary-of-a-wimpy-kid-rodrick-rules-book-2-penguin-books-u.jpg"
     },
@@ -6811,7 +6811,7 @@
         "Price": 360000,
         "Discount": 7,
         "QuantityInStock": 100,
-        "CategoryId": 60,
+        "Category": "Education",
         "AuthorId": 325,
         "ImagePath": "disney-kids-readers-level-4-toy-story-3.jpg"
     },
@@ -6827,7 +6827,7 @@
         "Price": 105000,
         "Discount": 28,
         "QuantityInStock": 100,
-        "CategoryId": 60,
+        "Category": "Education",
         "AuthorId": 326,
         "ImagePath": "disney-kids-readers-level-5-pack-of-6.jpg"
     },
@@ -6843,7 +6843,7 @@
         "Price": 455000,
         "Discount": 19,
         "QuantityInStock": 100,
-        "CategoryId": 60,
+        "Category": "Education",
         "AuthorId": 320,
         "ImagePath": "english-for-everyone-junior-beginners-course.jpg"
     },
@@ -6859,7 +6859,7 @@
         "Price": 50000,
         "Discount": 20,
         "QuantityInStock": 100,
-        "CategoryId": 60,
+        "Category": "Education",
         "AuthorId": 327,
         "ImagePath": "learning-how-to-learn.jpg"
     }

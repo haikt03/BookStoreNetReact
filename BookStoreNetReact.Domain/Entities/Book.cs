@@ -7,6 +7,8 @@ namespace BookStoreNetReact.Domain.Entities
     {
         [StringLength(250, MinimumLength = 6)]
         public required string Name { get; set; }
+        [StringLength(50, MinimumLength = 6)]
+        public required string Category { get; set; }
         [StringLength(100, MinimumLength = 1)]
         public string? Translator { get; set; }
         [StringLength(100, MinimumLength = 1)]
@@ -31,9 +33,6 @@ namespace BookStoreNetReact.Domain.Entities
         public required int QuantityInStock { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
-        [Range(1, int.MaxValue)]
-        public int? CategoryId { get; set; }
-        public Category? Category { get; set; }
         [Range(1, int.MaxValue)]
         public int? AuthorId { get; set; }
         public Author? Author { get; set; }

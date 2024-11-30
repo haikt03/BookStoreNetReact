@@ -1,4 +1,5 @@
 import {
+    Box,
     Container,
     createTheme,
     CssBaseline,
@@ -10,23 +11,19 @@ import Header from "./Header";
 import LoadingComponent from "./LoadingComponent";
 import Home from "../../features/home/Home";
 import { Outlet, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { useAppDispatch } from "../store/configureStore";
 import { getCurrentUserAsync } from "../../features/account/accountSlice";
-import { getBasketAsync } from "../../features/basket/basketSlice";
+import Footer from "./Footer";
 
 function App() {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
-    const { isAuthenticated } = useAppSelector((state) => state.account);
 
     const initApp = useCallback(async () => {
-        if (isAuthenticated) {
-            await dispatch(getCurrentUserAsync());
-            await dispatch(getBasketAsync());
-        }
-    }, [dispatch, isAuthenticated]);
+        await dispatch(getCurrentUserAsync());
+    }, [dispatch]);
 
     useEffect(() => {
         initApp().then(() => setLoading(false));
@@ -38,6 +35,7 @@ function App() {
             mode: paletteType,
             background: {
                 default: paletteType === "light" ? "#eaeaea" : "#121212",
+                paper: paletteType === "light" ? "#fff" : "#333",
             },
         },
     });
@@ -54,16 +52,30 @@ function App() {
                 theme="colored"
             />
             <CssBaseline />
-            <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
-            {loading ? (
-                <LoadingComponent />
-            ) : location.pathname === "/" ? (
-                <Home />
-            ) : (
-                <Container sx={{ mt: 4 }}>
-                    <Outlet />
-                </Container>
-            )}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: "100vh",
+                }}
+            >
+                <Header
+                    darkMode={darkMode}
+                    handleThemeChange={handleThemeChange}
+                />
+                <Box sx={{ flex: 1 }}>
+                    {loading ? (
+                        <LoadingComponent />
+                    ) : location.pathname === "/" ? (
+                        <Home />
+                    ) : (
+                        <Container sx={{ mt: 4 }}>
+                            <Outlet />
+                        </Container>
+                    )}
+                </Box>
+                <Footer />
+            </Box>
         </ThemeProvider>
     );
 }

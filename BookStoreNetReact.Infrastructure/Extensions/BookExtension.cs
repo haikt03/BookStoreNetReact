@@ -32,19 +32,19 @@ namespace BookStoreNetReact.Infrastructure.Extensions
         {
             var publisherList = new List<string>();
             var languageList = new List<string>();
-            var categoryList = new List<int>();
+            var categoryList = new List<string>();
 
             if (!string.IsNullOrWhiteSpace(publishers))
                 publisherList.AddRange(publishers.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
             if (!string.IsNullOrWhiteSpace(languages))
                 languageList.AddRange(languages.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
             if (!string.IsNullOrWhiteSpace(categories))
-                categoryList.AddRange(categories.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList());
+                categoryList.AddRange(categories.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
 
             var result = query
                 .Where(b => (publisherList.Count == 0 || publisherList.Contains(b.Publisher)))
                 .Where(b => (languageList.Count == 0 || languageList.Contains(b.Language)))
-                .Where(b => (categoryList.Count == 0 || b.Category == null || categoryList.Contains(b.Category.Id)))
+                .Where(b => (categoryList.Count == 0 || categoryList.Contains(b.Category)))
                 .Where(b => (minPrice == 0 || b.Price >= minPrice))
                 .Where(b => (maxPrice == 0 || b.Price <= maxPrice));
             return result;

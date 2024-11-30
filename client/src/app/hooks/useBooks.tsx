@@ -3,14 +3,20 @@ import {
     bookSelectors,
     getBooksAsync,
     getBookFilterAsync,
+    getAuthorsForUpsertBook,
 } from "../../features/book/bookSlice";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 
 export default function useBooks() {
     const books = useAppSelector(bookSelectors.selectAll);
-    const { booksLoaded, filtersLoaded, filter, metaData } = useAppSelector(
-        (state) => state.book
-    );
+    const {
+        booksLoaded,
+        filter,
+        filtersLoaded,
+        authorsForUpsert,
+        authorsForUpsertLoaded,
+        metaData,
+    } = useAppSelector((state) => state.book);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -21,11 +27,17 @@ export default function useBooks() {
         if (!filtersLoaded) dispatch(getBookFilterAsync());
     }, [dispatch, filtersLoaded]);
 
+    useEffect(() => {
+        if (!authorsForUpsertLoaded) dispatch(getAuthorsForUpsertBook());
+    }, [dispatch, authorsForUpsertLoaded]);
+
     return {
         books,
         booksLoaded,
-        filtersLoaded,
         filter,
+        filtersLoaded,
+        authorsForUpsert,
+        authorsForUpsertLoaded,
         metaData,
     };
 }

@@ -1,10 +1,7 @@
 import { Box, debounce, Paper, TextField } from "@mui/material";
-import {
-    useAppDispatch,
-    useAppSelector,
-} from "../../../app/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { useState } from "react";
-import { setBookParams } from "../bookSlice";
+import { setBookParams } from "./bookSlice";
 
 export default function BookSearch() {
     const { bookParams } = useAppSelector((state) => state.book);
@@ -21,7 +18,7 @@ export default function BookSearch() {
     }, 1000);
 
     return (
-        <Box sx={{ mb: 2 }}>
+        <Box>
             <Paper sx={{ mb: 2 }}>
                 <TextField
                     label="Tìm kiếm theo tên sách"

@@ -7,5 +7,6 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
         Task<Basket?> GetByUserIdAsync(int userId);
         Task AddAsync(Basket basket);
         void Update(Basket basket);
+        void Clear(Basket basket);
     }
 }

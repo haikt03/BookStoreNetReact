@@ -3,7 +3,6 @@ using BookStoreNetReact.Application.Dtos.AppUser;
 using BookStoreNetReact.Application.Dtos.Author;
 using BookStoreNetReact.Application.Dtos.Basket;
 using BookStoreNetReact.Application.Dtos.Book;
-using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Domain.Entities;
 
@@ -33,6 +32,7 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Author, AuthorDto>();
             CreateMap<Author, AuthorDetailDto>();
+            CreateMap<Author, AuthorForUpsertBookDto>();
 
             // Basket
             CreateMap<Basket, BasketDto>();
@@ -44,16 +44,7 @@ namespace BookStoreNetReact.Application.Helpers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Book, BookDto>();
             CreateMap<Book, BookDetailDto>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category));
-
-            // Category
-            CreateMap<CreateCategoryDto, Category>();
-            CreateMap<UpdateCategoryDto, Category>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            CreateMap<Category, CategoryDto>();
-            CreateMap<Category, CategoryDetailDto>()
-                .ForMember(dest => dest.PCategory, opt => opt.MapFrom(src => src.PCategory));
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author));
         }
     }
 }

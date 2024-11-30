@@ -17,19 +17,23 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<AppUserDetailDto>> Login([FromBody] LoginDto loginDto)
         {
-            var tokenDto = await _appUserService.LoginAsync(loginDto);
-            if (tokenDto == null)
-                return Unauthorized("Sai tài khoản hoặc mật khẩu");
-            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
+            var userWithToken = await _appUserService.LoginAsync(loginDto);
+            if (userWithToken == null)
+                return BadRequest(new ProblemDetails { Title = "Sai tài khoản hoặc mật khẩu" });
+
+            Response.Cookies.Append("accessToken", userWithToken.Token.AccessToken, new CookieOptions
             {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.UtcNow.AddMinutes(30)
+            });
+            Response.Cookies.Append("refreshToken", userWithToken.Token.RefreshToken, new CookieOptions
+            {
+                SameSite = SameSiteMode.Lax,
                 Expires = DateTime.UtcNow.AddDays(7)
             });
-            return Ok(tokenDto.AccessToken);
+            return Ok(userWithToken.User);
         }
 
         [HttpPost("register")]
@@ -62,23 +66,28 @@ namespace BookStoreNetReact.Api.Controllers
                 return Unauthorized();
 
             await _appUserService.LogoutAsync(logoutDto);
+            Response.Cookies.Delete("accessToken");
+            Response.Cookies.Delete("refreshToken");
             return Ok();
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult<string>> Refresh([FromBody] RefreshTokenDto refreshDto)
+        public async Task<ActionResult> Refresh([FromBody] RefreshTokenDto refreshDto)
         {
             var tokenDto = await _appUserService.RefreshAsync(refreshDto);
             if (tokenDto == null)
                 return Unauthorized();
+            Response.Cookies.Append("accessToken", tokenDto.AccessToken, new CookieOptions
+            {
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.UtcNow.AddMinutes(30)
+            });
             Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
             {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.Lax,
                 Expires = DateTime.UtcNow.AddDays(7)
             });
-            return Ok(tokenDto.AccessToken);
+            return Ok();
         }
 
         [Authorize]

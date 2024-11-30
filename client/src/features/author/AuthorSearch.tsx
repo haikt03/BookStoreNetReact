@@ -1,10 +1,7 @@
 import { debounce, TextField } from "@mui/material";
-import {
-    useAppDispatch,
-    useAppSelector,
-} from "../../../app/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { useState } from "react";
-import { setAuthorParams } from "../authorSlice";
+import { setAuthorParams } from "./authorSlice";
 
 export default function AuthorSearch() {
     const { authorParams } = useAppSelector((state) => state.author);

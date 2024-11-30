@@ -13,21 +13,23 @@ export default function Basket() {
     return (
         <>
             <BasketTable items={basket.items} />
-            <Grid container>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={6}>
-                    <BasketSummary />
-                    <Button
-                        component={Link}
-                        to={"/checkout"}
-                        variant="contained"
-                        size="large"
-                        fullWidth
-                    >
-                        Thanh toán
-                    </Button>
+            {basket.items.length > 0 && (
+                <Grid container>
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={6}>
+                        <BasketSummary />
+                        <Button
+                            component={Link}
+                            to={"/checkout"}
+                            variant="contained"
+                            size="large"
+                            fullWidth
+                        >
+                            Thanh toán
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            )}
         </>
     );
 }

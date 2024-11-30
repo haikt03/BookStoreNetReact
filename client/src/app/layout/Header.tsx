@@ -12,11 +12,10 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import {
     ShoppingCart,
-    MenuBook,
     People,
     PersonAdd,
     LoginOutlined,
-    Category,
+    MenuBook,
 } from "@mui/icons-material";
 import { useAppSelector } from "../store/configureStore";
 import SignedInMenu from "./SignedInMenu";
@@ -27,9 +26,8 @@ const midLinksMember = [
 ];
 
 const midLinksAdmin = [
-    { title: "Sách", path: "/book", icon: <MenuBook /> },
-    { title: "Tác giả", path: "/author", icon: <People /> },
-    { title: "Thể loại", path: "/category", icon: <Category /> },
+    { title: "Quản lý sách", path: "manage/book", icon: <MenuBook /> },
+    { title: "Quản lý tác giả", path: "manage/author", icon: <People /> },
 ];
 
 const rightLinks = [
@@ -59,7 +57,7 @@ interface Props {
 }
 
 export default function Header({ handleThemeChange, darkMode }: Props) {
-    const { isAuthenticated, user } = useAppSelector((state) => state.account);
+    const { user, role } = useAppSelector((state) => state.account);
     const { basket } = useAppSelector((state) => state.basket);
     const itemCount = basket?.items.reduce(
         (sum, item) => sum + item.quantity,
@@ -83,13 +81,13 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                         to="/"
                         sx={navLinkStyles}
                     >
-                        BOOK CONNER
+                        BOOK CORNER
                     </Typography>
                     <Switch checked={darkMode} onChange={handleThemeChange} />
                 </Box>
 
                 <List sx={{ display: "flex", gap: 2 }}>
-                    {user && user.role === "Admin"
+                    {role === "Admin"
                         ? midLinksAdmin.map(({ title, path, icon }) => (
                               <ListItem
                                   component={NavLink}
@@ -115,7 +113,7 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                 </List>
 
                 <Box display="flex" alignItems="center" gap={2}>
-                    {user && user.role === "Member" && (
+                    {role === "Member" && (
                         <IconButton
                             component={Link}
                             to="/basket"
@@ -130,7 +128,7 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
                         </IconButton>
                     )}
 
-                    {isAuthenticated ? (
+                    {user ? (
                         <SignedInMenu />
                     ) : (
                         <List sx={{ display: "flex", gap: 2 }}>

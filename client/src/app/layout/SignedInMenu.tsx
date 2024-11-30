@@ -22,7 +22,9 @@ import {
 export default function SignedInMenu() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { user, logoutStatus } = useAppSelector((state) => state.account);
+    const { user, role, logoutState } = useAppSelector(
+        (state) => state.account
+    );
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -35,11 +37,11 @@ export default function SignedInMenu() {
     };
 
     useEffect(() => {
-        if (logoutStatus) {
+        if (logoutState) {
             navigate("/");
             dispatch(resetLogoutState());
         }
-    }, [logoutStatus, navigate, dispatch]);
+    }, [logoutState, navigate, dispatch]);
 
     const handleLogout = async () => {
         await dispatch(logoutAsync());
@@ -80,9 +82,13 @@ export default function SignedInMenu() {
                     sx: { borderRadius: 2, minWidth: 200 },
                 }}
             >
-                {user && user.role === "Member" && (
+                {role === "Member" && (
                     <Box>
-                        <MenuItem onClick={handleClose}>
+                        <MenuItem
+                            component={Link}
+                            to="/profile"
+                            onClick={handleClose}
+                        >
                             <ListItemIcon>
                                 <AccountCircleIcon fontSize="small" />
                             </ListItemIcon>

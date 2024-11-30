@@ -7,9 +7,14 @@ import {
 } from "@mui/material";
 import { UseControllerProps, useController } from "react-hook-form";
 
+interface SelectItem {
+    id: number;
+    name: string;
+}
+
 interface Props extends UseControllerProps {
     label: string;
-    items: string[];
+    items: SelectItem[];
 }
 
 export default function AppSelectList(props: Props) {
@@ -19,13 +24,13 @@ export default function AppSelectList(props: Props) {
         <FormControl fullWidth error={!!fieldState.error}>
             <InputLabel>{props.label}</InputLabel>
             <Select
-                value={field.value}
+                value={field.value || ""}
                 label={props.label}
                 onChange={field.onChange}
             >
-                {props.items.map((item, index) => (
-                    <MenuItem value={item} key={index}>
-                        {item}
+                {props.items.map((item) => (
+                    <MenuItem value={item.id} key={item.id}>
+                        {item.name}
                     </MenuItem>
                 ))}
             </Select>

@@ -17,7 +17,6 @@ export const store = configureStore({
 export type State = {
     loading: boolean;
     status: boolean;
-    error: string | null;
 };
 
 export type RootState = ReturnType<typeof store.getState>;

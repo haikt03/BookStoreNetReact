@@ -12,7 +12,6 @@ interface AuthorState {
     authorDetail: AuthorDetail | null;
     authorDetailLoaded: boolean;
     authorsLoaded: boolean;
-    booksLoaded: boolean;
     filter: {
         countries: string[];
     };
@@ -95,14 +94,13 @@ export const authorSlice = createSlice({
         authorDetail: null,
         authorDetailLoaded: false,
         authorsLoaded: false,
-        booksLoaded: false,
         filtersLoaded: false,
-        status: "idle",
         filter: {
             countries: [],
         },
         authorParams: initParams(),
         metaData: null,
+        status: "idle",
     }),
     reducers: {
         setAuthorParams: (state, action) => {

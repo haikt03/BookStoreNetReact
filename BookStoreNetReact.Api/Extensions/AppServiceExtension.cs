@@ -44,7 +44,7 @@ namespace BookStoreNetReact.Api.Extensions
                         }
                     };
                     c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-                    c.AddSecurityRequirement(new OpenApiSecurityRequirement{{ jwtSecurityScheme, Array.Empty<string>() }});
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement { { jwtSecurityScheme, Array.Empty<string>() } });
                 }
             );
 
@@ -123,7 +123,6 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
@@ -132,7 +131,6 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBookService, BookService>();
-            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISmsService, SmsService>();

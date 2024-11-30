@@ -7,7 +7,7 @@ import { Book, BookParams, BookDetail } from "../../app/models/book";
 import { MetaData } from "../../app/models/pagination";
 import { RootState } from "../../app/store/configureStore";
 import agent from "../../app/api/agent";
-import { Category } from "../../app/models/category";
+import { AuthorForUpsertBook } from "../../app/models/author";
 
 interface BookState {
     bookDetail: BookDetail | null;
@@ -17,19 +17,21 @@ interface BookState {
     filter: {
         publishers: string[];
         languages: string[];
-        categories: Category[] | null;
+        categories: string[];
         minPrice: number;
         maxPrice: number;
     };
     bookParams: BookParams;
     metaData: MetaData | null;
     status: string;
+    authorsForUpsert: AuthorForUpsertBook[];
+    authorsForUpsertLoaded: boolean;
 }
 
 interface Filter {
     publishers: string[];
     languages: string[];
-    categories: Category[];
+    categories: string[];
     minPrice: number;
     maxPrice: number;
 }
@@ -101,6 +103,18 @@ export const getBookFilterAsync = createAsyncThunk<Filter, void>(
     }
 );
 
+export const getAuthorsForUpsertBook = createAsyncThunk<
+    AuthorForUpsertBook[],
+    void
+>("book/getAuthorsForUpsertBook", async (_, thunkAPI) => {
+    try {
+        const authors = await agent.author.getAuthorsForUpsertBook();
+        return authors;
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue({ error: error.data });
+    }
+});
+
 function initParams(): BookParams {
     return {
         pageIndex: 1,
@@ -121,7 +135,7 @@ export const bookSlice = createSlice({
         filter: {
             publishers: [],
             languages: [],
-            categories: null,
+            categories: [],
             minPrice: 0,
             maxPrice: 0,
         },
@@ -129,6 +143,8 @@ export const bookSlice = createSlice({
         bookParams: initParams(),
         metaData: null,
         status: "idle",
+        authorsForUpsert: [],
+        authorsForUpsertLoaded: false,
     }),
     reducers: {
         setBookParams: (state, action) => {
@@ -195,6 +211,17 @@ export const bookSlice = createSlice({
             state.filtersLoaded = true;
         });
         builder.addCase(getBookFilterAsync.rejected, (state) => {
+            state.status = "idle";
+        });
+        builder.addCase(getAuthorsForUpsertBook.pending, (state) => {
+            state.status = "pendingAuthorsForUpsertBook";
+        });
+        builder.addCase(getAuthorsForUpsertBook.fulfilled, (state, action) => {
+            state.authorsForUpsert = action.payload;
+            state.status = "idle";
+            state.filtersLoaded = true;
+        });
+        builder.addCase(getAuthorsForUpsertBook.rejected, (state) => {
             state.status = "idle";
         });
     },

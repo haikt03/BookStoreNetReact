@@ -4,6 +4,7 @@ import { router } from "../router/routes";
 import { PaginatedResponse } from "../models/pagination";
 import { store } from "../store/configureStore";
 import { refreshAsync } from "../../features/account/accountSlice";
+import Cookies from "js-cookie";
 
 // const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -13,8 +14,8 @@ axios.defaults.withCredentials = true;
 const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.request.use((config) => {
-    const token = store.getState().account.accessToken;
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
 });
 
@@ -43,19 +44,15 @@ axios.interceptors.response.use(
                 toast.error(data.title);
                 break;
             case 401: {
-                const refreshToken = document.cookie
-                    .split("; ")
-                    .find((row) => row.startsWith("refreshToken"))
-                    ?.split("=")[1];
+                const refreshToken = Cookies.get("refreshToken");
                 if (refreshToken) {
                     await store.dispatch(refreshAsync({ refreshToken }));
-                    const newAccessToken = store.getState().account.accessToken;
-
+                    const accessToken = Cookies.get("accessToken");
                     const originalRequest = error.config;
-                    if (originalRequest) {
+                    if (originalRequest && accessToken) {
                         originalRequest.headers[
                             "Authorization"
-                        ] = `Bearer ${newAccessToken}`;
+                        ] = `Bearer ${accessToken}`;
                         return axios(originalRequest);
                     }
                 }
@@ -123,8 +120,9 @@ const account = {
 const book = {
     getBooks: (params: URLSearchParams) => requests.get("books", params),
     getBook: (id: number) => requests.get(`books/${id}`),
-    createBook: (body: any) => requests.post("books", body),
-    updateBook: (id: number, body: any) => requests.put(`books/${id}`, body),
+    createBook: (body: any) => requests.postForm("books", createFormData(body)),
+    updateBook: (id: number, body: any) =>
+        requests.putForm(`books/${id}`, createFormData(body)),
     deleteBook: (id: number) => requests.del(`books/${id}`),
     getBookFilter: () => requests.get("books/filter"),
 };
@@ -143,13 +141,15 @@ const basket = {
 const author = {
     getAuthors: (params: URLSearchParams) => requests.get("authors", params),
     getAuthor: (id: number) => requests.get(`authors/${id}`),
-    createAuthor: (body: any) => requests.post("authors", body),
+    createAuthor: (body: any) =>
+        requests.postForm("authors", createFormData(body)),
     updateAuthor: (id: number, body: any) =>
-        requests.put(`authors/${id}`, body),
+        requests.putForm(`authors/${id}`, createFormData(body)),
     deleteAuthor: (id: number) => requests.del(`authors/${id}`),
     getAuthorFilter: () => requests.get("authors/filter"),
     getBooksByAuthor: (id: number, params: URLSearchParams) =>
         requests.get(`authors/${id}/books`, params),
+    getAuthorsForUpsertBook: () => requests.get("authors/upsert-book"),
 };
 
 const agent = {

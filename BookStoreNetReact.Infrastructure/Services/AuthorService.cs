@@ -7,6 +7,8 @@ using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.Extensions.Logging;
 using BookStoreNetReact.Application.Dtos.Book;
+using BookStoreNetReact.Application.Dtos.Pagination;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreNetReact.Infrastructure.Services
 {
@@ -84,7 +86,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateAuthorAsync(UpdateAuthorDto updateDto, int authorId)
+        public async Task<AuthorDetailDto?> UpdateAuthorAsync(UpdateAuthorDto updateDto, int authorId)
         {
             try
             {
@@ -108,12 +110,14 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 _unitOfWork.AuthorRepository.Update(author);
                 var result = await _unitOfWork.CompleteAsync();
-                return result;
+                if (result)
+                    return _mapper.Map<AuthorDetailDto>(author);
+                return null;
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating author");
-                return false;
+                return null;
             }
         }
 
@@ -170,6 +174,23 @@ namespace BookStoreNetReact.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while getting all books by authorId");
+                return null;
+            }
+        }
+
+        public async Task<List<AuthorForUpsertBookDto>?> GetAllAuthorsForUpsertBookAsync()
+        {
+            try
+            {
+                var authors = await _unitOfWork.AuthorRepository
+                    .GetAll()
+                    .Select(a => _mapper.Map<AuthorForUpsertBookDto>(a))
+                    .ToListAsync();
+                return authors;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while getting all authors for upsert book");
                 return null;
             }
         }

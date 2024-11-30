@@ -281,8 +281,10 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -347,38 +349,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("PId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PId");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.RefreshToken", b =>
@@ -446,7 +417,6 @@ namespace BookStoreNetReact.Infrastructure.Migrations
 
                     b.Property<int?>("UserId")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Ward")
@@ -600,24 +570,7 @@ namespace BookStoreNetReact.Infrastructure.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("BookStoreNetReact.Domain.Entities.Category", "Category")
-                        .WithMany("Books")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("Author");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Category", b =>
-                {
-                    b.HasOne("BookStoreNetReact.Domain.Entities.Category", "PCategory")
-                        .WithMany("CCategories")
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("PCategory");
                 });
 
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.RefreshToken", b =>
@@ -704,13 +657,6 @@ namespace BookStoreNetReact.Infrastructure.Migrations
             modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Basket", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("BookStoreNetReact.Domain.Entities.Category", b =>
-                {
-                    b.Navigation("Books");
-
-                    b.Navigation("CCategories");
                 });
 #pragma warning restore 612, 618
         }

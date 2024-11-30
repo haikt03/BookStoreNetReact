@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BookStoreNetReact.Application.Dtos.Book;
-using BookStoreNetReact.Application.Dtos.Category;
 using BookStoreNetReact.Application.Helpers;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
@@ -85,7 +84,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateBookAsync(UpdateBookDto updateDto, int bookId)
+        public async Task<BookDetailDto?> UpdateBookAsync(UpdateBookDto updateDto, int bookId)
         {
             try
             {
@@ -109,12 +108,14 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 _unitOfWork.BookRepository.Update(book);
                 var result = await _unitOfWork.CompleteAsync();
-                return result;
+                if (result)
+                    return _mapper.Map<BookDetailDto>(book);
+                return null;
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while updating book");
-                return false;
+                return null;
             }
         }
 
@@ -145,11 +146,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var filterDto = await _unitOfWork.BookRepository.GetFilterAsync();
-                var categoriesDto = await _unitOfWork.CategoryRepository
-                    .GetAll()
-                    .Select(c => _mapper.Map<CategoryDto>(c))
-                    .ToListAsync();
-                filterDto.Categories = categoriesDto;
                 return filterDto;
             }
             catch (Exception ex)

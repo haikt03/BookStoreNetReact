@@ -12,7 +12,7 @@ namespace BookStoreNetReact.Application.Dtos.Author
             RuleFor(ua => ua.Biography)
                 .Length(50, 500).WithMessage(ValidationErrorMessages.Length("Tiểu sử"));
             RuleFor(ua => ua.Country)
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Nơi sinh"));
+                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Quốc tịch"));
         }
     }
 }

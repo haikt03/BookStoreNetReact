@@ -8,7 +8,7 @@ namespace BookStoreNetReact.Application.Interfaces.Services
     public interface IAppUserService
     {
         Task<IdentityResult?> RegisterAsync(RegisterDto registerDto);
-        Task<TokenDto?> LoginAsync(LoginDto loginDto);
+        Task<AppUserWithTokenDto?> LoginAsync(LoginDto loginDto);
         Task LogoutAsync(RefreshTokenDto logoutDto);
         Task<PagedList<AppUserDto>?> GetAllUsersAsync(FilterAppUserDto filterDto);
         Task<AppUserDetailDto?> GetUserByIdAsync(int userId);

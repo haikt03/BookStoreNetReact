@@ -161,9 +161,7 @@ export default function BookDetail() {
                                 <TableCell sx={{ whiteSpace: "nowrap" }}>
                                     Thể loại
                                 </TableCell>
-                                <TableCell>
-                                    {bookDetail.category?.name}
-                                </TableCell>
+                                <TableCell>{bookDetail.category}</TableCell>
                             </TableRow>
                             <TableRow sx={{ whiteSpace: "nowrap" }}>
                                 <TableCell>Tác giả</TableCell>

@@ -15,7 +15,7 @@ namespace BookStoreNetReact.Api.Controllers
             _basketService = basketService;
         }
 
-        [Authorize("Member")]
+        [Authorize(Roles = "Member")]
         [HttpGet]
         public async Task<ActionResult<BasketDto>> GetBasket()
         {
@@ -29,7 +29,7 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok(basket);
         }
 
-        [Authorize("Member")]
+        [Authorize(Roles = "Member")]
         [HttpPost("add")]
         public async Task<ActionResult<BasketDto>> AddBasketItem([FromQuery] UpdateQuantityDto updateDto)
         {
@@ -39,11 +39,11 @@ namespace BookStoreNetReact.Api.Controllers
 
             var basketDto = await _basketService.UpdateQuantityAsync(updateDto, int.Parse(userId), "plus");
             if (basketDto == null)
-                return BadRequest(new ProblemDetails { Title = "Thêm sản phẩm vảo giỏ hàng không thành công"});
+                return BadRequest(new ProblemDetails { Title = "Thêm sản phẩm vảo giỏ hàng không thành công" });
             return Ok(basketDto);
         }
 
-        [Authorize("Member")]
+        [Authorize(Roles = "Member")]
         [HttpPost("remove")]
         public async Task<ActionResult<BasketDto>> RemoveBasketItem([FromQuery] UpdateQuantityDto updateDto)
         {

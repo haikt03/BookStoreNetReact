@@ -12,7 +12,7 @@ namespace BookStoreNetReact.Domain.Entities
         public required string Ward { get; set; }
         [StringLength(100, MinimumLength = 1)]
         public required string SpecificAddress { get; set; }
-        [StringLength(50, MinimumLength = 1)]
+        [Range(1, int.MaxValue)]
         public int? UserId { get; set; }
     }
 }

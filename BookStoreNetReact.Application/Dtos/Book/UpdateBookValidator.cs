@@ -9,6 +9,8 @@ namespace BookStoreNetReact.Application.Dtos.Book
         {
             RuleFor(cb => cb.Name)
                 .Length(6, 250).WithMessage(ValidationErrorMessages.Length("Tên sách"));
+            RuleFor(cb => cb.Category)
+                .Length(6, 50).WithMessage(ValidationErrorMessages.Length("Thể loại"));
             RuleFor(cb => cb.Translator)
                 .Length(1, 100).WithMessage(ValidationErrorMessages.Length("Người dịch"));
             RuleFor(cb => cb.Publisher)
@@ -31,8 +33,6 @@ namespace BookStoreNetReact.Application.Dtos.Book
                 .InclusiveBetween(0, 100).WithMessage(ValidationErrorMessages.InclusiveBetween("Giảm giá"));
             RuleFor(cb => cb.QuantityInStock)
                 .GreaterThanOrEqualTo(0).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Số lượng tồn kho"));
-            RuleFor(cb => cb.CategoryId)
-                .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Id thể loại"));
             RuleFor(cb => cb.AuthorId)
                 .GreaterThanOrEqualTo(1).WithMessage(ValidationErrorMessages.GreaterThanOrEqualTo("Id tác giả"));
         }

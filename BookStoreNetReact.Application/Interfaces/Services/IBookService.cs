@@ -8,7 +8,7 @@ namespace BookStoreNetReact.Application.Interfaces.Services
         Task<PagedList<BookDto>?> GetAllBooksAsync(FilterBookDto filterDto);
         Task<BookDetailDto?> GetBookByIdAsync(int bookId);
         Task<BookDetailDto?> CreateBookAsync(CreateBookDto createDto);
-        Task<bool> UpdateBookAsync(UpdateBookDto updateDto, int bookId);
+        Task<BookDetailDto?> UpdateBookAsync(UpdateBookDto updateDto, int bookId);
         Task<bool> DeleteBookAsync(int bookId);
         Task<BookFilterDto?> GetFilterAsync();
     }

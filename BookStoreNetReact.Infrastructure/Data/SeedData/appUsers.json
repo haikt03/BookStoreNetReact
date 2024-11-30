@@ -1,20 +1,20 @@
 ﻿[
   {
     "UserName": "admin1",
-    "Email": "haikhuattuan@gmail.com",
+    "Email": "tuanhai1652003@gmail.com",
     "Password": "123456",
     "PhoneNumber": "0812498790",
-    "FullName": "Tuan Hai admin",
+    "FullName": "Khuất Tuấn Hải A",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "admin1.jpg",
     "Role": "Admin"
   },
   {
     "UserName": "member1",
-    "Email": "tuanhai1652003@gmail.com",
+    "Email": "haikhuattuan@gmail.com",
     "Password": "123456",
     "PhoneNumber": "0354584188",
-    "FullName": "Tuan Hai user",
+    "FullName": "Khuất Tuấn Hải M",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "member1.jpg",
     "Role": "Member"

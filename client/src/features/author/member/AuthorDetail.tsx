@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     useAppDispatch,
     useAppSelector,
@@ -8,6 +8,7 @@ import { getAuthorAsync } from "../authorSlice";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import NotFound from "../../../app/errors/NotFound";
 import {
+    Button,
     Divider,
     Grid,
     Table,
@@ -17,10 +18,12 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
+import { setBookParams } from "../../book/bookSlice";
 
 export default function AuthorDetail() {
     const { id } = useParams<{ id: string }>();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getAuthorAsync(parseInt(id!)));
@@ -69,6 +72,20 @@ export default function AuthorDetail() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <Button
+                    size="large"
+                    variant="contained"
+                    onClick={() => {
+                        navigate("/book");
+                        dispatch(
+                            setBookParams({
+                                authorSearch: authorDetail.fullName,
+                            })
+                        );
+                    }}
+                >
+                    Khám phá sách của tác giả
+                </Button>
             </Grid>
         </Grid>
     );

@@ -14,28 +14,6 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
         {
             var basePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"../BookStoreNetReact.Infrastructure/Data/SeedData"));
 
-            if (!context.Categories.Any())
-            {
-                try
-                {
-                    var categoriesData = await File.ReadAllTextAsync(Path.Combine(basePath, "categories.json"));
-                    var categories = JsonSerializer.Deserialize<List<Category>>(categoriesData);
-                    if (categories == null || categories.Count == 0)
-                        return;
-
-                    foreach (var category in categories)
-                    {
-                        context.Categories.Add(category);
-                    }
-                    await context.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "An error occurred while seeding categories");
-                    throw;
-                }
-            }
-
             if (!context.Authors.Any())
             {
                 try
@@ -95,6 +73,7 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                         var book = new Book
                         {
                             Name = bookSeeder.Name,
+                            Category = bookSeeder.Category,
                             Translator = bookSeeder.Translator,
                             Publisher = bookSeeder.Publisher,
                             PublishedYear = bookSeeder.PublishedYear,
@@ -106,7 +85,6 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                             Price = bookSeeder.Price,
                             Discount = bookSeeder.Discount,
                             QuantityInStock = bookSeeder.QuantityInStock,
-                            CategoryId = bookSeeder.CategoryId,
                             AuthorId = bookSeeder.AuthorId
                         };
 

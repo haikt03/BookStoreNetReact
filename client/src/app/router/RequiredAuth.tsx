@@ -1,22 +1,30 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../store/configureStore";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 interface Props {
-    role?: string;
+    requiredRole?: string;
 }
 
-export default function RequireAuth({ role }: Props) {
-    const { user, isAuthenticated } = useAppSelector((state) => state.account);
+export default function RequireAuth({ requiredRole }: Props) {
+    const { user, role } = useAppSelector((state) => state.account);
     const location = useLocation();
 
-    if (!isAuthenticated) {
-        toast.error("Bạn cần đăng nhập để có thể truy cập");
+    useEffect(() => {
+        if (!user) {
+            toast.error("Bạn cần đăng nhập để có thể truy cập");
+        }
+        if (requiredRole && requiredRole !== role) {
+            toast.error("Bạn không có quyền truy cập trang này");
+        }
+    }, [user, role, requiredRole, location]);
+
+    if (!user) {
         return <Navigate to="/login" state={{ from: location }} />;
     }
 
-    if (role && !(role === user?.role)) {
-        toast.error("Bạn không có quyền truy cập trang này");
+    if (requiredRole && requiredRole !== role) {
         return <Navigate to="/home" />;
     }
 

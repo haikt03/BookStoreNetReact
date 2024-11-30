@@ -14,8 +14,8 @@ namespace BookStoreNetReact.Application.Dtos.Author
                 .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Tiểu sử"))
                 .Length(50, 500).WithMessage(ValidationErrorMessages.Length("Tiểu sử"));
             RuleFor(ca => ca.Country)
-                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Nơi sinh"))
-                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Nơi sinh"));
+                .NotEmpty().WithMessage(ValidationErrorMessages.NotEmpty("Quốc tịch"))
+                .Length(1, 50).WithMessage(ValidationErrorMessages.Length("Quốc tịch"));
         }
     }
 }

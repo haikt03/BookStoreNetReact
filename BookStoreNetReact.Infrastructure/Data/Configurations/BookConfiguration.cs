@@ -10,6 +10,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         {
             base.Configure(builder);
             builder.Property(b => b.Name).IsRequired();
+            builder.Property(b => b.Category).IsRequired();
             builder.Property(b => b.Publisher).IsRequired();
             builder.Property(b => b.PublishedYear).IsRequired();
             builder.Property(b => b.Language).IsRequired();
@@ -24,11 +25,6 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
                 .HasOne(b => b.Author)
                 .WithMany(a => a.Books)
                 .HasForeignKey(b => b.AuthorId)
-                .OnDelete(DeleteBehavior.SetNull);
-            builder
-                .HasOne(b => b.Category)
-                .WithMany(c => c.Books)
-                .HasForeignKey(b => b.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }

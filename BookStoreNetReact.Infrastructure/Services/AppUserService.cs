@@ -53,7 +53,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<TokenDto?> LoginAsync(LoginDto loginDto)
+        public async Task<AppUserWithTokenDto?> LoginAsync(LoginDto loginDto)
         {
             try
             {
@@ -67,8 +67,14 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var refreshToken = await _tokenService.GenerateRefreshToken(user);
                 if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
                     return null;
+
                 var tokenDto = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
-                return tokenDto;
+                var userDto = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(user.Id);
+                return new AppUserWithTokenDto 
+                { 
+                    User = _mapper.Map<AppUserDetailDto>(user), 
+                    Token = tokenDto
+                };
             }
             catch (Exception ex)
             {

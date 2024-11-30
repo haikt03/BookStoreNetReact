@@ -47,12 +47,12 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateBook([FromForm] UpdateBookDto updateDto, int id)
+        public async Task<ActionResult<BookDetailDto>> UpdateBook([FromForm] UpdateBookDto updateDto, int id)
         {
-            var result = await _bookService.UpdateBookAsync(updateDto, id);
-            if (!result)
+            var bookDto = await _bookService.UpdateBookAsync(updateDto, id);
+            if (bookDto == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật sách không thành công" });
-            return Ok();
+            return Ok(bookDto);
         }
 
         [Authorize(Roles = "Admin")]

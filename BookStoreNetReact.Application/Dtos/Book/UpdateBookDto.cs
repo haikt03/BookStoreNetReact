@@ -5,6 +5,7 @@ namespace BookStoreNetReact.Application.Dtos.Book
     public class UpdateBookDto
     {
         public string? Name { get; set; }
+        public string? Category { get; set; }
         public string? Translator { get; set; }
         public string? Publisher { get; set; }
         public int? PublishedYear { get; set; }
@@ -16,7 +17,6 @@ namespace BookStoreNetReact.Application.Dtos.Book
         public int? Price { get; set; }
         public int? Discount { get; set; }
         public int? QuantityInStock { get; set; }
-        public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
         public IFormFile? File { get; set; }
     }

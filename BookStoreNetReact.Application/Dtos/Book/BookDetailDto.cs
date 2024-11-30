@@ -1,5 +1,4 @@
 ﻿using BookStoreNetReact.Application.Dtos.Author;
-using BookStoreNetReact.Application.Dtos.Category;
 
 namespace BookStoreNetReact.Application.Dtos.Book
 {
@@ -7,6 +6,7 @@ namespace BookStoreNetReact.Application.Dtos.Book
     {
         public required int Id { get; set; }
         public required string Name { get; set; }
+        public required string Category { get; set; }
         public string? Translator { get; set; }
         public required string Publisher { get; set; }
         public required int PublishedYear { get; set; }
@@ -20,7 +20,6 @@ namespace BookStoreNetReact.Application.Dtos.Book
         public required int QuantityInStock { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
-        public CategoryDto? Category { get; set; }
         public AuthorDto? Author { get; set; }
     }
 }

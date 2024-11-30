@@ -38,7 +38,6 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public async Task<Book?> GetDetailByIdAsync(int bookId)
         {
             var book = await _context.Books
-                .Include(b => b.Category)
                 .Include(b => b.Author)
                 .FirstOrDefaultAsync(a => a.Id == bookId);
             return book;
@@ -78,6 +77,12 @@ namespace BookStoreNetReact.Infrastructure.Repositories
                 .Distinct()
                 .ToListAsync();
 
+            var categories = await _context.Books
+                .Select(b => b.Category)
+                .Where(l => !string.IsNullOrEmpty(l))
+                .Distinct()
+                .ToListAsync();
+
             var minPrice = await _context.Books.MinAsync(b => b.Price);
             var maxPrice = await _context.Books.MaxAsync(b => b.Price);
 
@@ -85,6 +90,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             {
                 Publishers = publishers,
                 Languages = languages,
+                Categories = categories,
                 MinPrice = (int)(Math.Floor(minPrice / 100000.0) * 100000),
                 MaxPrice = (int)(Math.Ceiling(maxPrice / 100000.0) * 100000)
             };

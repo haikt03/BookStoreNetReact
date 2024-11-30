@@ -12,6 +12,11 @@ export interface AuthorDetail extends Author {
     biography: string;
 }
 
+export interface AuthorForUpsertBook {
+    id: number;
+    fullName: string;
+}
+
 export interface AuthorParams extends FilterParams {
     countries: string[];
 }
