@@ -16,7 +16,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IQueryable<Book> GetAll(FilterBookDto filterDto)
         {
             var books = _context.Books
-                .Search(filterDto.Search, filterDto.AuthorSearch)
+                .Search(filterDto.NameSearch, filterDto.AuthorSearch)
                 .Filter
                 (
                     publishers: filterDto.Publishers,

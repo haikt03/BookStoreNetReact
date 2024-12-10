@@ -39,7 +39,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.NameIdentifier, appUser.Id.ToString()),
                     new Claim(ClaimTypes.Name, appUser.UserName),
-                    new Claim(ClaimTypes.Email, appUser.Email)
+                    new Claim(ClaimTypes.Email, appUser.Email),
                 };
 
                 var roles = await _unitOfWork.AppUserRepository.GetRolesAsync(appUser);
@@ -73,8 +73,8 @@ namespace BookStoreNetReact.Infrastructure.Services
                 var refreshToken = new RefreshToken
                 {
                     Token = GenerateTokenString(),
-                    ExpiresAt = DateTime.UtcNow.AddDays(7),
-                    CreatedAt = DateTime.UtcNow,
+                    ExpiresAt = DateTime.Now.AddDays(7),
+                    CreatedAt = DateTime.Now,
                     UserId = appUser.Id
                 };
 

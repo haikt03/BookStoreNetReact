@@ -2,10 +2,10 @@
 {
     public class UserAddressDto
     {
-        public required int Id { get; set; }
-        public required string City { get; set; }
-        public required string District { get; set; }
-        public required string Ward { get; set; }
-        public required string SpecificAddress { get; set; }
+        public int Id { get; set; }
+        public string City { get; set; } = "";
+        public string District { get; set; } = "";
+        public string Ward { get; set; } = "";
+        public string SpecificAddress { get; set; } = "";
     }
 }

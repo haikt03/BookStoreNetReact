@@ -152,11 +152,26 @@ const author = {
     getAuthorsForUpsertBook: () => requests.get("authors/upsert-book"),
 };
 
+const order = {
+    getOrders: (params: URLSearchParams) => requests.get("orders", params),
+    getOrdersByMe: (params: URLSearchParams) =>
+        requests.get("orders/me", params),
+    getOrder: (id: number) => requests.get(`orders/${id}`),
+    createOrder: (body: any) => requests.post("orders", body),
+    getOrderFilter: () => requests.get("orders/filter"),
+};
+
+const payment = {
+    createPaymentIntent: () => requests.post("payment", {}),
+};
+
 const agent = {
     account,
     book,
     basket,
     author,
+    order,
+    payment,
 };
 
 export default agent;

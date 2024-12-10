@@ -18,6 +18,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             RefreshTokenRepository = new RefreshTokenRepository(_context);
             AppUserRepository = new AppUserRepository(_userManager, _context);
             BasketRepository = new BasketRepository(_context);
+            OrderRepository = new OrderRepository(_context);
         }
 
         public IAppUserRepository AppUserRepository { get; private set; }
@@ -25,6 +26,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IBookRepository BookRepository { get; private set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; private set; }
         public IBasketRepository BasketRepository { get; private set; }
+        public IOrderRepository OrderRepository { get; private set; }
 
         public async Task<bool> CompleteAsync()
         {

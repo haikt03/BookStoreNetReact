@@ -4,6 +4,7 @@ namespace BookStoreNetReact.Application.Dtos.Author
 {
     public class FilterAuthorDto : FilterDto
     {
-        public string? Countries { get; set; } = "";
+        public string Countries { get; set; } = "";
+        public string FullNameSearch { get; set; } = "";
     }
 }

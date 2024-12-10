@@ -10,7 +10,6 @@
             set => _pageSize = value > MaxPageSize ? MaxPageSize : value;
         }
         public int PageIndex { get; set; } = 1;
-        public string? Search { get; set; } = "";
-        public string? Sort { get; set; } = "";
+        public string Sort { get; set; } = "";
     }
 }

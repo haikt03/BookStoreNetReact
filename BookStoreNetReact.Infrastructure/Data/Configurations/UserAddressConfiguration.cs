@@ -9,11 +9,6 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         public override void Configure(EntityTypeBuilder<UserAddress> builder)
         {
             base.Configure(builder);
-            builder.Property(ua => ua.City).IsRequired();
-            builder.Property(ua => ua.District).IsRequired();
-            builder.Property(ua => ua.Ward).IsRequired();
-            builder.Property(ua => ua.SpecificAddress).IsRequired();
-            builder.Property(ua => ua.UserId).IsRequired();
         }
     }
 }

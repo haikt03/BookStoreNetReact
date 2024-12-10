@@ -7,6 +7,7 @@
         IBookRepository BookRepository { get; }
         IRefreshTokenRepository RefreshTokenRepository { get; }
         IBasketRepository BasketRepository { get; }
+        IOrderRepository OrderRepository { get; }
         Task<bool> CompleteAsync();
     }
 }

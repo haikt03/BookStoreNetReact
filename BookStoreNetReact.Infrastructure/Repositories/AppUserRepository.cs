@@ -21,7 +21,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IQueryable<AppUser> GetAll(FilterAppUserDto filterDto)
         {
             var users = _userManager.Users
-                .Search(filterDto.Search)
+                .Search(filterDto.FullNameSearch, filterDto.EmailSearch, filterDto.PhoneNumberSearch)
                 .Sort(filterDto.Sort);
             return users;
         }

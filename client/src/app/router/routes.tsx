@@ -13,6 +13,9 @@ import Basket from "../../features/basket/member/Basket";
 import ManageBook from "../../features/book/admin/ManageBook";
 import ManageAuthor from "../../features/author/admin/ManageAuthor";
 import Profile from "../../features/profile/Profile";
+import CheckoutWrapper from "../../features/checkout/CheckoutWrapper";
+import Order from "../../features/order/Order";
+import OrderDetail from "../../features/order/OrderDetail";
 
 export const router = createBrowserRouter(
     [
@@ -21,17 +24,30 @@ export const router = createBrowserRouter(
             element: <App />,
             children: [
                 {
+                    element: <RequireAuth />,
+                    children: [{ path: "/profile", element: <Profile /> }],
+                },
+                {
                     element: <RequireAuth requiredRole="Member" />,
                     children: [
+                        { path: "/order", element: <Order /> },
                         { path: "/basket", element: <Basket /> },
-                        { path: "/profile", element: <Profile /> },
+                        { path: "/checkout", element: <CheckoutWrapper /> },
+                        { path: "/order/:id", element: <OrderDetail /> },
                     ],
                 },
                 {
                     element: <RequireAuth requiredRole="Admin" />,
                     children: [
+                        { path: "manage/order", element: <Order /> },
                         { path: "/manage/book", element: <ManageBook /> },
                         { path: "/manage/author", element: <ManageAuthor /> },
+                        { path: "/manage/book/:id", element: <BookDetail /> },
+                        {
+                            path: "/manage/author/:id",
+                            element: <AuthorDetail />,
+                        },
+                        { path: "/manage/order/:id", element: <OrderDetail /> },
                     ],
                 },
                 { path: "/book", element: <Book /> },

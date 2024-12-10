@@ -5,12 +5,12 @@ import { setBookParams } from "./bookSlice";
 
 export default function BookSearch() {
     const { bookParams } = useAppSelector((state) => state.book);
-    const [search, setSearch] = useState(bookParams.search);
+    const [nameSearch, setNameSearch] = useState(bookParams.nameSearch);
     const [authorSearch, setAuthorSearch] = useState(bookParams.authorSearch);
     const dispatch = useAppDispatch();
 
-    const debouncedSearch = debounce((event: any) => {
-        dispatch(setBookParams({ search: event.target.value }));
+    const debouncedNameSearch = debounce((event: any) => {
+        dispatch(setBookParams({ nameSearch: event.target.value }));
     }, 1000);
 
     const debouncedAuthorSearch = debounce((event: any) => {
@@ -24,10 +24,10 @@ export default function BookSearch() {
                     label="Tìm kiếm theo tên sách"
                     variant="outlined"
                     fullWidth
-                    value={search || ""}
+                    value={nameSearch || ""}
                     onChange={(event: any) => {
-                        setSearch(event.target.value);
-                        debouncedSearch(event);
+                        setNameSearch(event.target.value);
+                        debouncedNameSearch(event);
                     }}
                 />
             </Paper>

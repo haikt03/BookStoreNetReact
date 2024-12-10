@@ -17,7 +17,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             var refreshToken = await _context.RefreshTokens.Include(r => r.User).FirstOrDefaultAsync
             (
                 r => r.Token == token 
-                && r.ExpiresAt >= DateTime.UtcNow
+                && r.ExpiresAt >= DateTime.Now
                 && r.RevokedAt == null
             );
             return refreshToken;
@@ -40,7 +40,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
 
         public void RemoveExpiredToken()
         {
-            var tokens = _context.RefreshTokens.Where(r => r.ExpiresAt < DateTime.UtcNow);
+            var tokens = _context.RefreshTokens.Where(r => r.ExpiresAt < DateTime.Now);
             _context.RefreshTokens.RemoveRange(tokens);
         }
     }

@@ -2,7 +2,7 @@
 {
     public class AppUserWithTokenDto
     {
-        public required AppUserDetailDto User {  get; set; }
-        public required TokenDto Token { get; set; }
+        public AppUserDetailDto User {  get; set; } = new AppUserDetailDto();
+        public TokenDto Token { get; set; } = new TokenDto();
     }
 }

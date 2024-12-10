@@ -24,6 +24,7 @@ export default function AuthorDetail() {
     const { id } = useParams<{ id: string }>();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { role } = useAppSelector((state) => state.account);
 
     useEffect(() => {
         dispatch(getAuthorAsync(parseInt(id!)));
@@ -72,11 +73,22 @@ export default function AuthorDetail() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                {role === "Admin" && (
+                    <Button
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => navigate(-1)}
+                        sx={{ mr: 2 }}
+                    >
+                        Quay lại
+                    </Button>
+                )}
                 <Button
                     size="large"
                     variant="contained"
                     onClick={() => {
-                        navigate("/book");
+                        navigate(role === "Admin" ? "/manage/book" : "/book");
                         dispatch(
                             setBookParams({
                                 authorSearch: authorDetail.fullName,

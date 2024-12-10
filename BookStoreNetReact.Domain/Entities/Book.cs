@@ -25,16 +25,16 @@ namespace BookStoreNetReact.Domain.Entities
         public required string Form { get; set; }
         [StringLength(500, MinimumLength = 50)]
         public required string Description { get; set; }
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public required int Price { get; set; }
         [Range(0, 100)]
-        public required int Discount { get; set; }
+        public int Discount { get; set; }
         [Range(0, int.MaxValue)]
-        public required int QuantityInStock { get; set; }
+        public int QuantityInStock { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
         [Range(1, int.MaxValue)]
-        public int? AuthorId { get; set; }
+        public required int AuthorId { get; set; }
         public Author? Author { get; set; }
     }
 }

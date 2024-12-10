@@ -1,22 +1,62 @@
 ﻿[
   {
     "UserName": "admin1",
-    "Email": "tuanhai1652003@gmail.com",
+    "Email": "admin1@gmail.com",
     "Password": "123456",
-    "PhoneNumber": "0812498790",
-    "FullName": "Khuất Tuấn Hải A",
+    "PhoneNumber": "0123456789",
+    "FullName": "Khuất Tuấn Hải A1",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "admin1.jpg",
     "Role": "Admin"
   },
   {
     "UserName": "member1",
-    "Email": "haikhuattuan@gmail.com",
+    "Email": "member1@gmail.com",
     "Password": "123456",
-    "PhoneNumber": "0354584188",
-    "FullName": "Khuất Tuấn Hải M",
+    "PhoneNumber": "0213456789",
+    "FullName": "Khuất Tuấn Hải M1",
     "DateOfBirth": "2003-05-16",
     "ImagePath": "member1.jpg",
+    "Role": "Member"
+  },
+  {
+    "UserName": "member2",
+    "Email": "member2@gmail.com",
+    "Password": "123456",
+    "PhoneNumber": "0312456789",
+    "FullName": "Khuất Tuấn Hải M2",
+    "DateOfBirth": "2003-05-16",
+    "ImagePath": "member2.jpg",
+    "Role": "Member"
+  },
+  {
+    "UserName": "member3",
+    "Email": "member3@gmail.com",
+    "Password": "123456",
+    "PhoneNumber": "0412356789",
+    "FullName": "Khuất Tuấn Hải M3",
+    "DateOfBirth": "2003-05-16",
+    "ImagePath": "member3.jpg",
+    "Role": "Member"
+  },
+  {
+    "UserName": "member4",
+    "Email": "member4@gmail.com",
+    "Password": "123456",
+    "PhoneNumber": "0512346789",
+    "FullName": "Khuất Tuấn Hải M4",
+    "DateOfBirth": "2003-05-16",
+    "ImagePath": "member4.jpg",
+    "Role": "Member"
+  },
+  {
+    "UserName": "member5",
+    "Email": "member5@gmail.com",
+    "Password": "123456",
+    "PhoneNumber": "0354584188",
+    "FullName": "Khuất Tuấn Hải M5",
+    "DateOfBirth": "2003-05-16",
+    "ImagePath": "member5.jpg",
     "Role": "Member"
   }
 ]

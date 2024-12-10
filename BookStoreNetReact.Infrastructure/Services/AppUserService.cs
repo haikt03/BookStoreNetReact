@@ -40,9 +40,6 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var basket = new Basket { UserId = user.Id };
                 await _unitOfWork.BasketRepository.AddAsync(basket);
-                var result = await _unitOfWork.CompleteAsync();
-                if (!result)
-                    throw new InvalidOperationException("Failed to initialize basket");
 
                 return identityResult;
             }
@@ -310,7 +307,7 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var code = GenerateConfirmationCode();
                 user.PhoneNumberConfirmationCode = code;
-                user.PhoneNumberConfirmationCodeExpiresAt = DateTime.UtcNow.AddMinutes(5);
+                user.PhoneNumberConfirmationCodeExpiresAt = DateTime.Now.AddMinutes(5);
                 await _unitOfWork.AppUserRepository.UpdateAsync(user);
 
                 var message = $"Mã xác nhận số điện thoại của bạn là {code}";
@@ -334,7 +331,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (user == null)
                     throw new NullReferenceException("User not found");
 
-                if (user.PhoneNumberConfirmationCode != confirmDto.Code || user.PhoneNumberConfirmationCodeExpiresAt < DateTime.UtcNow)
+                if (user.PhoneNumberConfirmationCode != confirmDto.Code || user.PhoneNumberConfirmationCodeExpiresAt < DateTime.Now)
                     return false;
                 user.PhoneNumberConfirmed = true;
                 await _unitOfWork.AppUserRepository.UpdateAsync(user);

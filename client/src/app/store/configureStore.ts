@@ -4,6 +4,7 @@ import { accountSlice } from "../../features/account/accountSlice";
 import { bookSlice } from "../../features/book/bookSlice";
 import { authorSlice } from "../../features/author/authorSlice";
 import { basketSlice } from "../../features/basket/basketSlice";
+import { orderSlice } from "../../features/order/orderSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         book: bookSlice.reducer,
         author: authorSlice.reducer,
         basket: basketSlice.reducer,
+        order: orderSlice.reducer,
     },
 });
 

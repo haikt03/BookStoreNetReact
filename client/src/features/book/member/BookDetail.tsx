@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     useAppDispatch,
     useAppSelector,
@@ -30,7 +30,9 @@ import {
 export default function BookDetail() {
     const { id } = useParams<{ id: string }>();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { basket, status } = useAppSelector((state) => state.basket);
+    const { role } = useAppSelector((state) => state.account);
 
     useEffect(() => {
         dispatch(getBookAsync(parseInt(id!)));
@@ -226,35 +228,48 @@ export default function BookDetail() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Grid container spacing={2} mt={2}>
-                    <Grid item xs={6}>
-                        <TextField
-                            onChange={handleInputChange}
-                            variant={"outlined"}
-                            type={"number"}
-                            label={"Quantity in Cart"}
-                            fullWidth
-                            value={quantity}
-                        />
+                {role === "Admin" ? (
+                    <Button
+                        onClick={() => navigate(-1)}
+                        variant="outlined"
+                        color="primary"
+                        fullWidth
+                    >
+                        Quay lại
+                    </Button>
+                ) : (
+                    <Grid container spacing={2} mt={2}>
+                        <Grid item xs={6}>
+                            <TextField
+                                onChange={handleInputChange}
+                                variant={"outlined"}
+                                type={"number"}
+                                label={"Quantity in Cart"}
+                                fullWidth
+                                value={quantity}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <LoadingButton
+                                disabled={
+                                    item?.quantity === quantity ||
+                                    (!item && quantity === 0)
+                                }
+                                loading={status.includes("pending")}
+                                onClick={handleUpdateCart}
+                                sx={{ height: "55px" }}
+                                color={"primary"}
+                                size={"large"}
+                                variant={"contained"}
+                                fullWidth
+                            >
+                                {item
+                                    ? "Cập nhật số lượng"
+                                    : "Thêm vào giỏ hàng"}
+                            </LoadingButton>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                        <LoadingButton
-                            disabled={
-                                item?.quantity === quantity ||
-                                (!item && quantity === 0)
-                            }
-                            loading={status.includes("pending")}
-                            onClick={handleUpdateCart}
-                            sx={{ height: "55px" }}
-                            color={"primary"}
-                            size={"large"}
-                            variant={"contained"}
-                            fullWidth
-                        >
-                            {item ? "Cập nhật số lượng" : "Thêm vào giỏ hàng"}
-                        </LoadingButton>
-                    </Grid>
-                </Grid>
+                )}
             </Grid>
         </Grid>
     );

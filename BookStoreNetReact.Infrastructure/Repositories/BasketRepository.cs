@@ -35,6 +35,8 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public void Clear(Basket basket)
         {
             _context.BasketItems.RemoveRange(basket.Items);
+            basket.PaymentIntentId = null;
+            basket.ClientSecret = null;
         }
     }
 }

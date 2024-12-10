@@ -116,6 +116,11 @@ namespace BookStoreNetReact.Api.Extensions
                 .BindConfiguration(SmsOptions.TwilioSettings)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
+            services
+                .AddOptions<PaymentOptions>()
+                .BindConfiguration(PaymentOptions.StripeSettings)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -123,6 +128,7 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
@@ -131,9 +137,11 @@ namespace BookStoreNetReact.Api.Extensions
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             // Others
             services.AddFluentValidationAutoValidation();

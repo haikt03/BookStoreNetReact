@@ -15,7 +15,7 @@ interface AuthorState {
     filter: {
         countries: string[];
     };
-    filtersLoaded: boolean;
+    filterLoaded: boolean;
     authorParams: AuthorParams;
     metaData: MetaData | null;
     status: string;
@@ -32,8 +32,8 @@ const getAxiosParams = (authorParams: AuthorParams) => {
     params.append("pageIndex", authorParams.pageIndex.toString());
     params.append("pageSize", authorParams.pageSize.toString());
     params.append("sort", authorParams.sort);
-    if (authorParams.search) {
-        params.append("search", authorParams.search);
+    if (authorParams.fullNameSearch) {
+        params.append("fullNameSearch", authorParams.fullNameSearch);
     }
     if (authorParams.countries.length > 0)
         params.append("countries", authorParams.countries.toString());
@@ -94,7 +94,7 @@ export const authorSlice = createSlice({
         authorDetail: null,
         authorDetailLoaded: false,
         authorsLoaded: false,
-        filtersLoaded: false,
+        filterLoaded: false,
         filter: {
             countries: [],
         },
@@ -160,7 +160,7 @@ export const authorSlice = createSlice({
         builder.addCase(getAuthorFilterAsync.fulfilled, (state, action) => {
             state.filter.countries = action.payload.countries;
             state.status = "idle";
-            state.filtersLoaded = true;
+            state.filterLoaded = true;
         });
         builder.addCase(getAuthorFilterAsync.rejected, (state) => {
             state.status = "idle";

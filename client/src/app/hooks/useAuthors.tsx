@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../store/configureStore";
 export default function useAuthors() {
     const authors = useAppSelector(authorSelectors.selectAll);
 
-    const { authorsLoaded, filtersLoaded, filter, metaData } = useAppSelector(
+    const { authorsLoaded, filterLoaded, filter, metaData } = useAppSelector(
         (state) => state.author
     );
     const dispatch = useAppDispatch();
@@ -19,13 +19,13 @@ export default function useAuthors() {
     }, [authorsLoaded, dispatch]);
 
     useEffect(() => {
-        if (!filtersLoaded) dispatch(getAuthorFilterAsync());
-    }, [dispatch, filtersLoaded]);
+        if (!filterLoaded) dispatch(getAuthorFilterAsync());
+    }, [dispatch, filterLoaded]);
 
     return {
         authors,
         authorsLoaded,
-        filtersLoaded,
+        filterLoaded,
         filter,
         metaData,
     };

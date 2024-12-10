@@ -36,17 +36,18 @@ export const bookSortOptions = [
     { value: "publishedYearDesc", label: "Năm xuất bản (↓)" },
     { value: "priceAsc", label: "Giá (↑)" },
     { value: "priceDesc", label: "Giá (↓)" },
-    { value: "priceAfterDiscountAsc", label: "Giá sau khi giảm (↑)" },
-    { value: "priceAfterDiscountDesc", label: "Giá sau khi giảm (↓)" },
     { value: "discountAsc", label: "Giảm giá (↑)" },
     { value: "discountDesc", label: "Giảm giá(↓)" },
-    { value: "quantityInStockAsc", label: "Số lượng trong kho (↑)" },
-    { value: "quantityInStockDesc", label: "Số lượng trong kho(↓)" },
 ];
 
 export const authorSortOptions = [
     { value: "fullNameAsc", label: "Tên tác giả (↑)" },
     { value: "fullNameDesc", label: "Tên tác giả (↓)" },
-    { value: "countryAsc", label: "Quốc tịch (↑)" },
-    { value: "countryDesc", label: "Quốc tịch (↓)" },
+];
+
+export const orderSortOptions = [
+    { value: "orderDateAsc", label: "Thời gian đặt hàng (↑)" },
+    { value: "orderDateDesc", label: "Thời gian đặt hàng (↓)" },
+    { value: "amountAsc", label: "Số tiền phải trả (↑)" },
+    { value: "amountDesc", label: "Số tiền phải trả (↓)" },
 ];

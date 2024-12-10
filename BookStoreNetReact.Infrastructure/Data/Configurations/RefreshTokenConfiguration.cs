@@ -9,10 +9,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         public override void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
             base.Configure(builder);
-            builder.Property(rt => rt.Token).IsRequired();
-            builder.Property(rt => rt.ExpiresAt).IsRequired();
-            builder.Property(rt => rt.UserId).IsRequired();
-
+            builder.HasIndex(rt => rt.Token).IsUnique();
             builder
                 .HasOne(rt => rt.User)
                 .WithMany()

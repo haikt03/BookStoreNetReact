@@ -4,20 +4,18 @@ namespace BookStoreNetReact.Infrastructure.Extensions
 {
     public static class BookExtension
     {
-        public static IQueryable<Book> Search(this IQueryable<Book> query, string? search = null, string? authorSearch = null)
+        public static IQueryable<Book> Search(this IQueryable<Book> query, string? nameSearch, string? authorSearch)
         {
-            if (string.IsNullOrWhiteSpace(search) && string.IsNullOrWhiteSpace(authorSearch))
+            if (string.IsNullOrWhiteSpace(nameSearch) && string.IsNullOrWhiteSpace(authorSearch))
                 return query;
 
-            var lowerCaseSearch = search?.Trim().ToLower();
+            var lowerCaseNameSearch = nameSearch?.Trim().ToLower();
             var lowerCaseAuthorSearch = authorSearch?.Trim().ToLower();
-            var result = query.Where
-            (
-                b => (string.IsNullOrEmpty(lowerCaseSearch) || b.Name.ToLower().Contains(lowerCaseSearch))
-                    && (b.Author == null
-                        || string.IsNullOrEmpty(lowerCaseAuthorSearch)
-                        || b.Author.FullName.ToLower().Contains(lowerCaseAuthorSearch))
-            );
+            var result = query
+                .Where(b => (string.IsNullOrWhiteSpace(lowerCaseNameSearch) 
+                    || b.Name.ToLower().Contains(lowerCaseNameSearch)))
+                .Where(b => (string.IsNullOrWhiteSpace(lowerCaseAuthorSearch) || b.Author == null
+                    || b.Author.FullName.ToLower().Contains(lowerCaseAuthorSearch)));
             return result;
         }
 
@@ -64,12 +62,8 @@ namespace BookStoreNetReact.Infrastructure.Extensions
                 "publishedYearDesc" => query.OrderByDescending(b => b.PublishedYear),
                 "priceAsc" => query.OrderBy(b => b.Price),
                 "priceDesc" => query.OrderByDescending(b => b.Price),
-                "priceAfterDiscountAsc" => query.OrderBy(b => b.Price - b.Price * b.Discount / 100),
-                "priceAfterDiscountDesc" => query.OrderByDescending(b => b.Price - b.Price * b.Discount / 100),
                 "discountAsc" => query.OrderBy(b => b.Discount),
                 "discountDesc" => query.OrderByDescending(b => b.Discount),
-                "quantityInStockAsc" => query.OrderBy(b => b.QuantityInStock),
-                "quantityInStockDesc" => query.OrderByDescending(b => b.QuantityInStock),
                 _ => query.OrderBy(b => b.Name)
             };
             return result;

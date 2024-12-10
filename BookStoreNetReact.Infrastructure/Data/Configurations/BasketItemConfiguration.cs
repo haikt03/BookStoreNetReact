@@ -9,9 +9,6 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         public override void Configure(EntityTypeBuilder<BasketItem> builder)
         {
             base.Configure(builder);
-            builder.Property(bi => bi.Quantity).IsRequired();
-            builder.Property(bi => bi.BookId).IsRequired();
-
             builder
                .HasOne(bi => bi.Book)
                .WithMany()

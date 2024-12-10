@@ -28,6 +28,7 @@ const midLinksMember = [
 const midLinksAdmin = [
     { title: "Quản lý sách", path: "manage/book", icon: <MenuBook /> },
     { title: "Quản lý tác giả", path: "manage/author", icon: <People /> },
+    { title: "Quản lý đơn hàng", path: "manage/order", icon: <People /> },
 ];
 
 const rightLinks = [

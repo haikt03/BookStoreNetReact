@@ -5,11 +5,13 @@ import { setAuthorParams } from "./authorSlice";
 
 export default function AuthorSearch() {
     const { authorParams } = useAppSelector((state) => state.author);
-    const [search, setSearch] = useState(authorParams.search);
+    const [fullNameSearch, setFullNameSearch] = useState(
+        authorParams.fullNameSearch
+    );
     const dispatch = useAppDispatch();
 
-    const debouncedSearch = debounce((event: any) => {
-        dispatch(setAuthorParams({ search: event.target.value }));
+    const debouncedFullNameSearch = debounce((event: any) => {
+        dispatch(setAuthorParams({ fullNameSearch: event.target.value }));
     }, 1000);
 
     return (
@@ -17,10 +19,10 @@ export default function AuthorSearch() {
             label="Tìm kiếm theo tên tác giả"
             variant="outlined"
             fullWidth
-            value={search || ""}
+            value={fullNameSearch || ""}
             onChange={(event: any) => {
-                setSearch(event.target.value);
-                debouncedSearch(event);
+                setFullNameSearch(event.target.value);
+                debouncedFullNameSearch(event);
             }}
         />
     );

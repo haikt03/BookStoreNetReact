@@ -4,12 +4,12 @@ namespace BookStoreNetReact.Infrastructure.Extensions
 {
     public static class AuthorExtension
     {
-        public static IQueryable<Author> Search(this IQueryable<Author> query, string? search = null)
+        public static IQueryable<Author> Search(this IQueryable<Author> query, string? fullNameSearch = null)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            if (string.IsNullOrWhiteSpace(fullNameSearch))
                 return query;
-            var lowerCaseSearch = search.Trim().ToLower();
-            var result = query.Where(a => a.FullName.ToLower().Contains(lowerCaseSearch));
+            var lowerCaseFullNameSearch = fullNameSearch.Trim().ToLower();
+            var result = query.Where(a => a.FullName.ToLower().Contains(lowerCaseFullNameSearch));
             return result;
         }
 
@@ -30,8 +30,6 @@ namespace BookStoreNetReact.Infrastructure.Extensions
             {
                 "fullNameAsc" => query.OrderBy(a => a.FullName),
                 "fullNameDesc" => query.OrderByDescending(a => a.FullName),
-                "countryAsc" => query.OrderBy(a => a.Country),
-                "countryDesc" => query.OrderByDescending(a => a.Country),
                 _ => query.OrderBy(a => a.FullName)
             };
             return result;

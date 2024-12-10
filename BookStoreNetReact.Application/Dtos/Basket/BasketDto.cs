@@ -2,7 +2,9 @@
 {
     public class BasketDto
     {
-        public required int Id { get; set; }
-        public required List<BasketItemDto> Items { get; set; }
+        public int Id { get; set; }
+        public string PaymentIntentId { get; set; } = "";
+        public string ClientSecret { get; set; } = "";
+        public List<BasketItemDto> Items { get; set; } = new List<BasketItemDto>();
     }
 }

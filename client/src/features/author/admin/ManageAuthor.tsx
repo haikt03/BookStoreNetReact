@@ -1,10 +1,18 @@
 import { useState } from "react";
 import useAuthors from "../../../app/hooks/useAuthors";
-import { useAppDispatch } from "../../../app/store/configureStore";
+import {
+    useAppDispatch,
+    useAppSelector,
+} from "../../../app/store/configureStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {
     Box,
     Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     Grid,
     Paper,
     Table,
@@ -16,22 +24,26 @@ import {
 } from "@mui/material";
 import AppPagination from "../../../app/components/AppPagination";
 import { removeAuthor, setAuthorPageIndex } from "../authorSlice";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import AuthorFilter from "../AuthorFilter";
 import { Author } from "../../../app/models/author";
 import agent from "../../../app/api/agent";
 import AuthorForm from "./AuthorForm";
+import { Link } from "react-router-dom";
 
 export default function ManageAuthor() {
     const [editMode, setEditMode] = useState(false);
-    const { authors, filtersLoaded, filter, metaData } = useAuthors();
+    const { authors, filterLoaded, filter, metaData } = useAuthors();
     const [selectedAuthor, setSelectedAuthor] = useState<Author | undefined>(
         undefined
     );
     const [loading, setLoading] = useState(false);
     const [target, setTarget] = useState(0);
+    const [openConfirm, setOpenConfirm] = useState(false);
+    const [authorToDelete, setAuthorToDelete] = useState<number | null>(null);
     const dispatch = useAppDispatch();
+    const { role } = useAppSelector((state) => state.account);
 
     function handleSelectAuthor(author: Author) {
         setSelectedAuthor(author);
@@ -43,14 +55,25 @@ export default function ManageAuthor() {
         setEditMode(false);
     }
 
-    function handleDeleteAuthor(id: number) {
-        setLoading(true);
-        setTarget(id);
-        agent.author
-            .deleteAuthor(id)
-            .then(() => dispatch(removeAuthor(id)))
-            .catch((error) => console.log(error))
-            .finally(() => setLoading(false));
+    function openDeleteConfirm(id: number) {
+        setAuthorToDelete(id);
+        setOpenConfirm(true);
+    }
+
+    function handleConfirmDelete() {
+        if (authorToDelete !== null) {
+            setLoading(true);
+            setTarget(authorToDelete);
+            agent.author
+                .deleteAuthor(authorToDelete)
+                .then(() => dispatch(removeAuthor(authorToDelete)))
+                .catch((error) => console.log(error))
+                .finally(() => {
+                    setLoading(false);
+                    setOpenConfirm(false);
+                    setAuthorToDelete(null);
+                });
+        }
     }
 
     if (editMode)
@@ -58,7 +81,7 @@ export default function ManageAuthor() {
             <AuthorForm cancelEdit={cancelEdit} authorId={selectedAuthor?.id} />
         );
 
-    if (!filtersLoaded) return <LoadingComponent />;
+    if (!filterLoaded) return <LoadingComponent />;
 
     return (
         <Grid container columnSpacing={4}>
@@ -118,7 +141,7 @@ export default function ManageAuthor() {
                                                 }
                                                 alt={author.fullName}
                                                 style={{
-                                                    height: 50,
+                                                    height: 80,
                                                     marginRight: 20,
                                                 }}
                                             />
@@ -129,6 +152,15 @@ export default function ManageAuthor() {
                                         {author.country}
                                     </TableCell>
                                     <TableCell align="right">
+                                        <Button
+                                            startIcon={<Visibility />}
+                                            component={Link}
+                                            to={
+                                                role === "Admin"
+                                                    ? `/manage/author/${author?.id}`
+                                                    : `author/${author?.id}`
+                                            }
+                                        />
                                         <Button
                                             startIcon={<Edit />}
                                             onClick={() =>
@@ -142,7 +174,7 @@ export default function ManageAuthor() {
                                             startIcon={<Delete />}
                                             color="error"
                                             onClick={() =>
-                                                handleDeleteAuthor(author.id)
+                                                openDeleteConfirm(author.id)
                                             }
                                         />
                                     </TableCell>
@@ -160,6 +192,37 @@ export default function ManageAuthor() {
                     />
                 )}
             </Grid>
+
+            <Dialog
+                open={openConfirm}
+                onClose={() => setOpenConfirm(false)}
+                aria-labelledby="confirm-delete-dialog"
+            >
+                <DialogTitle id="confirm-delete-dialog">
+                    Xác nhận xóa
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Bạn có chắc chắn muốn xóa tác giả này? Hành động này
+                        không thể hoàn tác.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={() => setOpenConfirm(false)}
+                        color="primary"
+                    >
+                        Hủy
+                    </Button>
+                    <LoadingButton
+                        onClick={handleConfirmDelete}
+                        color="error"
+                        loading={loading}
+                    >
+                        Xóa
+                    </LoadingButton>
+                </DialogActions>
+            </Dialog>
         </Grid>
     );
 }

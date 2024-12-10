@@ -8,8 +8,8 @@ export interface Book {
     price: number;
     discount: number;
     quantityInStock: number;
-    publicId?: string;
-    imageUrl?: string;
+    publicId: string;
+    imageUrl: string;
 }
 
 export interface BookDetail extends Book {
@@ -21,13 +21,14 @@ export interface BookDetail extends Book {
     numberOfPages: number;
     form: string;
     description: string;
-    author?: Author;
+    author: Author;
 }
 
 export interface BookParams extends FilterParams {
     publishers: string[];
     languages: string[];
     categories: string[];
+    nameSearch?: string;
     authorSearch?: string;
     minPrice?: number;
     maxPrice?: number;

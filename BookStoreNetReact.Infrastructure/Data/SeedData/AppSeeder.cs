@@ -154,24 +154,22 @@ namespace BookStoreNetReact.Infrastructure.Data.SeedData
                         }
                         if (appUserSeeder.Password != null)
                         {
-                            appUser.Address = new UserAddress
-                            {
-                                City = "Thành phố Hà Nội",
-                                District = "Quận Hai Bà Trưng",
-                                Ward = "Phường Đồng Tâm",
-                                SpecificAddress = "55, Giải phóng"
-                            };
                             var result = await userManager.CreateAsync(appUser, appUserSeeder.Password);
-
                             if (result.Succeeded)
                             {
-                                await userManager.UpdateAsync(appUser);
                                 await context.Baskets.AddAsync(new Basket { UserId = appUser.Id });
+                                await context.UserAddresses.AddAsync(new UserAddress
+                                {
+                                    City = "Thành phố Hà Nội",
+                                    District = "Quận Hai Bà Trưng",
+                                    Ward = "Phường Đồng Tâm",
+                                    SpecificAddress = "55, Giải phóng",
+                                    UserId = appUser.Id
+                                });
                             }
 
                             if (appUserSeeder.Role == "Admin" && result.Succeeded)
                                 await userManager.AddToRoleAsync(appUser, "Admin");
-
                             if (appUserSeeder.Role == "Member" && result.Succeeded)
                                 await userManager.AddToRoleAsync(appUser, "Member");
                         }

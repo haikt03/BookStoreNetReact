@@ -23,10 +23,10 @@ namespace BookStoreNetReact.Api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var basket = await _basketService.GetByUserIdAsync(int.Parse(userId));
-            if (basket == null)
+            var basketDto = await _basketService.GetByUserIdAsync(int.Parse(userId));
+            if (basketDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy giỏ hàng" });
-            return Ok(basket);
+            return Ok(basketDto);
         }
 
         [Authorize(Roles = "Member")]

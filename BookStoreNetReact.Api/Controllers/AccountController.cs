@@ -26,12 +26,12 @@ namespace BookStoreNetReact.Api.Controllers
             Response.Cookies.Append("accessToken", userWithToken.Token.AccessToken, new CookieOptions
             {
                 SameSite = SameSiteMode.Lax,
-                Expires = DateTime.UtcNow.AddMinutes(30)
+                Expires = DateTime.Now.AddMinutes(30)
             });
             Response.Cookies.Append("refreshToken", userWithToken.Token.RefreshToken, new CookieOptions
             {
                 SameSite = SameSiteMode.Lax,
-                Expires = DateTime.UtcNow.AddDays(7)
+                Expires = DateTime.Now.AddDays(7)
             });
             return Ok(userWithToken.User);
         }
@@ -80,12 +80,12 @@ namespace BookStoreNetReact.Api.Controllers
             Response.Cookies.Append("accessToken", tokenDto.AccessToken, new CookieOptions
             {
                 SameSite = SameSiteMode.Lax,
-                Expires = DateTime.UtcNow.AddMinutes(30)
+                Expires = DateTime.Now.AddMinutes(30)
             });
             Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
             {
                 SameSite = SameSiteMode.Lax,
-                Expires = DateTime.UtcNow.AddDays(7)
+                Expires = DateTime.Now.AddDays(7)
             });
             return Ok();
         }

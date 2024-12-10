@@ -9,8 +9,8 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         public override void Configure(EntityTypeBuilder<Basket> builder)
         {
             base.Configure(builder);
-            builder.Property(b => b.UserId).IsRequired();
-
+            builder.HasIndex(b => b.PaymentIntentId).IsUnique();
+            builder.HasIndex(b => b.ClientSecret).IsUnique();
             builder
                 .HasOne(b => b.User)
                 .WithOne()

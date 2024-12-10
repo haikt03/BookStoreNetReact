@@ -59,7 +59,7 @@ export default function Profile() {
                     <Box display="flex" justifyContent="center" mb={3}>
                         <Avatar
                             alt={user.fullName}
-                            src={user.imageUrl || "/default-avatar.png"}
+                            src={user.imageUrl || "/default-avatar.jpg"}
                             sx={{ width: 120, height: 120 }}
                         />
                     </Box>

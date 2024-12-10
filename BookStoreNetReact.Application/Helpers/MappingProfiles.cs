@@ -4,7 +4,9 @@ using BookStoreNetReact.Application.Dtos.Author;
 using BookStoreNetReact.Application.Dtos.Basket;
 using BookStoreNetReact.Application.Dtos.Book;
 using BookStoreNetReact.Application.Dtos.UserAddress;
+using BookStoreNetReact.Application.Dtos.Order;
 using BookStoreNetReact.Domain.Entities;
+using BookStoreNetReact.Domain.Entities.OrderAggregate;
 
 namespace BookStoreNetReact.Application.Helpers
 {
@@ -37,6 +39,17 @@ namespace BookStoreNetReact.Application.Helpers
             // Basket
             CreateMap<Basket, BasketDto>();
             CreateMap<BasketItem, BasketItemDto>();
+
+            // Order
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
+                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.OrderStatus.ToString()));
+            CreateMap<Order, OrderDetailDto>()
+                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
+                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.OrderStatus.ToString()));
+            CreateMap<OrderItem, OrderItemDto>();
 
             // Book
             CreateMap<CreateBookDto, Book>();

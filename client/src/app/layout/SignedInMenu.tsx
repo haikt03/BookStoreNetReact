@@ -82,36 +82,28 @@ export default function SignedInMenu() {
                     sx: { borderRadius: 2, minWidth: 200 },
                 }}
             >
+                <MenuItem component={Link} to="/profile" onClick={handleClose}>
+                    <ListItemIcon>
+                        <AccountCircleIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography variant="body1">Thông tin cá nhân</Typography>
+                </MenuItem>
                 {role === "Member" && (
-                    <Box>
-                        <MenuItem
-                            component={Link}
-                            to="/profile"
-                            onClick={handleClose}
-                        >
-                            <ListItemIcon>
-                                <AccountCircleIcon fontSize="small" />
-                            </ListItemIcon>
-                            <Typography variant="body1">
-                                Thông tin cá nhân
-                            </Typography>
-                        </MenuItem>
-                        <MenuItem
-                            component={Link}
-                            to="/orders"
-                            onClick={handleClose}
-                            sx={{
-                                "&:hover": {
-                                    backgroundColor: "rgba(0, 150, 136, 0.1)",
-                                },
-                            }}
-                        >
-                            <ListItemIcon>
-                                <ShoppingCartIcon fontSize="small" />
-                            </ListItemIcon>
-                            <Typography variant="body1">Đơn hàng</Typography>
-                        </MenuItem>
-                    </Box>
+                    <MenuItem
+                        component={Link}
+                        to="/order"
+                        onClick={handleClose}
+                        sx={{
+                            "&:hover": {
+                                backgroundColor: "rgba(0, 150, 136, 0.1)",
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <ShoppingCartIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="body1">Đơn hàng</Typography>
+                    </MenuItem>
                 )}
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

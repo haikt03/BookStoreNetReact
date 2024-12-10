@@ -8,9 +8,7 @@ namespace BookStoreNetReact.Infrastructure.Data.Configurations
         public override void Configure(EntityTypeBuilder<Author> builder)
         {
             base.Configure(builder);
-            builder.Property(a => a.FullName).IsRequired();
-            builder.Property(a => a.Biography).IsRequired();
-            builder.Property(a => a.Country).IsRequired();
+            builder.HasIndex(a => a.FullName).IsUnique();
         }
     }
 }

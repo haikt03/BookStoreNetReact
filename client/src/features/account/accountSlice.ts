@@ -73,6 +73,9 @@ export const refreshAsync = createAsyncThunk<void, FieldValues>(
         try {
             await agent.account.refresh(data);
             thunkAPI.dispatch(setRole());
+            if (store.getState().account.role === "Member") {
+                thunkAPI.dispatch(getBasketAsync());
+            }
         } catch (error: any) {
             return thunkAPI.rejectWithValue({ error: error.data });
         }
@@ -90,6 +93,9 @@ export const getCurrentUserAsync = createAsyncThunk<UserDetail>(
             const user = await agent.account.getCurrentUser();
             localStorage.setItem("user", JSON.stringify(user));
             thunkAPI.dispatch(setRole());
+            if (store.getState().account.role === "Member") {
+                thunkAPI.dispatch(getBasketAsync());
+            }
             return user;
         } catch (error: any) {
             return thunkAPI.rejectWithValue({ error: error.data });

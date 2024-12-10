@@ -6,8 +6,10 @@ namespace BookStoreNetReact.Domain.Entities
 {
     public class AppUser : IdentityUser<int>
     {
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
+        [StringLength(100, MinimumLength = 6)]
+        public required string FullName { get; set; }
+        [DateOfBirthRange]
+        public DateOnly DateOfBirth { get; set; }
         [StringLength(50, MinimumLength = 6)]
         public override required string? UserName { get => base.UserName; set => base.UserName = value; }
         [EmailAddress]
@@ -17,12 +19,10 @@ namespace BookStoreNetReact.Domain.Entities
         [StringLength(6, MinimumLength = 6)]
         public string? PhoneNumberConfirmationCode { get; set; }
         public DateTime? PhoneNumberConfirmationCodeExpiresAt { get; set; }
-        [StringLength(100, MinimumLength = 6)]
-        public required string FullName { get; set; }
-        [DateOfBirthRange]
-        public required DateOnly DateOfBirth { get; set; }
         public string? PublicId { get; set; }
         public string? ImageUrl { get; set; }
         public UserAddress? Address { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
     }
 }

@@ -1,16 +1,35 @@
 ﻿using BookStoreNetReact.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace BookStoreNetReact.Infrastructure.Extensions
 {
     public static class AppUserExtension
     {
-        public static IQueryable<AppUser> Search(this IQueryable<AppUser> query, string? search = null)
+        public static IQueryable<AppUser> Search
+        (
+            this IQueryable<AppUser> query, 
+            string? fullNameSearch, 
+            string? emailSearch, 
+            string? phoneNumberSearch
+        )
         {
-            if (string.IsNullOrWhiteSpace(search))
+            if (
+                string.IsNullOrWhiteSpace(fullNameSearch) 
+                && string.IsNullOrWhiteSpace(emailSearch) 
+                && string.IsNullOrWhiteSpace(phoneNumberSearch)
+            )
                 return query;
-            var lowerCaseSearch = search.Trim().ToLower();
-            var result = query.Where(au => au.UserName != null && au.UserName.ToLower().Contains(lowerCaseSearch));
+
+            var lowerCaseFullNameSearch = fullNameSearch?.Trim().ToLower();
+            var lowerCaseEmailSearch = emailSearch?.Trim().ToLower();
+            var lowerCasePhoneNumberSearch = phoneNumberSearch?.Trim().ToLower();
+
+            var result = query
+                .Where(au => string.IsNullOrWhiteSpace(lowerCaseFullNameSearch)
+                    || au.FullName.ToLower().Contains(lowerCaseFullNameSearch))
+                .Where(au => string.IsNullOrWhiteSpace(lowerCaseEmailSearch) || au.Email == null 
+                    || au.Email.ToLower().Contains(lowerCaseEmailSearch))
+                .Where(au => string.IsNullOrWhiteSpace(lowerCasePhoneNumberSearch) || au.PhoneNumber == null 
+                    || au.PhoneNumber.ToLower().Contains(lowerCasePhoneNumberSearch));
             return result;
         }
 
@@ -22,10 +41,6 @@ namespace BookStoreNetReact.Infrastructure.Extensions
             {
                 "fullNameAsc" => query.OrderBy(au => au.FullName),
                 "fullNameDesc" => query.OrderByDescending(au => au.FullName),
-                "dateOfBirthAsc" => query.OrderBy(au => au.DateOfBirth),
-                "dateOfBirthDesc" => query.OrderByDescending(au => au.DateOfBirth),
-                "userNameAsc" => query.OrderBy(au => au.UserName),
-                "userNameDesc" => query.OrderByDescending(au => au.UserName),
                 _ => query.OrderBy(au => au.UserName)
             };
             return result;

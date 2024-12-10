@@ -6,5 +6,6 @@ namespace BookStoreNetReact.Application.Interfaces.Services
     {
         Task<BasketDto?> GetByUserIdAsync(int userId);
         Task<BasketDto?> UpdateQuantityAsync(UpdateQuantityDto updateDto, int userId, string type);
+        Task<BasketDto?> CreateOrUpdatePaymentIntent(int userId);
     }
 }

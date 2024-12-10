@@ -17,7 +17,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         public IQueryable<Author> GetAll(FilterAuthorDto filterDto)
         {
             var authors = _context.Authors
-                .Search(filterDto.Search)
+                .Search(filterDto.FullNameSearch)
                 .Filter(filterDto.Countries)
                 .Sort(filterDto.Sort);
             return authors;
@@ -34,7 +34,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             var books = _context.Authors
                 .Where(a => a.Id == authorId && a.Books != null)
                 .SelectMany(a => a.Books!)
-                .Search(filterDto.Search)
+                .Search(filterDto.NameSearch, filterDto.AuthorSearch)
                 .Filter
                 (
                     publishers: filterDto.Publishers,

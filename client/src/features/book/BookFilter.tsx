@@ -78,7 +78,21 @@ export default function BookFilter({ filter }: Props) {
     const showExpandSort =
         bookSortOptions.length > 5 && sortVisibleCount < bookSortOptions.length;
 
-    const handlePriceChange = (_event: Event, newValue: number | number[]) => {
+    const handlePriceChange = (
+        _event: Event | React.SyntheticEvent,
+        newValue: number | number[]
+    ) => {
+        if (Array.isArray(newValue)) {
+            dispatch(
+                setBookParams({ minPrice: newValue[0], maxPrice: newValue[1] })
+            );
+        }
+    };
+
+    const handlePriceChangeCommitted = (
+        _event: Event | React.SyntheticEvent,
+        newValue: number | number[]
+    ) => {
         if (Array.isArray(newValue)) {
             dispatch(
                 setBookParams({ minPrice: newValue[0], maxPrice: newValue[1] })
@@ -124,6 +138,7 @@ export default function BookFilter({ filter }: Props) {
                             bookParams.maxPrice || filter.maxPrice,
                         ]}
                         onChange={handlePriceChange}
+                        onChangeCommitted={handlePriceChangeCommitted}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `${value}`}
                         min={filter.minPrice}

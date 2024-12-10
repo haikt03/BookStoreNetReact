@@ -13,6 +13,6 @@ namespace BookStoreNetReact.Domain.Entities
         [StringLength(100, MinimumLength = 1)]
         public required string SpecificAddress { get; set; }
         [Range(1, int.MaxValue)]
-        public int? UserId { get; set; }
+        public required int UserId { get; set; }
     }
 }

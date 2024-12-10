@@ -8,10 +8,10 @@ import BookList from "./BookList";
 import BookFilter from "../BookFilter";
 
 export default function Book() {
-    const { books, filtersLoaded, filter, metaData } = useBooks();
+    const { books, filterLoaded, filter, metaData } = useBooks();
     const dispatch = useAppDispatch();
 
-    if (!filtersLoaded) return <LoadingComponent />;
+    if (!filterLoaded) return <LoadingComponent />;
 
     return (
         <Grid container columnSpacing={4}>

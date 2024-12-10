@@ -8,11 +8,11 @@ import AuthorList from "./AuthorList";
 import AuthorFilter from "../AuthorFilter";
 
 export default function Author() {
-    const { authors, filtersLoaded, filter, metaData } = useAuthors();
+    const { authors, filterLoaded, filter, metaData } = useAuthors();
 
     const dispatch = useAppDispatch();
 
-    if (!filtersLoaded) return <LoadingComponent />;
+    if (!filterLoaded) return <LoadingComponent />;
 
     return (
         <Grid container columnSpacing={4}>

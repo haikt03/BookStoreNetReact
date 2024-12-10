@@ -4,8 +4,8 @@ export interface Author {
     id: number;
     fullName: string;
     country: string;
-    publicId?: string;
-    imageUrl?: string;
+    publicId: string;
+    imageUrl: string;
 }
 
 export interface AuthorDetail extends Author {
@@ -19,4 +19,5 @@ export interface AuthorForUpsertBook {
 
 export interface AuthorParams extends FilterParams {
     countries: string[];
+    fullNameSearch?: string;
 }

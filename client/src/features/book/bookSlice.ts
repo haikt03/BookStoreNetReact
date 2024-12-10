@@ -13,7 +13,7 @@ interface BookState {
     bookDetail: BookDetail | null;
     bookDetailLoaded: boolean;
     booksLoaded: boolean;
-    filtersLoaded: boolean;
+    filterLoaded: boolean;
     filter: {
         publishers: string[];
         languages: string[];
@@ -43,8 +43,8 @@ const getAxiosParams = (bookParams: BookParams) => {
     params.append("pageIndex", bookParams.pageIndex.toString());
     params.append("pageSize", bookParams.pageSize.toString());
     params.append("sort", bookParams.sort);
-    if (bookParams.search) {
-        params.append("search", bookParams.search);
+    if (bookParams.nameSearch) {
+        params.append("nameSearch", bookParams.nameSearch);
     }
     if (bookParams.authorSearch) {
         params.append("authorSearch", bookParams.authorSearch);
@@ -139,7 +139,7 @@ export const bookSlice = createSlice({
             minPrice: 0,
             maxPrice: 0,
         },
-        filtersLoaded: false,
+        filterLoaded: false,
         bookParams: initParams(),
         metaData: null,
         status: "idle",
@@ -208,7 +208,7 @@ export const bookSlice = createSlice({
             state.filter.minPrice = action.payload.minPrice;
             state.filter.maxPrice = action.payload.maxPrice;
             state.status = "idle";
-            state.filtersLoaded = true;
+            state.filterLoaded = true;
         });
         builder.addCase(getBookFilterAsync.rejected, (state) => {
             state.status = "idle";
@@ -219,7 +219,7 @@ export const bookSlice = createSlice({
         builder.addCase(getAuthorsForUpsertBook.fulfilled, (state, action) => {
             state.authorsForUpsert = action.payload;
             state.status = "idle";
-            state.filtersLoaded = true;
+            state.filterLoaded = true;
         });
         builder.addCase(getAuthorsForUpsertBook.rejected, (state) => {
             state.status = "idle";

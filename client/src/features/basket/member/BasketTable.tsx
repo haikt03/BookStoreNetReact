@@ -38,7 +38,7 @@ export default function BasketTable({ items, isBasket = true }: Props) {
                         <TableCell align="right">Giá</TableCell>
                         <TableCell align="right">Giảm giá</TableCell>
                         <TableCell align="center">Số lượng</TableCell>
-                        <TableCell align="right">Tổng cộng</TableCell>
+                        <TableCell align="right">Thành tiền</TableCell>
                         {isBasket && <TableCell align="right"></TableCell>}
                     </TableRow>
                 </TableHead>
@@ -55,7 +55,10 @@ export default function BasketTable({ items, isBasket = true }: Props) {
                             <TableCell component="th" scope="row">
                                 <Box display="flex" alignItems="center">
                                     <img
-                                        src={item.book.imageUrl}
+                                        src={
+                                            item.book.imageUrl ||
+                                            "/images/default-book.jpg"
+                                        }
                                         alt={item.book.name}
                                         style={{ height: 50, marginRight: 20 }}
                                     />

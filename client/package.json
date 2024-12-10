@@ -20,6 +20,8 @@
         "@mui/material": "^6.1.6",
         "@mui/x-date-pickers": "^7.22.2",
         "@reduxjs/toolkit": "^2.3.0",
+        "@stripe/react-stripe-js": "^3.0.0",
+        "@stripe/stripe-js": "^5.2.0",
         "@types/react-slick": "^0.23.13",
         "axios": "^1.7.7",
         "dayjs": "^1.11.13",

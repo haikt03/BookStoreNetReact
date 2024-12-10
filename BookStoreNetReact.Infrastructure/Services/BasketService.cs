@@ -9,8 +9,10 @@ namespace BookStoreNetReact.Infrastructure.Services
 {
     public class BasketService : GenericService<BasketService>, IBasketService
     {
-        public BasketService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<BasketService> logger) : base(mapper, cloudUploadService, unitOfWork, logger)
+        private readonly IPaymentService _paymentService;
+        public BasketService(IMapper mapper, ICloudUploadService cloudUploadService, IUnitOfWork unitOfWork, ILogger<BasketService> logger, IPaymentService paymentService) : base(mapper, cloudUploadService, unitOfWork, logger)
         {
+            _paymentService = paymentService;
         }
 
         public async Task<BasketDto?> GetByUserIdAsync(int userId)
@@ -43,7 +45,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                     throw new NullReferenceException("Book not found");
 
                 var basketItem = basket.Items.FirstOrDefault(i => i.BookId == book.Id);
-                switch(type)
+                switch (type)
                 {
                     case "plus":
                         if (basketItem == null)
@@ -73,6 +75,35 @@ namespace BookStoreNetReact.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "An error occurred while adding basket item");
+                return null;
+            }
+        }
+
+        public async Task<BasketDto?> CreateOrUpdatePaymentIntent(int userId)
+        {
+            try
+            {
+                var basket = await _unitOfWork.BasketRepository.GetByUserIdAsync(userId);
+                if (basket == null)
+                    throw new NullReferenceException("Basket not found");
+
+                var intent = await _paymentService.CreateOrUpdatePaymentIntent(basket);
+                if (intent == null)
+                    throw new NullReferenceException("Intent not found");
+
+                basket.PaymentIntentId = string.IsNullOrEmpty(basket.PaymentIntentId) ? intent.Id : basket.PaymentIntentId;
+                basket.ClientSecret = string.IsNullOrEmpty(basket.ClientSecret) ? intent.ClientSecret : basket.ClientSecret;
+
+                _unitOfWork.BasketRepository.Update(basket);
+
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
+                    return null;
+                return _mapper.Map<BasketDto>(basket);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while creating or updating payment intent");
                 return null;
             }
         }

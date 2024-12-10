@@ -12,7 +12,7 @@ export default function useBooks() {
     const {
         booksLoaded,
         filter,
-        filtersLoaded,
+        filterLoaded,
         authorsForUpsert,
         authorsForUpsertLoaded,
         metaData,
@@ -24,8 +24,8 @@ export default function useBooks() {
     }, [booksLoaded, dispatch]);
 
     useEffect(() => {
-        if (!filtersLoaded) dispatch(getBookFilterAsync());
-    }, [dispatch, filtersLoaded]);
+        if (!filterLoaded) dispatch(getBookFilterAsync());
+    }, [dispatch, filterLoaded]);
 
     useEffect(() => {
         if (!authorsForUpsertLoaded) dispatch(getAuthorsForUpsertBook());
@@ -35,7 +35,7 @@ export default function useBooks() {
         books,
         booksLoaded,
         filter,
-        filtersLoaded,
+        filterLoaded,
         authorsForUpsert,
         authorsForUpsertLoaded,
         metaData,

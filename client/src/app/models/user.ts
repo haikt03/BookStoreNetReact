@@ -3,19 +3,23 @@ import { FilterParams } from "./pagination";
 
 export interface User {
     id: number;
+    fullName: string;
     userName: string;
     email: string;
     phoneNumber: string;
-    fullName: string;
-    publicId?: string;
-    imageUrl?: string;
+    publicId: string;
+    imageUrl: string;
 }
 
 export interface UserDetail extends User {
+    dateOfBirth: string;
     emailConfirmed: boolean;
     phoneNumberConfirmed: boolean;
-    dateOfBirth: string;
     address: Address;
 }
 
-export interface UserParams extends FilterParams {}
+export interface UserParams extends FilterParams {
+    fullNameSearch?: string;
+    emailSearch?: string;
+    phoneNumberSearch?: string;
+}
