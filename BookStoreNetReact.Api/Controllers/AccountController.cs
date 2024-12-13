@@ -97,7 +97,7 @@ namespace BookStoreNetReact.Api.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
-            var user = await _appUserService.GetUserByIdAsync(int.Parse(userId));
+            var user = await _appUserService.GetByIdAsync(int.Parse(userId));
             if (user == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy người dùng" });
             return Ok(user);
@@ -110,7 +110,7 @@ namespace BookStoreNetReact.Api.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
-            var result = await _appUserService.UpdateUserAsync(updateDto, int.Parse(userId));
+            var result = await _appUserService.UpdateAsync(updateDto, int.Parse(userId));
             if (result == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật người dùng không thành công" });
 
@@ -133,7 +133,7 @@ namespace BookStoreNetReact.Api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var result = await _appUserService.UpdateUserAddressAsync(updateDto, int.Parse(userId));
+            var result = await _appUserService.UpdateAddressAsync(updateDto, int.Parse(userId));
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật địa chỉ người dùng không thành công" });
             return Ok();

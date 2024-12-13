@@ -3,14 +3,11 @@ using BookStoreNetReact.Domain.Entities.OrderAggregate;
 
 namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IGenericRepository<Order>
     {
-        IQueryable<Order> GetAll(FilterOrderDto filterDto);
-        IQueryable<Order> GetAllByUserId(FilterOrderDto filterDto, int userId);
-        Task<Order?> GetByIdAsync(int orderId);
-        Task<Order?> GetByPaymentIntentIdAsync(string paymentIntentId);
-        Task AddAsync(Order order);
-        void Update(Order order);
+        IQueryable<Order> GetAllWithFilter(FilterOrderDto filterDto);
+        IQueryable<Order> GetAllWithFilterByUserId(FilterOrderDto filterDto, int userId);
+        Task<Order?> GetDetailByIdAsync(int orderId);
         Task<OrderFilterDto> GetFilterAsync();
     }
 }

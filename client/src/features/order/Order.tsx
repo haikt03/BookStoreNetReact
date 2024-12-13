@@ -16,16 +16,37 @@ import OrderFilter from "./OrderFilter";
 import AppPagination from "../../app/components/AppPagination";
 import { setOrderPageIndex } from "./orderSlice";
 import { currencyFormat } from "../../app/utils/utils";
-import { Visibility } from "@mui/icons-material";
+import { Edit, Visibility } from "@mui/icons-material";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import OrderForm from "./OrderForm";
 
 export default function Order() {
     const { orders, filter, filterLoaded, metaData } = useOrders();
     const dispatch = useAppDispatch();
     const { role } = useAppSelector((state) => state.account);
+    const [selectedOrder, setSelectedOrder] = useState<Order | undefined>(
+        undefined
+    );
+    const [editMode, setEditMode] = useState(false);
+
+    function handleSelectOrder(order: Order) {
+        setSelectedOrder(order);
+        setEditMode(true);
+    }
+
+    function cancelEdit() {
+        if (selectedOrder) setSelectedOrder(undefined);
+        setEditMode(false);
+    }
 
     if (!filterLoaded) return <LoadingComponent />;
+
+    if (editMode)
+        return (
+            <OrderForm cancelEdit={cancelEdit} orderId={selectedOrder?.id} />
+        );
 
     return (
         <Grid container columnSpacing={4}>
@@ -111,6 +132,12 @@ export default function Order() {
                                                     : `/order/${order?.id}`
                                             }
                                             size="small"
+                                        />
+                                        <Button
+                                            startIcon={<Edit />}
+                                            onClick={() =>
+                                                handleSelectOrder(order)
+                                            }
                                         />
                                     </TableCell>
                                 </TableRow>

@@ -134,7 +134,7 @@ export default function BookForm({ bookId, cancelEdit }: Props) {
                             rows={4}
                             control={control}
                             name="description"
-                            label="Description"
+                            label="Mô tả"
                         />
                     </Grid>
                     <Grid item xs={12} sm={12}>

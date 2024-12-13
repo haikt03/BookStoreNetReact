@@ -6,8 +6,6 @@ using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Infrastructure.Extensions;
 using Microsoft.Extensions.Logging;
-using BookStoreNetReact.Application.Dtos.Book;
-using BookStoreNetReact.Application.Dtos.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -18,11 +16,11 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
         }
 
-        public async Task<PagedList<AuthorDto>?> GetAllAuthorsAsync(FilterAuthorDto filterDto)
+        public async Task<PagedList<AuthorDto>?> GetAllWithFilterAsync(FilterAuthorDto filterDto)
         {
             try
             {
-                var authors = _unitOfWork.AuthorRepository.GetAll(filterDto);
+                var authors = _unitOfWork.AuthorRepository.GetAllWithFilter(filterDto);
                 var authorsDto = await authors.ToPagedListAsync
                 (
                     selector: a => _mapper.Map<AuthorDto>(a),
@@ -39,7 +37,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<AuthorDetailDto?> GetAuthorByIdAsync(int authorId)
+        public async Task<AuthorDetailDto?> GetByIdAsync(int authorId)
         {
             try
             {
@@ -56,7 +54,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<AuthorDetailDto?> CreateAuthorAsync(CreateAuthorDto createDto)
+        public async Task<AuthorDetailDto?> CreateAsync(CreateAuthorDto createDto)
         {
             try
             {
@@ -86,7 +84,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<AuthorDetailDto?> UpdateAuthorAsync(UpdateAuthorDto updateDto, int authorId)
+        public async Task<AuthorDetailDto?> UpdateAsync(UpdateAuthorDto updateDto, int authorId)
         {
             try
             {
@@ -121,7 +119,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> DeleteAuthorAsync(int authorId)
+        public async Task<bool> DeleteAsync(int authorId)
         {
             try
             {
@@ -147,8 +145,8 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var filterDto = await _unitOfWork.AuthorRepository.GetFilterAsync();
-                return filterDto;
+                var countries = await _unitOfWork.AuthorRepository.GetStringFilterAsync(a => a.Country);
+                return new AuthorFilterDto { Countries = countries};
             }
             catch (Exception ex)
             {
@@ -157,28 +155,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<PagedList<BookDto>?> GetAllBooksByAuthorAsync(FilterBookDto filterDto, int authorId)
-        {
-            try
-            {
-                var books = _unitOfWork.AuthorRepository.GetAllBooks(filterDto, authorId);
-                var booksDto = await books.ToPagedListAsync
-                (
-                    selector: b => _mapper.Map<BookDto>(b),
-                    pageSize: filterDto.PageSize,
-                    pageIndex: filterDto.PageIndex,
-                    logger: _logger
-                );
-                return booksDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "An error occurred while getting all books by authorId");
-                return null;
-            }
-        }
-
-        public async Task<List<AuthorForUpsertBookDto>?> GetAllAuthorsForUpsertBookAsync()
+        public async Task<List<AuthorForUpsertBookDto>?> GetAllForUpsertBookAsync()
         {
             try
             {

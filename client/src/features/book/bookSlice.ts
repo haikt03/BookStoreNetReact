@@ -118,7 +118,7 @@ export const getAuthorsForUpsertBook = createAsyncThunk<
 function initParams(): BookParams {
     return {
         pageIndex: 1,
-        pageSize: 12,
+        pageSize: 9,
         sort: "nameAsc",
         publishers: [],
         languages: [],

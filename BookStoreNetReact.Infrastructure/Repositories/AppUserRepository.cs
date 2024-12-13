@@ -18,7 +18,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             _context = context;
         }
 
-        public IQueryable<AppUser> GetAll(FilterAppUserDto filterDto)
+        public IQueryable<AppUser> GetAllWithFilter(FilterAppUserDto filterDto)
         {
             var users = _userManager.Users
                 .Search(filterDto.FullNameSearch, filterDto.EmailSearch, filterDto.PhoneNumberSearch)
@@ -26,18 +26,15 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return users;
         }
 
-        public async Task<AppUser?> GetByIdAsync(int userId)
+        public async Task<AppUser?> GetByIdAsync(int userId, string? includeProperties = null)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            return user;
-        }
-
-        public async Task<AppUser?> GetDetailByIdAsync(int userId)
-        {
-            var user = await _userManager.Users
-                .Include(u => u.Address)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-            return user;
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                query = GetQueryWithIncludedProperties(query, includeProperties);
+            }
+            var result = await query.Where(x => x.Id == userId).FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<AppUser?> GetByUserNameAsync(string username)
@@ -45,6 +42,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             var user = await _userManager.FindByNameAsync(username);
             return user;
         }
+
         public async Task<IList<string>> GetRolesAsync(AppUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -97,6 +95,16 @@ namespace BookStoreNetReact.Infrastructure.Repositories
         {
             var result = await _userManager.ConfirmEmailAsync(user, token);
             return result;
+        }
+
+        public static IQueryable<AppUser> GetQueryWithIncludedProperties(IQueryable<AppUser> query, string includeProperties)
+        {
+            var props = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var prop in props)
+            {
+                query = query.Include(prop);
+            }
+            return query;
         }
     }
 }

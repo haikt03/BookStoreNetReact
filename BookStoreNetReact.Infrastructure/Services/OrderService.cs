@@ -20,7 +20,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task<PagedList<OrderDto>?> GetAllOrdersAsync(FilterOrderDto filterDto)
+        public async Task<PagedList<OrderDto>?> GetAllWithFilterAsync(FilterOrderDto filterDto)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 {
                     throw new ArgumentException("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
                 }
-                var orders = _unitOfWork.OrderRepository.GetAll(filterDto);
+                var orders = _unitOfWork.OrderRepository.GetAllWithFilter(filterDto);
                 var ordersDto = await orders.ToPagedListAsync
                 (
                     selector: o => _mapper.Map<OrderDto>(o),
@@ -48,11 +48,11 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<PagedList<OrderDto>?> GetAllOrdersByUserIdAsync(FilterOrderDto filterDto, int userId)
+        public async Task<PagedList<OrderDto>?> GetAllWithFilterByUserIdAsync(FilterOrderDto filterDto, int userId)
         {
             try
             {
-                var orders = _unitOfWork.OrderRepository.GetAllByUserId(filterDto, userId);
+                var orders = _unitOfWork.OrderRepository.GetAllWithFilterByUserId(filterDto, userId);
                 var ordersDto = await orders.ToPagedListAsync
                 (
                     selector: o => _mapper.Map<OrderDto>(o),
@@ -69,11 +69,11 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<OrderDetailDto?> GetOrderByIdAsync(int orderId, int userId)
+        public async Task<OrderDetailDto?> GetByIdAsync(int orderId, int userId)
         {
             try
             {
-                var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderId);
+                var order = await _unitOfWork.OrderRepository.GetDetailByIdAsync(orderId);
                 if (order == null)
                     throw new NullReferenceException("Order not found");
 
@@ -95,7 +95,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<OrderDetailDto?> CreateOrderAsync(CreateOrderDto createDto, int userId)
+        public async Task<OrderDetailDto?> CreateAsync(CreateOrderDto createDto, int userId)
         {
             try
             {
@@ -135,7 +135,10 @@ namespace BookStoreNetReact.Infrastructure.Services
                     Items = orderItems
                 };
                 await _unitOfWork.OrderRepository.AddAsync(order);
-                _unitOfWork.BasketRepository.Clear(basket);
+
+                basket.Items.RemoveAll(i => true);
+                basket.PaymentIntentId = null;
+                basket.ClientSecret = null;
 
                 var result = await _unitOfWork.CompleteAsync();
                 if (!result)
@@ -149,16 +152,15 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateOrderStatusAsync(Charge charge)
+        public async Task<bool> UpdatePaymentStatusAsync(Charge charge)
         {
             try
             {
-                var order = await _unitOfWork.OrderRepository.GetByPaymentIntentIdAsync(charge.PaymentIntentId);
+                var order = await _unitOfWork.OrderRepository.GetFirstOrDefaultAsync(o => o.PaymentIntentId == charge.PaymentIntentId);
                 if (order == null)
                     throw new NullReferenceException("Order not found");
 
                 if (charge.Status == "succeeded") order.PaymentStatus = PaymentStatus.Completed;
-
                 var result = await _unitOfWork.CompleteAsync();
                 if (!result)
                     return false;
@@ -166,8 +168,33 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "An error occurred while updating order");
+                _logger.LogWarning(ex, "An error occurred while updating payment status");
                 return false;
+            }
+        }
+
+        public async Task<OrderDetailDto?> UpdateOrderStatusAsync(UpdateOrderStatusDto updateDto, int orderId)
+        {
+            try
+            {
+                var order = await _unitOfWork.OrderRepository.GetDetailByIdAsync(orderId);
+                if (order == null)
+                    throw new NullReferenceException("Order not found");
+
+                order.Note = updateDto.Note;
+                if (Enum.TryParse(updateDto.OrderStatus, true, out OrderStatus parsedStatus))
+                    order.OrderStatus = parsedStatus;
+                else
+                    order.OrderStatus = OrderStatus.PendingConfirmation;
+                var result = await _unitOfWork.CompleteAsync();
+                if (!result)
+                    return null;
+                return _mapper.Map<OrderDetailDto>(order);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while updating order status");
+                return null;
             }
         }
 

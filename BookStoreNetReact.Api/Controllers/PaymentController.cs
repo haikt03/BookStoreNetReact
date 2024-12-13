@@ -47,7 +47,7 @@ namespace BookStoreNetReact.Api.Controllers
 
             var charge = (Charge)stripeEvent.Data.Object;
 
-            var result = await _orderService.UpdateOrderStatusAsync(charge);
+            var result = await _orderService.UpdatePaymentStatusAsync(charge);
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Lỗi StripeWebhook" });
             return new EmptyResult();

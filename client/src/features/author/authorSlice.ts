@@ -82,7 +82,7 @@ export const getAuthorFilterAsync = createAsyncThunk<Filter, void>(
 function initParams(): AuthorParams {
     return {
         pageIndex: 1,
-        pageSize: 9,
+        pageSize: 6,
         sort: "fullNameAsc",
         countries: [],
     };

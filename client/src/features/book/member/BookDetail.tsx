@@ -244,7 +244,7 @@ export default function BookDetail() {
                                 onChange={handleInputChange}
                                 variant={"outlined"}
                                 type={"number"}
-                                label={"Quantity in Cart"}
+                                label={"Số lượng"}
                                 fullWidth
                                 value={quantity}
                             />

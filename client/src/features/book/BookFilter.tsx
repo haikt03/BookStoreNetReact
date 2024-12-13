@@ -22,44 +22,44 @@ export default function BookFilter({ filter }: Props) {
     const { bookParams } = useAppSelector((state) => state.book);
     const dispatch = useAppDispatch();
 
-    const [languagesVisibleCount, setLanguagesVisibleCount] = useState(5);
-    const [publishersVisibleCount, setPublishersVisibleCount] = useState(5);
-    const [categoriesVisibleCount, setCategoriesVisibleCount] = useState(5);
-    const [sortVisibleCount, setSortVisibleCount] = useState(5);
+    const [languagesVisibleCount, setLanguagesVisibleCount] = useState(3);
+    const [publishersVisibleCount, setPublishersVisibleCount] = useState(3);
+    const [categoriesVisibleCount, setCategoriesVisibleCount] = useState(3);
+    const [sortVisibleCount, setSortVisibleCount] = useState(3);
 
     const handleExpandLanguages = () => {
-        if (languagesVisibleCount + 5 > filter.languages.length) {
+        if (languagesVisibleCount + 3 > filter.languages.length) {
             setLanguagesVisibleCount(filter.languages.length);
         } else {
-            setLanguagesVisibleCount(languagesVisibleCount + 5);
+            setLanguagesVisibleCount(languagesVisibleCount + 3);
         }
     };
     const handleExpandPublishers = () => {
-        if (publishersVisibleCount + 5 > filter.publishers.length) {
+        if (publishersVisibleCount + 3 > filter.publishers.length) {
             setPublishersVisibleCount(filter.publishers.length);
         } else {
-            setPublishersVisibleCount(publishersVisibleCount + 5);
+            setPublishersVisibleCount(publishersVisibleCount + 3);
         }
     };
     const handleExpandCategories = () => {
-        if (categoriesVisibleCount + 5 > filter.categories.length) {
+        if (categoriesVisibleCount + 3 > filter.categories.length) {
             setCategoriesVisibleCount(filter.categories.length);
         } else {
-            setCategoriesVisibleCount(categoriesVisibleCount + 5);
+            setCategoriesVisibleCount(categoriesVisibleCount + 3);
         }
     };
     const handleExpandSort = () => {
-        if (sortVisibleCount + 5 > bookSortOptions.length) {
+        if (sortVisibleCount + 3 > bookSortOptions.length) {
             setSortVisibleCount(bookSortOptions.length);
         } else {
-            setSortVisibleCount(sortVisibleCount + 5);
+            setSortVisibleCount(sortVisibleCount + 3);
         }
     };
 
-    const handleCollapseLanguages = () => setLanguagesVisibleCount(5);
-    const handleCollapsePublishers = () => setPublishersVisibleCount(5);
-    const handleCollapseCategories = () => setCategoriesVisibleCount(5);
-    const handleCollapseSort = () => setSortVisibleCount(5);
+    const handleCollapseLanguages = () => setLanguagesVisibleCount(3);
+    const handleCollapsePublishers = () => setPublishersVisibleCount(3);
+    const handleCollapseCategories = () => setCategoriesVisibleCount(3);
+    const handleCollapseSort = () => setSortVisibleCount(3);
 
     const languagesToShow = filter.languages.slice(0, languagesVisibleCount);
     const publishersToShow = filter.publishers.slice(0, publishersVisibleCount);
@@ -67,16 +67,16 @@ export default function BookFilter({ filter }: Props) {
     const sortOptionsToShow = bookSortOptions.slice(0, sortVisibleCount);
 
     const showExpandLanguages =
-        filter.languages.length > 5 &&
+        filter.languages.length > 3 &&
         languagesVisibleCount < filter.languages.length;
     const showExpandPublishers =
-        filter.publishers.length > 5 &&
+        filter.publishers.length > 3 &&
         publishersVisibleCount < filter.publishers.length;
     const showExpandCategories =
-        filter.categories.length > 5 &&
+        filter.categories.length > 3 &&
         categoriesVisibleCount < filter.categories.length;
     const showExpandSort =
-        bookSortOptions.length > 5 && sortVisibleCount < bookSortOptions.length;
+        bookSortOptions.length > 3 && sortVisibleCount < bookSortOptions.length;
 
     const handlePriceChange = (
         _event: Event | React.SyntheticEvent,
@@ -116,7 +116,7 @@ export default function BookFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandSort}
-                    isCollapsed={sortVisibleCount > 5}
+                    isCollapsed={sortVisibleCount > 3}
                     onExpand={handleExpandSort}
                     onCollapse={handleCollapseSort}
                 />
@@ -175,7 +175,7 @@ export default function BookFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandLanguages}
-                    isCollapsed={languagesVisibleCount > 5}
+                    isCollapsed={languagesVisibleCount > 3}
                     onExpand={handleExpandLanguages}
                     onCollapse={handleCollapseLanguages}
                 />
@@ -193,7 +193,7 @@ export default function BookFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandCategories}
-                    isCollapsed={categoriesVisibleCount > 5}
+                    isCollapsed={categoriesVisibleCount > 3}
                     onExpand={handleExpandCategories}
                     onCollapse={handleCollapseCategories}
                 />
@@ -211,7 +211,7 @@ export default function BookFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandPublishers}
-                    isCollapsed={publishersVisibleCount > 5}
+                    isCollapsed={publishersVisibleCount > 3}
                     onExpand={handleExpandPublishers}
                     onCollapse={handleCollapsePublishers}
                 />

@@ -30,13 +30,11 @@ export default function AuthorDetail() {
         dispatch(getAuthorAsync(parseInt(id!)));
     }, []);
 
-    const {
-        status: authorStatus,
-        authorDetail,
-        authorDetailLoaded,
-    } = useAppSelector((state) => state.author);
+    const { status, authorDetail, authorDetailLoaded } = useAppSelector(
+        (state) => state.author
+    );
 
-    if (authorStatus.includes("pending") || !authorDetailLoaded)
+    if (status.includes("pending") || !authorDetailLoaded)
         return <LoadingComponent />;
 
     if (!authorDetail) return <NotFound />;

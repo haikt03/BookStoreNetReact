@@ -1,18 +1,17 @@
-﻿using BookStoreNetReact.Application.Dtos.Book;
-using BookStoreNetReact.Application.Dtos.Order;
+﻿using BookStoreNetReact.Application.Dtos.Order;
 using BookStoreNetReact.Application.Helpers;
-using BookStoreNetReact.Domain.Entities.OrderAggregate;
 using Stripe;
 
 namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface IOrderService
     {
-        Task<PagedList<OrderDto>?> GetAllOrdersAsync(FilterOrderDto filterDto);
-        Task<PagedList<OrderDto>?> GetAllOrdersByUserIdAsync(FilterOrderDto filterDto, int userId);
-        Task<OrderDetailDto?> GetOrderByIdAsync(int orderId, int userId);
-        Task<OrderDetailDto?> CreateOrderAsync(CreateOrderDto createDto, int userId);
-        Task<bool> UpdateOrderStatusAsync(Charge charge);
+        Task<PagedList<OrderDto>?> GetAllWithFilterAsync(FilterOrderDto filterDto);
+        Task<PagedList<OrderDto>?> GetAllWithFilterByUserIdAsync(FilterOrderDto filterDto, int userId);
+        Task<OrderDetailDto?> GetByIdAsync(int orderId, int userId);
+        Task<OrderDetailDto?> CreateAsync(CreateOrderDto createDto, int userId);
+        Task<bool> UpdatePaymentStatusAsync(Charge charge);
+        Task<OrderDetailDto?> UpdateOrderStatusAsync(UpdateOrderStatusDto updateDto, int orderId);
         Task<OrderFilterDto?> GetFilterAsync();
     }
 }

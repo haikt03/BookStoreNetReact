@@ -21,7 +21,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<OrderDto>>> GetAllOrders([FromQuery] FilterOrderDto filterDto)
         {
-            var ordersDto = await _orderService.GetAllOrdersAsync(filterDto);
+            var ordersDto = await _orderService.GetAllWithFilterAsync(filterDto);
             if (ordersDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy đơn hàng" });
             Response.AddPaginationHeader(ordersDto.Pagination);
@@ -36,7 +36,7 @@ namespace BookStoreNetReact.Api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var ordersDto = await _orderService.GetAllOrdersByUserIdAsync(filterDto, int.Parse(userId));
+            var ordersDto = await _orderService.GetAllWithFilterByUserIdAsync(filterDto, int.Parse(userId));
             if (ordersDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy đơn hàng" });
 
@@ -52,7 +52,7 @@ namespace BookStoreNetReact.Api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var orderDto = await _orderService.GetOrderByIdAsync(id, int.Parse(userId));
+            var orderDto = await _orderService.GetByIdAsync(id, int.Parse(userId));
             if (orderDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy đơn hàng" });
             return Ok(orderDto);
@@ -66,11 +66,21 @@ namespace BookStoreNetReact.Api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var orderDto = await _orderService.CreateOrderAsync(createDto, int.Parse(userId));
+            var orderDto = await _orderService.CreateAsync(createDto, int.Parse(userId));
             if (orderDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy đơn hàng" });
 
             return CreatedAtRoute("GetOrderById", new { id = orderDto.Id }, orderDto);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<OrderDetailDto>> UpdateOrderStatus([FromBody] UpdateOrderStatusDto updateOrderStatusDto, int id)
+        {
+            var orderDto = await _orderService.UpdateOrderStatusAsync(updateOrderStatusDto, id);
+            if (orderDto == null)
+                return BadRequest(new ProblemDetails { Title = "Cập nhật trạng thái đơn hàng không thành công" });
+            return orderDto;
         }
 
         [Authorize]

@@ -20,7 +20,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<AuthorDto>>> GetAllAuthors([FromQuery] FilterAuthorDto filterDto)
         {
-            var authorsDto = await _authorService.GetAllAuthorsAsync(filterDto);
+            var authorsDto = await _authorService.GetAllWithFilterAsync(filterDto);
             if (authorsDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
             Response.AddPaginationHeader(authorsDto.Pagination);
@@ -30,7 +30,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet("{id}", Name = nameof(GetAuthorById))]
         public async Task<ActionResult<AuthorDetailDto>> GetAuthorById(int id)
         {
-            var authorDto = await _authorService.GetAuthorByIdAsync(id);
+            var authorDto = await _authorService.GetByIdAsync(id);
             if (authorDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
             return Ok(authorDto);
@@ -40,7 +40,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AuthorDetailDto>> CreateAuthor([FromForm] CreateAuthorDto createDto)
         {
-            var authorDto = await _authorService.CreateAuthorAsync(createDto);
+            var authorDto = await _authorService.CreateAsync(createDto);
             if (authorDto == null)
                 return BadRequest(new ProblemDetails { Title = "Thêm mới tác giả không thành công" });
             return CreatedAtRoute(nameof(GetAuthorById), new { id = authorDto.Id }, authorDto);
@@ -50,7 +50,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<AuthorDetailDto>> UpdateAuthor([FromForm] UpdateAuthorDto updateDto, int id)
         {
-            var authorDto = await _authorService.UpdateAuthorAsync(updateDto, id);
+            var authorDto = await _authorService.UpdateAsync(updateDto, id);
             if (authorDto == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật tác giả không thành công" });
             return Ok(authorDto);
@@ -60,14 +60,14 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAuthor(int id)
         {
-            var result = await _authorService.DeleteAuthorAsync(id);
+            var result = await _authorService.DeleteAsync(id);
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Xoá tác giả không thành công" });
             return Ok();
         }
 
         [HttpGet("filter")]
-        public async Task<ActionResult<AuthorFilterDto>> GetFilterAsync()
+        public async Task<ActionResult<AuthorFilterDto>> GetFilter()
         {
             var filterDto = await _authorService.GetFilterAsync();
             if (filterDto == null)
@@ -75,20 +75,10 @@ namespace BookStoreNetReact.Api.Controllers
             return Ok(filterDto);
         }
 
-        [HttpGet("{id}/books")]
-        public async Task<ActionResult<PagedList<BookDto>>> GetAllBooksByAuthor([FromQuery] FilterBookDto filterDto, int id)
-        {
-            var booksDto = await _authorService.GetAllBooksByAuthorAsync(filterDto, id);
-            if (booksDto == null)
-                return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
-            Response.AddPaginationHeader(booksDto.Pagination);
-            return Ok(booksDto);
-        }
-
         [HttpGet("upsert-book")]
         public async Task<ActionResult<List<AuthorForUpsertBookDto>>> GetAuthorsForUpsertBook()
         {
-            var authorsDto = await _authorService.GetAllAuthorsForUpsertBookAsync();
+            var authorsDto = await _authorService.GetAllForUpsertBookAsync();
             if (authorsDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy tác giả" });
             return Ok(authorsDto);

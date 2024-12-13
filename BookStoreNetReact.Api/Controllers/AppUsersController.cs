@@ -21,7 +21,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<AppUserDto>>> GetAllUsers([FromQuery] FilterAppUserDto filterDto)
         {
-            var usersDto = await _appUserService.GetAllUsersAsync(filterDto);
+            var usersDto = await _appUserService.GetAllWithFilterAsync(filterDto);
             if (usersDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy người dùng" });
             Response.AddPaginationHeader(usersDto.Pagination);
@@ -31,7 +31,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet("{id}", Name = nameof(GetUserById))]
         public async Task<ActionResult<AppUserDetailDto>> GetUserById(int id)
         {
-            var userDto = await _appUserService.GetUserByIdAsync(id);
+            var userDto = await _appUserService.GetByIdAsync(id);
             if (userDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy người dùng" });
             return Ok(userDto);
@@ -41,7 +41,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser([FromForm] UpdateAppUserDto updateDto, int id)
         {
-            var result = await _appUserService.UpdateUserAsync(updateDto, id);
+            var result = await _appUserService.UpdateAsync(updateDto, id);
             if (result == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật người dùng không thành công" });
 
@@ -60,38 +60,9 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
-            var result = await _appUserService.DeleteUserAsync(id);
+            var result = await _appUserService.DeleteAsync(id);
             if (result == null)
                 return BadRequest(new ProblemDetails { Title = "Xóa người dùng không thành công" });
-
-            if (result != null && !result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(error.Code, error.Description);
-                }
-                return ValidationProblem();
-            }
-            return Ok();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPut("{userId}/address")]
-        public async Task<ActionResult> UpdateUserAddres([FromBody]UpdateUserAddressDto updateDto, int userId, int addressId)
-        {
-            var result = await _appUserService.UpdateUserAddressAsync(updateDto, userId);
-            if (!result)
-                return BadRequest(new ProblemDetails { Title = "Cập nhật địa chỉ người dùng không thành công" });
-            return Ok();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPut("{userId}/password")]
-        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto, int userId)
-        {
-            var result = await _appUserService.ChangePasswordAsync(changePasswordDto, userId);
-            if (result == null)
-                return BadRequest(new ProblemDetails { Title = "Thay đổi mật khẩu không thành công" });
 
             if (result != null && !result.Succeeded)
             {

@@ -19,7 +19,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<BookDto>>> GetAllBooks([FromQuery] FilterBookDto filterDto)
         {
-            var booksDto = await _bookService.GetAllBooksAsync(filterDto);
+            var booksDto = await _bookService.GetAllWithFilterAsync(filterDto);
             if (booksDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
             Response.AddPaginationHeader(booksDto.Pagination);
@@ -29,7 +29,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpGet("{id}", Name = nameof(GetBookById))]
         public async Task<ActionResult<BookDetailDto>> GetBookById(int id)
         {
-            var bookDto = await _bookService.GetBookByIdAsync(id);
+            var bookDto = await _bookService.GetByIdAsync(id);
             if (bookDto == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy sách" });
             return Ok(bookDto);
@@ -39,7 +39,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<BookDetailDto>> CreateBook([FromForm] CreateBookDto createDto)
         {
-            var bookDto = await _bookService.CreateBookAsync(createDto);
+            var bookDto = await _bookService.CreateAsync(createDto);
             if (bookDto == null)
                 return BadRequest(new ProblemDetails { Title = "Thêm mới sách không thành công" });
             return CreatedAtRoute(nameof(GetBookById), new { id = bookDto.Id }, bookDto);
@@ -49,7 +49,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<BookDetailDto>> UpdateBook([FromForm] UpdateBookDto updateDto, int id)
         {
-            var bookDto = await _bookService.UpdateBookAsync(updateDto, id);
+            var bookDto = await _bookService.UpdateAsync(updateDto, id);
             if (bookDto == null)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật sách không thành công" });
             return Ok(bookDto);
@@ -59,7 +59,7 @@ namespace BookStoreNetReact.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBook(int id)
         {
-            var result = await _bookService.DeleteBookAsync(id);
+            var result = await _bookService.DeleteAsync(id);
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Xoá sách không thành công" });
             return Ok();

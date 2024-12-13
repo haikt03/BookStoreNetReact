@@ -29,13 +29,11 @@ export default function OrderDetail() {
         dispatch(getOrderAsync(parseInt(id!)));
     }, [id, dispatch]);
 
-    const {
-        status: orderStatus,
-        orderDetail,
-        orderDetailLoaded,
-    } = useAppSelector((state) => state.order);
+    const { status, orderDetail, orderDetailLoaded } = useAppSelector(
+        (state) => state.order
+    );
 
-    if (orderStatus.includes("pending") || !orderDetailLoaded)
+    if (status.includes("pending") || !orderDetailLoaded)
         return <LoadingComponent />;
 
     if (!orderDetail) return <NotFound />;
@@ -127,6 +125,40 @@ export default function OrderDetail() {
                                     {orderDetail.paymentIntentId}
                                 </TableCell>
                             </TableRow>
+                            {role === "Admin" && orderDetail.user && (
+                                <>
+                                    <TableRow>
+                                        <TableCell
+                                            sx={{ whiteSpace: "nowrap" }}
+                                        >
+                                            Người đặt hàng
+                                        </TableCell>
+                                        <TableCell>
+                                            {orderDetail.user.fullName}
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell
+                                            sx={{ whiteSpace: "nowrap" }}
+                                        >
+                                            Email
+                                        </TableCell>
+                                        <TableCell>
+                                            {orderDetail.user.email}
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell
+                                            sx={{ whiteSpace: "nowrap" }}
+                                        >
+                                            Số điện thoại
+                                        </TableCell>
+                                        <TableCell>
+                                            {orderDetail.user.phoneNumber}
+                                        </TableCell>
+                                    </TableRow>
+                                </>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>

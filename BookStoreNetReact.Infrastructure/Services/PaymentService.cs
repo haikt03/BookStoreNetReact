@@ -16,7 +16,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             _paymentOptions = paymentOptions;
             _logger = logger;
         }
-        public async Task<PaymentIntent?> CreateOrUpdatePaymentIntent(Basket basket)
+        public async Task<PaymentIntent?> GeneratePaymentIntent(Basket basket)
         {
             try
             {

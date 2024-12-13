@@ -28,40 +28,40 @@ export default function OrderFilter({ filter }: Props) {
     const dispatch = useAppDispatch();
 
     const [orderStatusesVisibleCount, setOrderStatusesVisibleCount] =
-        useState(5);
+        useState(3);
     const [paymentStatusesVisibleCount, setPaymentStatusesVisibleCount] =
-        useState(5);
-    const [sortVisibleCount, setSortVisibleCount] = useState(5);
+        useState(3);
+    const [sortVisibleCount, setSortVisibleCount] = useState(3);
     const [orderDateStart, setOrderDateStart] = useState<Dayjs | null>(null);
     const [orderDateEnd, setOrderDateEnd] = useState<Dayjs | null>(null);
     const [dateError, setDateError] = useState<string | null>(null);
 
     const handleExpandOrderStatuses = () => {
-        if (orderStatusesVisibleCount + 5 > filter.orderStatuses.length) {
+        if (orderStatusesVisibleCount + 3 > filter.orderStatuses.length) {
             setOrderStatusesVisibleCount(filter.orderStatuses.length);
         } else {
-            setOrderStatusesVisibleCount(orderStatusesVisibleCount + 5);
+            setOrderStatusesVisibleCount(orderStatusesVisibleCount + 3);
         }
     };
     const handleExpandPaymentStatuses = () => {
-        if (paymentStatusesVisibleCount + 5 > filter.paymentStatuses.length) {
-            setPaymentStatusesVisibleCount(filter.orderStatuses.length);
+        if (paymentStatusesVisibleCount + 3 > filter.paymentStatuses.length) {
+            setPaymentStatusesVisibleCount(filter.paymentStatuses.length);
         } else {
-            setPaymentStatusesVisibleCount(paymentStatusesVisibleCount + 5);
+            setPaymentStatusesVisibleCount(paymentStatusesVisibleCount + 3);
         }
     };
     const handleExpandSort = () => {
-        if (sortVisibleCount + 5 > orderSortOptions.length) {
+        if (sortVisibleCount + 3 > orderSortOptions.length) {
             setSortVisibleCount(orderSortOptions.length);
         } else {
-            setSortVisibleCount(sortVisibleCount + 5);
+            setSortVisibleCount(sortVisibleCount + 3);
         }
     };
 
-    const handleCollapseOrderStatuses = () => setOrderStatusesVisibleCount(5);
+    const handleCollapseOrderStatuses = () => setOrderStatusesVisibleCount(3);
     const handleCollapsePaymentStatuses = () =>
-        setPaymentStatusesVisibleCount(5);
-    const handleCollapseSort = () => setSortVisibleCount(5);
+        setPaymentStatusesVisibleCount(3);
+    const handleCollapseSort = () => setSortVisibleCount(3);
 
     const orderStatusesToShow = filter.orderStatuses.slice(
         0,
@@ -69,18 +69,18 @@ export default function OrderFilter({ filter }: Props) {
     );
     const paymentStatusesToShow = filter.paymentStatuses.slice(
         0,
-        orderStatusesVisibleCount
+        paymentStatusesVisibleCount
     );
     const sortOptionsToShow = orderSortOptions.slice(0, sortVisibleCount);
 
     const showExpandOrderStatuses =
-        filter.orderStatuses.length > 5 &&
+        filter.orderStatuses.length > 3 &&
         orderStatusesVisibleCount < filter.orderStatuses.length;
     const showExpandPaymentStatuses =
-        filter.orderStatuses.length > 5 &&
-        orderStatusesVisibleCount < filter.orderStatuses.length;
+        filter.paymentStatuses.length > 3 &&
+        paymentStatusesVisibleCount < filter.paymentStatuses.length;
     const showExpandSort =
-        orderSortOptions.length > 5 &&
+        orderSortOptions.length > 3 &&
         sortVisibleCount < orderSortOptions.length;
 
     const handleAmountChange = (
@@ -150,7 +150,7 @@ export default function OrderFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandSort}
-                    isCollapsed={sortVisibleCount > 5}
+                    isCollapsed={sortVisibleCount > 3}
                     onExpand={handleExpandSort}
                     onCollapse={handleCollapseSort}
                 />
@@ -241,7 +241,7 @@ export default function OrderFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandPaymentStatuses}
-                    isCollapsed={paymentStatusesVisibleCount > 5}
+                    isCollapsed={paymentStatusesVisibleCount > 3}
                     onExpand={handleExpandPaymentStatuses}
                     onCollapse={handleCollapsePaymentStatuses}
                 />
@@ -259,7 +259,7 @@ export default function OrderFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandOrderStatuses}
-                    isCollapsed={orderStatusesVisibleCount > 5}
+                    isCollapsed={orderStatusesVisibleCount > 3}
                     onExpand={handleExpandOrderStatuses}
                     onCollapse={handleCollapseOrderStatuses}
                 />

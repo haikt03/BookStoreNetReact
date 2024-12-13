@@ -5,7 +5,6 @@ using BookStoreNetReact.Application.Interfaces.Repositories;
 using BookStoreNetReact.Application.Interfaces.Services;
 using BookStoreNetReact.Domain.Entities;
 using BookStoreNetReact.Infrastructure.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BookStoreNetReact.Infrastructure.Services
@@ -16,11 +15,11 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
         }
 
-        public async Task<PagedList<BookDto>?> GetAllBooksAsync(FilterBookDto filterDto)
+        public async Task<PagedList<BookDto>?> GetAllWithFilterAsync(FilterBookDto filterDto)
         {
             try
             {
-                var books = _unitOfWork.BookRepository.GetAll(filterDto);
+                var books = _unitOfWork.BookRepository.GetAllWithFilter(filterDto);
                 var booksDto = await books.ToPagedListAsync
                 (
                     selector: b => _mapper.Map<BookDto>(b),
@@ -37,11 +36,11 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<BookDetailDto?> GetBookByIdAsync(int bookId)
+        public async Task<BookDetailDto?> GetByIdAsync(int bookId)
         {
             try
             {
-                var book = await _unitOfWork.BookRepository.GetDetailByIdAsync(bookId);
+                var book = await _unitOfWork.BookRepository.GetByIdAsync(bookId, "Author");
                 if (book == null)
                     throw new NullReferenceException("Book not found");
                 var bookDto = _mapper.Map<BookDetailDto>(book);
@@ -54,7 +53,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<BookDetailDto?> CreateBookAsync(CreateBookDto createDto)
+        public async Task<BookDetailDto?> CreateAsync(CreateBookDto createDto)
         {
             try
             {
@@ -74,7 +73,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (!result)
                     throw new InvalidOperationException("Failed to creating book");
 
-                var bookDto = _mapper.Map<BookDetailDto>(await _unitOfWork.BookRepository.GetDetailByIdAsync(book.Id));
+                var bookDto = _mapper.Map<BookDetailDto>(await _unitOfWork.BookRepository.GetByIdAsync(book.Id, "Author"));
                 return bookDto;
             }
             catch (Exception ex)
@@ -84,7 +83,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<BookDetailDto?> UpdateBookAsync(UpdateBookDto updateDto, int bookId)
+        public async Task<BookDetailDto?> UpdateAsync(UpdateBookDto updateDto, int bookId)
         {
             try
             {
@@ -119,7 +118,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> DeleteBookAsync(int bookId)
+        public async Task<bool> DeleteAsync(int bookId)
         {
             try
             {
@@ -145,8 +144,18 @@ namespace BookStoreNetReact.Infrastructure.Services
         {
             try
             {
-                var filterDto = await _unitOfWork.BookRepository.GetFilterAsync();
-                return filterDto;
+                var publishers = await _unitOfWork.BookRepository.GetStringFilterAsync(b => b.Publisher);
+                var languages = await _unitOfWork.BookRepository.GetStringFilterAsync(b => b.Language);
+                var categories = await _unitOfWork.BookRepository.GetStringFilterAsync(b => b.Category);
+                var (minPrice, maxPrice) = await _unitOfWork.BookRepository.GetPriceRangeAsync();
+                return new BookFilterDto 
+                { 
+                    Publishers = publishers, 
+                    Languages = languages, 
+                    Categories = categories, 
+                    MinPrice = minPrice, 
+                    MaxPrice = maxPrice
+                };
             }
             catch (Exception ex)
             {

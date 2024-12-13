@@ -5,6 +5,6 @@ namespace BookStoreNetReact.Application.Interfaces.Services
 {
     public interface IPaymentService
     {
-        Task<PaymentIntent?> CreateOrUpdatePaymentIntent(Basket basket);
+        Task<PaymentIntent?> GeneratePaymentIntent(Basket basket);
     }
 }

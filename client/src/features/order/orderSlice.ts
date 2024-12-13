@@ -74,7 +74,6 @@ export const getOrdersAsync = createAsyncThunk<
     { state: RootState }
 >("order/getOrdersAsync", async (_, thunkAPI) => {
     try {
-        console.log("test");
         const params = getAxiosParams(thunkAPI.getState().order.orderParams);
         let response;
         const role = store.getState().account.role;
@@ -117,7 +116,7 @@ export const getOrderFilterAsync = createAsyncThunk<Filter, void>(
 function initParams(): OrderParams {
     return {
         pageIndex: 1,
-        pageSize: 9,
+        pageSize: 12,
         sort: "orderDateDesc",
         paymentStatuses: [],
         orderStatuses: [],
@@ -162,6 +161,10 @@ export const orderSlice = createSlice({
         resetOrderParams: (state) => {
             state.orderParams = initParams();
         },
+        setOrder: (state, action) => {
+            ordersAdapter.upsertOne(state, action.payload);
+            state.ordersLoaded = false;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getOrdersAsync.pending, (state) => {
@@ -191,6 +194,7 @@ export const orderSlice = createSlice({
             state.status = "pendingGetOrderFilter";
         });
         builder.addCase(getOrderFilterAsync.fulfilled, (state, action) => {
+            state.filter.paymentStatuses = action.payload.paymentStatuses;
             state.filter.orderStatuses = action.payload.orderStatuses;
             state.filter.minAmount = action.payload.minAmount;
             state.filter.maxAmount = action.payload.maxAmount;
@@ -208,6 +212,7 @@ export const {
     setOrderParams,
     setOrderPageIndex,
     resetOrderParams,
+    setOrder,
 } = orderSlice.actions;
 
 export const orderSelectors = ordersAdapter.getSelectors(

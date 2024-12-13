@@ -79,45 +79,51 @@ export default function BasketTable({ items, isBasket = true }: Props) {
                             </TableCell>
                             <TableCell align="center">
                                 {isBasket && (
-                                    <LoadingButton
-                                        loading={
-                                            status ===
-                                            "pendingRemoveItem" +
-                                                item.book.id +
-                                                "rem"
-                                        }
-                                        onClick={() =>
-                                            dispatch(
-                                                removeBasketItemAsync({
-                                                    bookId: item.book.id,
-                                                    quantity: 1,
-                                                    name: "rem",
-                                                })
-                                            )
-                                        }
-                                        color="error"
+                                    <Box
+                                        display="flex"
+                                        justifyContent="center"
+                                        alignItems="center"
                                     >
-                                        <Remove />
-                                    </LoadingButton>
-                                )}
-                                {item.quantity}
-                                {isBasket && (
-                                    <LoadingButton
-                                        loading={
-                                            status ===
-                                            "pendingAddItem" + item.book.id
-                                        }
-                                        onClick={() =>
-                                            dispatch(
-                                                addBasketItemAsync({
-                                                    bookId: item.book.id,
-                                                })
-                                            )
-                                        }
-                                        color="secondary"
-                                    >
-                                        <Add />
-                                    </LoadingButton>
+                                        <LoadingButton
+                                            loading={
+                                                status ===
+                                                "pendingRemoveItem" +
+                                                    item.book.id +
+                                                    "rem"
+                                            }
+                                            onClick={() =>
+                                                dispatch(
+                                                    removeBasketItemAsync({
+                                                        bookId: item.book.id,
+                                                        quantity: 1,
+                                                        name: "rem",
+                                                    })
+                                                )
+                                            }
+                                            color="error"
+                                        >
+                                            <Remove />
+                                        </LoadingButton>
+
+                                        {item.quantity}
+
+                                        <LoadingButton
+                                            loading={
+                                                status ===
+                                                "pendingAddItem" + item.book.id
+                                            }
+                                            onClick={() =>
+                                                dispatch(
+                                                    addBasketItemAsync({
+                                                        bookId: item.book.id,
+                                                    })
+                                                )
+                                            }
+                                            color="secondary"
+                                        >
+                                            <Add />
+                                        </LoadingButton>
+                                    </Box>
                                 )}
                             </TableCell>
                             <TableCell align="right">

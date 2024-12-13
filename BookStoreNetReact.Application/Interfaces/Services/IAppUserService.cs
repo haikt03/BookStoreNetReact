@@ -10,11 +10,11 @@ namespace BookStoreNetReact.Application.Interfaces.Services
         Task<IdentityResult?> RegisterAsync(RegisterDto registerDto);
         Task<AppUserWithTokenDto?> LoginAsync(LoginDto loginDto);
         Task LogoutAsync(RefreshTokenDto logoutDto);
-        Task<PagedList<AppUserDto>?> GetAllUsersAsync(FilterAppUserDto filterDto);
-        Task<AppUserDetailDto?> GetUserByIdAsync(int userId);
-        Task<IdentityResult?> UpdateUserAsync(UpdateAppUserDto updateDto, int userId);
-        Task<IdentityResult?> DeleteUserAsync(int userId);
-        Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int userId);
+        Task<PagedList<AppUserDto>?> GetAllWithFilterAsync(FilterAppUserDto filterDto);
+        Task<AppUserDetailDto?> GetByIdAsync(int userId);
+        Task<IdentityResult?> UpdateAsync(UpdateAppUserDto updateDto, int userId);
+        Task<IdentityResult?> DeleteAsync(int userId);
+        Task<bool> UpdateAddressAsync(UpdateUserAddressDto updateDto, int userId);
         Task<IdentityResult?> ChangePasswordAsync(ChangePasswordDto changePasswordDto, int userId);
         Task<bool> SendEmailConfirmationAsync(int userId);
         Task<IdentityResult?> ConfirmEmailAsync(int userId, string token);

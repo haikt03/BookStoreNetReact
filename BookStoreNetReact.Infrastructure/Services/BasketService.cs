@@ -87,7 +87,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                 if (basket == null)
                     throw new NullReferenceException("Basket not found");
 
-                var intent = await _paymentService.CreateOrUpdatePaymentIntent(basket);
+                var intent = await _paymentService.GeneratePaymentIntent(basket);
                 if (intent == null)
                     throw new NullReferenceException("Intent not found");
 

@@ -18,35 +18,35 @@ export default function AuthorFilter({ filter }: Props) {
     const dispatch = useAppDispatch();
     const { authorParams } = useAppSelector((state) => state.author);
 
-    const [countriesVisibleCount, setCountriesVisibleCount] = useState(5);
-    const [sortVisibleCount, setSortVisibleCount] = useState(5);
+    const [countriesVisibleCount, setCountriesVisibleCount] = useState(3);
+    const [sortVisibleCount, setSortVisibleCount] = useState(3);
 
     const handleExpandCountries = () => {
-        if (countriesVisibleCount + 5 > filter.countries.length) {
+        if (countriesVisibleCount + 3 > filter.countries.length) {
             setCountriesVisibleCount(filter.countries.length);
         } else {
-            setCountriesVisibleCount(countriesVisibleCount + 5);
+            setCountriesVisibleCount(countriesVisibleCount + 3);
         }
     };
     const handleExpandSort = () => {
-        if (sortVisibleCount + 5 > authorSortOptions.length) {
+        if (sortVisibleCount + 3 > authorSortOptions.length) {
             setSortVisibleCount(authorSortOptions.length);
         } else {
-            setSortVisibleCount(sortVisibleCount + 5);
+            setSortVisibleCount(sortVisibleCount + 3);
         }
     };
 
-    const handleCollapseCountries = () => setCountriesVisibleCount(5);
-    const handleCollapseSort = () => setSortVisibleCount(5);
+    const handleCollapseCountries = () => setCountriesVisibleCount(3);
+    const handleCollapseSort = () => setSortVisibleCount(3);
 
     const countriesToShow = filter.countries.slice(0, countriesVisibleCount);
     const sortOptionsToShow = authorSortOptions.slice(0, sortVisibleCount);
 
     const showExpandCountries =
-        filter.countries.length > 5 &&
+        filter.countries.length > 3 &&
         countriesVisibleCount < filter.countries.length;
     const showExpandSort =
-        authorSortOptions.length > 5 &&
+        authorSortOptions.length > 3 &&
         sortVisibleCount < authorSortOptions.length;
 
     return (
@@ -67,7 +67,7 @@ export default function AuthorFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandSort}
-                    isCollapsed={sortVisibleCount > 5}
+                    isCollapsed={sortVisibleCount > 3}
                     onExpand={handleExpandSort}
                     onCollapse={handleCollapseSort}
                 />
@@ -85,7 +85,7 @@ export default function AuthorFilter({ filter }: Props) {
                 />
                 <AppExpandableSection
                     showExpand={showExpandCountries}
-                    isCollapsed={countriesVisibleCount > 5}
+                    isCollapsed={countriesVisibleCount > 3}
                     onExpand={handleExpandCountries}
                     onCollapse={handleCollapseCountries}
                 />

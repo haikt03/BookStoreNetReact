@@ -66,7 +66,7 @@ namespace BookStoreNetReact.Infrastructure.Services
                     return null;
 
                 var tokenDto = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
-                var userDto = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(user.Id);
+                var userDto = await _unitOfWork.AppUserRepository.GetByIdAsync(user.Id);
                 return new AppUserWithTokenDto 
                 { 
                     User = _mapper.Map<AppUserDetailDto>(user), 
@@ -80,11 +80,25 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<PagedList<AppUserDto>?> GetAllUsersAsync(FilterAppUserDto filterDto)
+        public async Task LogoutAsync(RefreshTokenDto logoutDto)
         {
             try
             {
-                var users = _unitOfWork.AppUserRepository.GetAll(filterDto);
+                var result = await _tokenService.RemoveRefreshTokenAsync(logoutDto.RefreshToken);
+                if (!result)
+                    throw new InvalidOperationException("Failed to logout");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "An error occurred while signing out");
+            }
+        }
+
+        public async Task<PagedList<AppUserDto>?> GetAllWithFilterAsync(FilterAppUserDto filterDto)
+        {
+            try
+            {
+                var users = _unitOfWork.AppUserRepository.GetAllWithFilter(filterDto);
                 var result = await users.ToPagedListAsync
                     (
                         selector: au => _mapper.Map<AppUserDto>(au),
@@ -101,11 +115,11 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<AppUserDetailDto?> GetUserByIdAsync(int userId)
+        public async Task<AppUserDetailDto?> GetByIdAsync(int userId)
         {
             try
             {
-                var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId, "Address");
                 if (user == null)
                     throw new NullReferenceException("User not found");
                 var userDto = _mapper.Map<AppUserDetailDto>(user);
@@ -118,7 +132,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<IdentityResult?> UpdateUserAsync(UpdateAppUserDto updateDto, int userId)
+        public async Task<IdentityResult?> UpdateAsync(UpdateAppUserDto updateDto, int userId)
         {
             try
             {
@@ -150,7 +164,7 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<IdentityResult?> DeleteUserAsync(int userId)
+        public async Task<IdentityResult?> DeleteAsync(int userId)
         {
             try
             {
@@ -171,11 +185,11 @@ namespace BookStoreNetReact.Infrastructure.Services
             }
         }
 
-        public async Task<bool> UpdateUserAddressAsync(UpdateUserAddressDto updateDto, int userId)
+        public async Task<bool> UpdateAddressAsync(UpdateUserAddressDto updateDto, int userId)
         {
             try
             {
-                var user = await _unitOfWork.AppUserRepository.GetDetailByIdAsync(userId);
+                var user = await _unitOfWork.AppUserRepository.GetByIdAsync(userId, "Address");
                 if (user == null || user.Address == null)
                     throw new NullReferenceException("Address not found");
 
@@ -256,20 +270,6 @@ namespace BookStoreNetReact.Infrastructure.Services
             {
                 _logger.LogWarning(ex, "An error occurred while confirming email");
                 return null;
-            }
-        }
-
-        public async Task LogoutAsync(RefreshTokenDto logoutDto)
-        {
-            try
-            {
-                var result = await _tokenService.RemoveRefreshTokenAsync(logoutDto.RefreshToken);
-                if (!result)
-                    throw new InvalidOperationException("Failed to logout");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "An error occurred while signing out");
             }
         }
 

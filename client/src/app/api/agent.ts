@@ -158,6 +158,8 @@ const order = {
         requests.get("orders/me", params),
     getOrder: (id: number) => requests.get(`orders/${id}`),
     createOrder: (body: any) => requests.post("orders", body),
+    updateOrderStatus: (id: number, body: any) =>
+        requests.put(`orders/${id}`, body),
     getOrderFilter: () => requests.get("orders/filter"),
 };
 

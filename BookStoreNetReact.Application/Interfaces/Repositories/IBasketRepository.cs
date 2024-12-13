@@ -2,11 +2,8 @@
 
 namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
-    public interface IBasketRepository
+    public interface IBasketRepository : IGenericRepository<Basket>
     {
         Task<Basket?> GetByUserIdAsync(int userId);
-        Task AddAsync(Basket basket);
-        void Update(Basket basket);
-        void Clear(Basket basket);
     }
 }

@@ -6,9 +6,8 @@ namespace BookStoreNetReact.Application.Interfaces.Repositories
 {
     public interface IAppUserRepository
     {
-        IQueryable<AppUser> GetAll(FilterAppUserDto filterDto);
-        Task<AppUser?> GetByIdAsync(int userId);
-        Task<AppUser?> GetDetailByIdAsync(int userId);
+        IQueryable<AppUser> GetAllWithFilter(FilterAppUserDto filterDto);
+        Task<AppUser?> GetByIdAsync(int userId, string? includeProperties = null);
         Task<AppUser?> GetByUserNameAsync(string username);
         Task<IList<string>> GetRolesAsync(AppUser user);
         Task<IdentityResult?> AddAsync(AppUser user, string password);
