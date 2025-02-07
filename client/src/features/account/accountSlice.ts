@@ -57,21 +57,18 @@ export const logoutAsync = createAsyncThunk<void>(
     "account/logout",
     async (_, thunkAPI) => {
         try {
-            const refreshToken = Cookies.get("refreshToken");
-            if (refreshToken) {
-                await agent.account.logout({ refreshToken });
-            }
+            await agent.account.logout();
         } catch (error: any) {
             return thunkAPI.rejectWithValue({ error: error.data });
         }
     }
 );
 
-export const refreshAsync = createAsyncThunk<void, FieldValues>(
+export const refreshAsync = createAsyncThunk<void>(
     "account/refresh",
-    async (data, thunkAPI) => {
+    async (_, thunkAPI) => {
         try {
-            await agent.account.refresh(data);
+            await agent.account.refresh();
             thunkAPI.dispatch(setRole());
             if (store.getState().account.role === "Member") {
                 thunkAPI.dispatch(getBasketAsync());

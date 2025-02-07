@@ -3,7 +3,7 @@ services:
     image: mcr.microsoft.com/azure-sql-edge
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Vti@1234"
+      MSSQL_SA_PASSWORD: "Haikt03@"
     ports:
       - "1433:1433"
     volumes:

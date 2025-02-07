@@ -25,11 +25,15 @@ namespace BookStoreNetReact.Api.Controllers
 
             Response.Cookies.Append("accessToken", userWithToken.Token.AccessToken, new CookieOptions
             {
+                HttpOnly = false,
+                Secure = false,
                 SameSite = SameSiteMode.Lax,
                 Expires = DateTime.Now.AddMinutes(30)
             });
             Response.Cookies.Append("refreshToken", userWithToken.Token.RefreshToken, new CookieOptions
             {
+                HttpOnly = true,
+                Secure = false,
                 SameSite = SameSiteMode.Lax,
                 Expires = DateTime.Now.AddDays(7)
             });
@@ -59,12 +63,12 @@ namespace BookStoreNetReact.Api.Controllers
 
         [Authorize]
         [HttpPost("me/logout")]
-        public async Task<ActionResult> Logout([FromBody] RefreshTokenDto logoutDto)
+        public async Task<ActionResult> Logout()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
-
+            var logoutDto = new RefreshTokenDto { RefreshToken = Request.Cookies["refreshToken"] ?? "" };
             await _appUserService.LogoutAsync(logoutDto);
             Response.Cookies.Delete("accessToken");
             Response.Cookies.Delete("refreshToken");
@@ -72,18 +76,23 @@ namespace BookStoreNetReact.Api.Controllers
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult> Refresh([FromBody] RefreshTokenDto refreshDto)
+        public async Task<ActionResult> Refresh()
         {
+            var refreshDto = new RefreshTokenDto { RefreshToken = Request.Cookies["refreshToken"] ?? "" };
             var tokenDto = await _appUserService.RefreshAsync(refreshDto);
             if (tokenDto == null)
-                return Unauthorized();
+                return BadRequest(new ProblemDetails { Title = "Vui lòng đăng nhập lại"});
             Response.Cookies.Append("accessToken", tokenDto.AccessToken, new CookieOptions
             {
+                HttpOnly = false,
+                Secure = false,
                 SameSite = SameSiteMode.Lax,
                 Expires = DateTime.Now.AddMinutes(30)
             });
             Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
             {
+                HttpOnly = true,
+                Secure = false,
                 SameSite = SameSiteMode.Lax,
                 Expires = DateTime.Now.AddDays(7)
             });

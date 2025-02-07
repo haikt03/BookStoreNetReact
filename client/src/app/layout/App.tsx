@@ -5,7 +5,7 @@ import {
     CssBaseline,
     ThemeProvider,
 } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Header from "./Header";
 import LoadingComponent from "./LoadingComponent";
@@ -14,20 +14,24 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useAppDispatch } from "../store/configureStore";
 import { getCurrentUserAsync } from "../../features/account/accountSlice";
 import Footer from "./Footer";
+import Cookies from "js-cookie";
 
 function App() {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
-
-    const initApp = useCallback(async () => {
-        await dispatch(getCurrentUserAsync());
-    }, [dispatch]);
+    const accessToken = Cookies.get("accessToken");
 
     useEffect(() => {
-        initApp().then(() => setLoading(false));
-    }, [initApp]);
+        const initApp = async () => {
+            if (accessToken) {
+                await dispatch(getCurrentUserAsync());
+            }
+            setLoading(false);
+        };
+        initApp();
+    }, [dispatch, accessToken]);
 
     const paletteType = darkMode ? "dark" : "light";
     const theme = createTheme({

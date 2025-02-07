@@ -44,17 +44,14 @@ axios.interceptors.response.use(
                 toast.error(data.title);
                 break;
             case 401: {
-                const refreshToken = Cookies.get("refreshToken");
-                if (refreshToken) {
-                    await store.dispatch(refreshAsync({ refreshToken }));
-                    const accessToken = Cookies.get("accessToken");
-                    const originalRequest = error.config;
-                    if (originalRequest && accessToken) {
-                        originalRequest.headers[
-                            "Authorization"
-                        ] = `Bearer ${accessToken}`;
-                        return axios(originalRequest);
-                    }
+                await store.dispatch(refreshAsync());
+                const accessToken = Cookies.get("accessToken");
+                const originalRequest = error.config;
+                if (originalRequest && accessToken) {
+                    originalRequest.headers[
+                        "Authorization"
+                    ] = `Bearer ${accessToken}`;
+                    return axios(originalRequest);
                 }
                 router.navigate("/login");
                 break;
@@ -104,8 +101,8 @@ function createFormData(item: any) {
 const account = {
     login: (body: any) => requests.post("account/login", body),
     register: (body: any) => requests.post("account/register", body),
-    logout: (body: any) => requests.post("account/me/logout", body),
-    refresh: (body: any) => requests.post("account/refresh", body),
+    logout: () => requests.post("account/me/logout", {}),
+    refresh: () => requests.post("account/refresh", {}),
     getCurrentUser: () => requests.get("account/me"),
     updateMe: (body: any) =>
         requests.putForm("account/me", createFormData(body)),
