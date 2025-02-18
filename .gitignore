@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /BookStoreNetReact.Api/appsettings.Development.json
 /BookStoreNetReact.Api/appsettings.Development.json
+/BookStoreNetReact.Api/appsettings.json
+/BookStoreNetReact.Api/appsettings.json

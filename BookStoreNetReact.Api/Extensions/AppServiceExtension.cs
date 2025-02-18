@@ -69,9 +69,9 @@ namespace BookStoreNetReact.Api.Extensions
             {
                 opt.UseRedis(conf =>
                 {
-                    conf.DBConfig.Endpoints.Add(new ServerEndPoint("localhost", 6379));
-                    conf.DBConfig.Database = 0;
+                    conf.DBConfig.Endpoints.Add(new ServerEndPoint(cachingOptions.Host, cachingOptions.Port));
                     conf.DBConfig.Password = cachingOptions.Password;
+                    conf.DBConfig.Database = cachingOptions.Database;
                     conf.SerializerName = "json";
                 }, "default");
                 opt.WithJson();
