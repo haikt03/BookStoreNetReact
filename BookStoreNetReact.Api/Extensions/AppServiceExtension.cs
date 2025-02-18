@@ -16,6 +16,7 @@ using BookStoreNetReact.Application.Interfaces.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using BookStoreNetReact.Infrastructure.Identity;
+using EasyCaching.Core.Configurations;
 
 namespace BookStoreNetReact.Api.Extensions
 {
@@ -58,6 +59,22 @@ namespace BookStoreNetReact.Api.Extensions
                 {
                     opt.CommandTimeout(databaseOptions.CommandTimeout);
                 });
+            });
+
+            // Redis caching
+            var cachingOptions = configuration.GetSection(CachingOptions.RedisSettings).Get<CachingOptions>();
+            if (cachingOptions == null)
+                throw new NullReferenceException(nameof(cachingOptions));
+            services.AddEasyCaching(opt =>
+            {
+                opt.UseRedis(conf =>
+                {
+                    conf.DBConfig.Endpoints.Add(new ServerEndPoint("localhost", 6379));
+                    conf.DBConfig.Database = 0;
+                    conf.DBConfig.Password = cachingOptions.Password;
+                    conf.SerializerName = "json";
+                }, "default");
+                opt.WithJson();
             });
 
             // Identity

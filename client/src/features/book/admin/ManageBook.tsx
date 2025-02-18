@@ -73,7 +73,6 @@ export default function ManageBook() {
         agent.book
             .deleteBook(selectedBookId)
             .then(() => dispatch(removeBook(selectedBookId)))
-            .catch((error) => console.log(error))
             .finally(() => {
                 setLoading(false);
                 handleCloseDialog();

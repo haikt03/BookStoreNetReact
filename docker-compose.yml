@@ -1,6 +1,7 @@
 services:
   sql-server:
-    image: mcr.microsoft.com/azure-sql-edge
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_container
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Haikt03@"
@@ -8,6 +9,16 @@ services:
       - "1433:1433"
     volumes:
       - sql-data:/var/opt/mssql
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "Haikt03@"]
 
 volumes:
   sql-data:
+  redis-data:

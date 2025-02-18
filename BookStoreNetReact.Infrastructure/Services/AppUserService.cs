@@ -67,9 +67,9 @@ namespace BookStoreNetReact.Infrastructure.Services
 
                 var tokenDto = new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
                 var userDto = await _unitOfWork.AppUserRepository.GetByIdAsync(user.Id);
-                return new AppUserWithTokenDto 
-                { 
-                    User = _mapper.Map<AppUserDetailDto>(user), 
+                return new AppUserWithTokenDto
+                {
+                    User = _mapper.Map<AppUserDetailDto>(user),
                     Token = tokenDto
                 };
             }
@@ -99,14 +99,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var users = _unitOfWork.AppUserRepository.GetAllWithFilter(filterDto);
-                var result = await users.ToPagedListAsync
+                var pagedListUsers = await users.ToPagedListAsync<AppUser, AppUserDto>
                     (
-                        selector: au => _mapper.Map<AppUserDto>(au),
+                        mapper: _mapper,
                         pageSize: filterDto.PageSize,
                         pageIndex: filterDto.PageIndex,
                         logger: _logger
                     );
-                return result;
+                return pagedListUsers;
             }
             catch (Exception ex)
             {

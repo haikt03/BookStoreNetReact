@@ -20,14 +20,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var books = _unitOfWork.BookRepository.GetAllWithFilter(filterDto);
-                var booksDto = await books.ToPagedListAsync
+                var pagedListBooks = await books.ToPagedListAsync<Book, BookDto>
                 (
-                    selector: b => _mapper.Map<BookDto>(b),
+                    mapper: _mapper,
                     pageSize: filterDto.PageSize,
                     pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return booksDto;
+                return pagedListBooks;
             }
             catch (Exception ex)
             {

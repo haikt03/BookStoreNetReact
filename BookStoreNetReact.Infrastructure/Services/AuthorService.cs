@@ -21,14 +21,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var authors = _unitOfWork.AuthorRepository.GetAllWithFilter(filterDto);
-                var authorsDto = await authors.ToPagedListAsync
+                var pagedListAuthors = await authors.ToPagedListAsync<Author, AuthorDto>
                 (
-                    selector: a => _mapper.Map<AuthorDto>(a),
+                    mapper: _mapper,
                     pageSize: filterDto.PageSize,
                     pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return authorsDto;
+                return pagedListAuthors;
             }
             catch (Exception ex)
             {

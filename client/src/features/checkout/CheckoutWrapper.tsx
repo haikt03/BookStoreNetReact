@@ -19,7 +19,6 @@ export default function CheckoutWrapper() {
         agent.payment
             .createPaymentIntent()
             .then((response) => dispatch(setBasket(response)))
-            .catch((error) => console.log(error))
             .finally(() => setLoading(false));
     }, [dispatch]);
 

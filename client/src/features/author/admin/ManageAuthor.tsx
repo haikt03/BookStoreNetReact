@@ -67,7 +67,6 @@ export default function ManageAuthor() {
             agent.author
                 .deleteAuthor(authorToDelete)
                 .then(() => dispatch(removeAuthor(authorToDelete)))
-                .catch((error) => console.log(error))
                 .finally(() => {
                     setLoading(false);
                     setOpenConfirm(false);

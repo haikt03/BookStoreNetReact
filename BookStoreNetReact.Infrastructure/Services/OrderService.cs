@@ -32,14 +32,14 @@ namespace BookStoreNetReact.Infrastructure.Services
                     throw new ArgumentException("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
                 }
                 var orders = _unitOfWork.OrderRepository.GetAllWithFilter(filterDto);
-                var ordersDto = await orders.ToPagedListAsync
+                var pagedListOrders = await orders.ToPagedListAsync<Order, OrderDto>
                 (
-                    selector: o => _mapper.Map<OrderDto>(o),
+                    mapper: _mapper,
                     pageSize: filterDto.PageSize,
                     pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return ordersDto;
+                return pagedListOrders;
             }
             catch (Exception ex)
             {
@@ -53,14 +53,14 @@ namespace BookStoreNetReact.Infrastructure.Services
             try
             {
                 var orders = _unitOfWork.OrderRepository.GetAllWithFilterByUserId(filterDto, userId);
-                var ordersDto = await orders.ToPagedListAsync
+                var pagedListOrders = await orders.ToPagedListAsync<Order, OrderDto>
                 (
-                    selector: o => _mapper.Map<OrderDto>(o),
+                    mapper: _mapper,
                     pageSize: filterDto.PageSize,
                     pageIndex: filterDto.PageIndex,
                     logger: _logger
                 );
-                return ordersDto;
+                return pagedListOrders;
             }
             catch (Exception ex)
             {

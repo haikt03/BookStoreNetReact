@@ -107,7 +107,6 @@ export default function Checkout() {
                     },
                 }
             );
-            console.log("paymentResult: ", paymentResult);
             if (paymentResult.paymentIntent?.status === "succeeded") {
                 const order = await agent.order.createOrder({
                     shippingAddress: address,
@@ -129,7 +128,6 @@ export default function Checkout() {
                 setActiveStep(activeStep + 1);
             }
         } catch (error) {
-            console.log(error);
             setLoading(false);
         }
     }

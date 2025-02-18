@@ -1,6 +1,7 @@
 ﻿using BookStoreNetReact.Application.Dtos.AppUser;
 using BookStoreNetReact.Application.Dtos.UserAddress;
 using BookStoreNetReact.Application.Interfaces.Services;
+using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,9 +12,12 @@ namespace BookStoreNetReact.Api.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IAppUserService _appUserService;
-        public AccountController(IAppUserService appUserService)
+        private readonly IEasyCachingProvider _cacheProvider;
+
+        public AccountController(IAppUserService appUserService, IEasyCachingProviderFactory cachingProviderFactory)
         {
             _appUserService = appUserService;
+            _cacheProvider = cachingProviderFactory.GetCachingProvider("default");
         }
 
         [HttpPost("login")]
@@ -23,20 +27,7 @@ namespace BookStoreNetReact.Api.Controllers
             if (userWithToken == null)
                 return BadRequest(new ProblemDetails { Title = "Sai tài khoản hoặc mật khẩu" });
 
-            Response.Cookies.Append("accessToken", userWithToken.Token.AccessToken, new CookieOptions
-            {
-                HttpOnly = false,
-                Secure = false,
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTime.Now.AddMinutes(30)
-            });
-            Response.Cookies.Append("refreshToken", userWithToken.Token.RefreshToken, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = false,
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTime.Now.AddDays(7)
-            });
+            AddTokenToCookies(userWithToken.Token);
             return Ok(userWithToken.User);
         }
 
@@ -81,21 +72,9 @@ namespace BookStoreNetReact.Api.Controllers
             var refreshDto = new RefreshTokenDto { RefreshToken = Request.Cookies["refreshToken"] ?? "" };
             var tokenDto = await _appUserService.RefreshAsync(refreshDto);
             if (tokenDto == null)
-                return BadRequest(new ProblemDetails { Title = "Vui lòng đăng nhập lại"});
-            Response.Cookies.Append("accessToken", tokenDto.AccessToken, new CookieOptions
-            {
-                HttpOnly = false,
-                Secure = false,
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTime.Now.AddMinutes(30)
-            });
-            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = false,
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTime.Now.AddDays(7)
-            });
+                return BadRequest(new ProblemDetails { Title = "Vui lòng đăng nhập lại" });
+
+            AddTokenToCookies(tokenDto);
             return Ok();
         }
 
@@ -106,9 +85,16 @@ namespace BookStoreNetReact.Api.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
+
+            var cacheKey = "current-user-" + userId;
+            var cacheData = await _cacheProvider.GetAsync<AppUserDetailDto>(cacheKey);
+            if (cacheData.HasValue)
+                return Ok(cacheData.Value);
+
             var user = await _appUserService.GetByIdAsync(int.Parse(userId));
             if (user == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy người dùng" });
+            await _cacheProvider.SetAsync(cacheKey, user, TimeSpan.FromMinutes(10));
             return Ok(user);
         }
 
@@ -131,12 +117,14 @@ namespace BookStoreNetReact.Api.Controllers
                 }
                 return ValidationProblem();
             }
+
+            await _cacheProvider.RemoveAsync("current-user-" + userId);
             return Ok();
         }
 
         [Authorize]
         [HttpPut("me/address")]
-        public async Task<ActionResult> UpdateUserAddres([FromBody] UpdateUserAddressDto updateDto)
+        public async Task<ActionResult> UpdateUserAddress([FromBody] UpdateUserAddressDto updateDto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
@@ -145,6 +133,8 @@ namespace BookStoreNetReact.Api.Controllers
             var result = await _appUserService.UpdateAddressAsync(updateDto, int.Parse(userId));
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật địa chỉ người dùng không thành công" });
+
+            await _cacheProvider.RemoveAsync("current-user-" + userId);
             return Ok();
         }
 
@@ -227,6 +217,24 @@ namespace BookStoreNetReact.Api.Controllers
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Xác nhận số điện thoại không thành công" });
             return Ok("Xác nhận email thành công");
+        }
+
+        private void AddTokenToCookies(TokenDto tokenDto)
+        {
+            Response.Cookies.Append("accessToken", tokenDto.AccessToken, new CookieOptions
+            {
+                HttpOnly = false,
+                Secure = false,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.Now.AddMinutes(30)
+            });
+            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = false,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.Now.AddDays(7)
+            });
         }
     }
 }
