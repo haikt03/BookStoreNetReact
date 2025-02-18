@@ -12,12 +12,12 @@ namespace BookStoreNetReact.Api.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IAppUserService _appUserService;
-        private readonly IEasyCachingProvider _cacheProvider;
+        private readonly IEasyCachingProvider _cachingProvider;
 
         public AccountController(IAppUserService appUserService, IEasyCachingProviderFactory cachingProviderFactory)
         {
             _appUserService = appUserService;
-            _cacheProvider = cachingProviderFactory.GetCachingProvider("default");
+            _cachingProvider = cachingProviderFactory.GetCachingProvider("default");
         }
 
         [HttpPost("login")]
@@ -87,14 +87,14 @@ namespace BookStoreNetReact.Api.Controllers
                 return Unauthorized();
 
             var cacheKey = "current-user-" + userId;
-            var cacheData = await _cacheProvider.GetAsync<AppUserDetailDto>(cacheKey);
+            var cacheData = await _cachingProvider.GetAsync<AppUserDetailDto>(cacheKey);
             if (cacheData.HasValue)
                 return Ok(cacheData.Value);
 
             var user = await _appUserService.GetByIdAsync(int.Parse(userId));
             if (user == null)
                 return NotFound(new ProblemDetails { Title = "Không tìm thấy người dùng" });
-            await _cacheProvider.SetAsync(cacheKey, user, TimeSpan.FromMinutes(10));
+            await _cachingProvider.SetAsync(cacheKey, user, TimeSpan.FromMinutes(10));
             return Ok(user);
         }
 
@@ -118,7 +118,12 @@ namespace BookStoreNetReact.Api.Controllers
                 return ValidationProblem();
             }
 
-            await _cacheProvider.RemoveAsync("current-user-" + userId);
+            var updatedUser = await _appUserService.GetByIdAsync(int.Parse(userId));
+            if (updatedUser != null)
+            {
+                var cacheKey = "current-user-" + userId;
+                await _cachingProvider.SetAsync(cacheKey, updatedUser, TimeSpan.FromMinutes(10));
+            }
             return Ok();
         }
 
@@ -134,7 +139,12 @@ namespace BookStoreNetReact.Api.Controllers
             if (!result)
                 return BadRequest(new ProblemDetails { Title = "Cập nhật địa chỉ người dùng không thành công" });
 
-            await _cacheProvider.RemoveAsync("current-user-" + userId);
+            var updatedUser = await _appUserService.GetByIdAsync(int.Parse(userId));
+            if (updatedUser != null)
+            {
+                var cacheKey = "current-user-" + userId;
+                await _cachingProvider.SetAsync(cacheKey, updatedUser, TimeSpan.FromMinutes(10));
+            }
             return Ok();
         }
 

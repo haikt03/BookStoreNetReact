@@ -61,7 +61,7 @@ namespace BookStoreNetReact.Infrastructure.Repositories
             return result;
         }
 
-        public static IQueryable<T> GetQueryWithIncludedProperties(IQueryable<T> query, string includeProperties)
+        private static IQueryable<T> GetQueryWithIncludedProperties(IQueryable<T> query, string includeProperties)
         {
             var props = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries);
             foreach (var prop in props)
